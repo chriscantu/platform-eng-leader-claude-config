@@ -15,8 +15,8 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 ## Configuration Components
 
 ### Core Framework
-- **[PERSONAS.md](PERSONAS.md)** - 12 strategic leadership personas with domain expertise
-- **[COMMANDS.md](COMMANDS.md)** - Command execution framework with wave orchestration
+- **[PERSONAS.md](PERSONAS.md)** - Strategic leadership system with 4-tier persona hierarchy optimized for Directors
+- **[COMMANDS.md](COMMANDS.md)** - Director-focused command framework with IC delegation patterns
 - **[FLAGS.md](FLAGS.md)** - Flag system for optimization and behavior control
 - **[ORCHESTRATOR.md](ORCHESTRATOR.md)** - Intelligent routing and quality gates
 - **[MCP.md](MCP.md)** - Model Context Protocol server integration
@@ -29,15 +29,23 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 
 ## Key Features
 
-### Strategic Leadership Personas
+### Strategic Leadership Hierarchy
+
+**Tier 1 - Executive Leadership & Strategy:**
+- **camille**: Strategic technology leadership, organizational growth, executive advisory
 - **diego**: Engineering leadership, platform strategy, multinational team coordination
-- **camille**: Strategic technology decisions, organizational scaling, executive advisory  
-- **rachel**: Design systems strategy, cross-functional alignment, accessibility leadership
-- **alvaro**: Platform investment ROI, business value articulation, stakeholder communication
-- **sofia**: Vendor management, technology partnerships, contract negotiation
-- **elena**: Compliance strategy, accessibility expertise, legal requirements
-- **marcus**: Platform adoption, change management, developer relations
-- **david**: Budget strategy, resource allocation, financial planning
+- **alvaro**: Platform investment strategy, business value advocacy, market positioning
+
+**Tier 2 - Strategic Platform Operations:**
+- **rachel**: Design systems strategy, cross-functional alignment, user experience leadership
+- **martin**: Platform architecture strategy, evolutionary design, technical debt management
+- **david**: Platform investment allocation, financial strategy, resource optimization
+- **sofia**: Strategic vendor partnerships, technology partnerships, risk management
+- **elena**: Compliance strategy, legal risk management, accessibility leadership
+- **marcus**: Platform adoption strategy, organizational change management, developer relations
+
+**Tier 3 - Technical Implementation:** frontend, backend (implementation standards)
+**Sub-Agent Delegation:** IC-level tasks delegated through `/task` command with specialized personas
 
 ### Meeting Preparation Workflows
 - **Executive 1-on-1**: Platform health, resource needs, strategic alignment
@@ -82,34 +90,53 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 
 ## Usage Examples
 
-### Strategic Planning
-```
-/analyze --focus platform-strategy
-# Activates diego persona for platform investment analysis
+### Director-Level Strategic Commands
+
+#### Organizational Assessment
+```bash
+/assess-org organization --focus performance --timeframe quarterly
+# Comprehensive team performance and cultural health analysis
 ```
 
-### Executive Communication
-```
-/explain --executive-communication --stakeholder-alignment
-# Activates camille persona for executive presentation prep
-```
-
-### Design System Strategy
-```
-/design --system-strategy --adoption-assessment
-# Activates rachel and marcus personas for design system planning
+#### Executive Communication
+```bash
+/prepare-board technology-strategy --format presentation --audience board
+# Board-level technology strategy presentation with business focus
 ```
 
-### Budget Planning
-```
-/estimate --platform-investment-roi --budget-optimization
-# Activates david and alvaro personas for financial analysis
+#### Cross-Functional Coordination
+```bash
+/align-stakeholders platform-strategy --stakeholders "product,design,executive"
+# Strategic stakeholder alignment for platform initiatives
 ```
 
-### Vendor Evaluation
+#### Investment Justification
+```bash
+/justify-investment platform-capability --amount "1-2M" --stakeholders executive
+# Strategic business case development with ROI analysis
 ```
-/analyze --vendor-evaluation --tco-analysis
-# Activates sofia persona for vendor strategy
+
+### Strategic Analysis & Planning
+```bash
+/analyze --focus platform-strategy --persona-diego
+# Platform investment analysis with cross-team impact assessment
+
+/design --scope system --stakeholders "engineering,product" --persona-martin
+# System architecture strategy with organizational alignment
+
+/improve --organizational-capability --persona-camille
+# Organizational development and platform governance optimization
+```
+
+### IC-Level Task Delegation
+```bash
+# Development tasks delegated to sub-agents
+/task "Build and deploy platform component" --persona-devops --delegate auto
+/task "Implement design system component" --persona-frontend --delegate files
+
+# Analysis tasks delegated to specialists  
+/task "Debug cross-team integration issue" --persona-analyzer --focus root-cause
+/task "Security assessment of authentication flow" --persona-security --validate
 ```
 
 ## Customization
@@ -140,16 +167,16 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 ## Best Practices
 
 ### Getting Started
-1. **Start with Core Personas**: Focus on diego, camille, rachel, alvaro for foundational strategic guidance
-2. **Use Meeting Workflows**: Leverage context-aware meeting preparation for immediate value
-3. **Customize Gradually**: Adapt configuration incrementally based on usage patterns
-4. **Track Effectiveness**: Monitor which personas and workflows provide most value
+1. **Start with Tier 1 Personas**: Focus on camille, diego, alvaro for executive-level strategic guidance
+2. **Use Director Commands**: Begin with `/assess-org`, `/prepare-board`, `/align-stakeholders` for immediate impact
+3. **Delegate IC Tasks**: Use `/task` command for hands-on technical work with specialized sub-agents
+4. **Leverage Meeting Workflows**: Context-aware preparation for executive communications
 
 ### Advanced Usage
-- **Multi-Persona Collaboration**: Use persona combinations for complex strategic decisions
-- **Wave Orchestration**: Leverage wave mode for comprehensive platform analysis
-- **MCP Integration**: Connect with your organization's specific tools and data sources
-- **Continuous Refinement**: Update context and priorities based on organizational evolution
+- **Multi-Tier Collaboration**: Combine Tier 1 + Tier 2 personas for comprehensive strategic initiatives
+- **Sub-Agent Orchestration**: Efficient delegation of operational tasks while maintaining strategic oversight
+- **Wave Mode Integration**: Leverage wave orchestration for complex organizational transformations
+- **Strategic Scenario Planning**: Use advanced persona combinations for board-level decision making
 
 ## Contributing
 
