@@ -1,0 +1,92 @@
+# SuperClaude Configuration .gitignore
+
+# Sensitive Configuration & Metadata
+.superclaude-metadata.json
+*.api-key
+*.token
+.env
+.env.local
+
+# User-Specific Data & Sessions
+logs/
+projects/
+todos/
+statsig/
+
+# Personal Backups (keep template backups)
+backups/superclaude_backup_*.tar.gz
+backups/superclaude_backup_*.tar.tar.gz
+
+# Local Development & Testing
+local/node_modules/
+local/package-lock.json
+local/.cache/
+local/dist/
+local/build/
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Temporary Files
+*.tmp
+*.temp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Personal Notes & Drafts
+notes/
+drafts/
+scratch/
+personal/
+
+# Hook Configurations (may contain sensitive data)
+hooks/*
+!hooks/.gitkeep
+
+# Claude Code Session Data
+.claude/
+claude-*.json
+session-*.json
+
+# Backup Files
+*.bak
+*.backup
+*.old
+
+# Node.js (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if any)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Configuration Override Files
+*override*
+*local*
+*private*
