@@ -4,23 +4,32 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 
 ## Server Selection Algorithm
 
-**Priority Matrix**:
-1. Task-Server Affinity: Match tasks to optimal servers based on capability matrix
-2. Performance Metrics: Server response time, success rate, resource utilization
-3. Context Awareness: Current persona, command depth, session state
-4. Load Distribution: Prevent server overload through intelligent queuing
-5. Fallback Readiness: Maintain backup servers for critical operations
+**Priority Matrix** (Director-Level Optimized):
+1. **Strategic Impact**: Prioritize servers supporting VP/SLT level decision-making and business value generation
+2. **Business Alignment**: Match server capabilities to cross-functional coordination and organizational outcomes
+3. Task-Server Affinity: Match tasks to optimal servers based on capability matrix
+4. **Platform Governance**: Emphasize design system, compliance, and cross-team coordination capabilities
+5. Performance Metrics: Server response time, success rate, resource utilization
+6. Context Awareness: Current persona, command depth, session state, **strategic session context**
+7. Load Distribution: Prevent server overload through intelligent queuing
+8. Fallback Readiness: Maintain backup servers for critical operations, **executive communication continuity**
 
-**Selection Process**: Task Analysis → Server Capability Match → Performance Check → Load Assessment → Final Selection
+**Selection Process**: **Strategic Impact Assessment** → Task Analysis → Server Capability Match → **Business Value Evaluation** → Performance Check → Load Assessment → Final Selection
+
+**Director-Level Selection Criteria**:
+- **VP/SLT Context Detection**: Automatic prioritization of Executive Communication and Analytics servers for strategic presentations
+- **Organizational Impact Scoring**: Higher priority for servers supporting cross-team coordination and platform governance
+- **Business Value Alignment**: Preference for servers generating measurable business outcomes and competitive advantage
+- **Stakeholder Communication Requirements**: Enhanced Context7 and Executive Communication integration for leadership contexts
 
 ## Context7 Integration (Documentation & Research)
 
-**Purpose**: Official library documentation, code examples, best practices, localization standards
+**Purpose**: Official library documentation, code examples, best practices, localization standards, **platform leadership frameworks, organizational design patterns**
 
 **Activation Patterns**: 
-- Automatic: External library imports detected, framework-specific questions, scribe persona active
+- Automatic: External library imports detected, framework-specific questions, scribe persona active, **strategic leadership personas active**
 - Manual: `--c7`, `--context7` flags
-- Smart: Commands detect need for official documentation patterns
+- Smart: Commands detect need for official documentation patterns, **Director-level strategic planning, organizational design discussions**
 
 **Workflow Process**:
 1. Library Detection: Scan imports, dependencies, package.json for library references
@@ -31,7 +40,16 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 6. Validation: Verify implementation against official documentation
 7. Caching: Store successful patterns for session reuse
 
-**Integration Commands**: `/build`, `/analyze`, `/improve`, `/design`, `/document`, `/explain`, `/git`
+**Integration Commands**: `/build`, `/analyze`, `/improve`, `/design`, `/document`, `/explain`, `/git`, **`/assess-org`, `/justify-investment`, `/prepare-slt`, `/align-stakeholders`**
+
+**Platform Leadership Documentation Categories**:
+- **Engineering Leadership Frameworks**: Team Topologies, Platform Engineering patterns, Conway's Law applications, Inverse Conway Maneuver
+- **Design System Governance**: Design token standards, component API patterns, accessibility compliance frameworks (WCAG 2.1 AAA)
+- **Internationalization Standards**: i18n best practices, cultural adaptation patterns, regional compliance requirements, multilingual UX patterns
+- **Cross-Team Coordination**: Dependency management frameworks, shared infrastructure patterns, API contract governance
+- **Organizational Design**: Platform team structures, DevEx optimization, developer relations strategies, adoption measurement frameworks
+- **VP/SLT Communications**: Technology strategy presentation templates, ROI calculation methodologies, competitive analysis frameworks
+- **Budget & Resource Planning**: Platform investment models, team scaling patterns, vendor evaluation frameworks, TCO analysis methodologies
 
 **Error Recovery**:
 - Library not found → WebSearch for alternatives → Manual implementation
@@ -42,12 +60,12 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 
 ## Sequential Integration (Complex Analysis & Thinking)
 
-**Purpose**: Multi-step problem solving, architectural analysis, systematic debugging
+**Purpose**: Multi-step problem solving, architectural analysis, systematic debugging, **organizational strategy development**
 
 **Activation Patterns**:
-- Automatic: Complex debugging scenarios, system design questions, `--think` flags
+- Automatic: Complex debugging scenarios, system design questions, `--think` flags, **strategic planning sessions**
 - Manual: `--seq`, `--sequential` flags
-- Smart: Multi-step problems requiring systematic analysis
+- Smart: Multi-step problems requiring systematic analysis, **Director-level strategic commands**
 
 **Workflow Process**:
 1. Problem Decomposition: Break complex problems into analyzable components
@@ -71,8 +89,19 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 - Architecture review and improvement planning
 - Security threat modeling and vulnerability analysis
 - Code quality assessment with improvement roadmaps
+- **Organizational Analysis**: Cross-team dependency mapping, cultural assessment, adoption barrier identification
+- **Strategic Investment Analysis**: Platform ROI modeling, competitive positioning assessment, market timing evaluation
+- **Resource Planning**: Team scaling models, budget optimization strategies, skill gap analysis with hiring roadmaps
+- **Risk Assessment**: Technical debt impact modeling, vendor dependency analysis, compliance exposure evaluation
+- **Stakeholder Alignment**: Cross-functional coordination strategies, communication planning, change management frameworks
 - Scribe Persona: Structured documentation workflows, multilingual content organization
 - Loop Command: Iterative improvement analysis, progressive refinement planning
+
+**Director-Level Strategic Integration**:
+- **VP/SLT Strategy Sessions**: Multi-dimensional strategic analysis with business impact modeling
+- **Platform Investment Decisions**: Comprehensive ROI analysis with risk-adjusted returns and opportunity cost evaluation
+- **Organizational Development**: Team effectiveness assessment, cultural alignment strategies, leadership development planning
+- **Cross-Team Coordination**: Dependency optimization, Conway's Law analysis, organizational design recommendations
 
 ## Magic Integration (UI Components & Design)
 
@@ -147,6 +176,80 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 - Cross-Browser Testing: Validate functionality across all major browsers
 - User Experience Testing: Accessibility validation, usability testing, conversion optimization
 
+## Executive Communication Integration (Director-Level)
+
+**Purpose**: VP/SLT presentation generation, strategic messaging, business case development, executive-level communication optimization
+
+**Activation Patterns**:
+- Automatic: `/prepare-slt`, `/justify-investment`, `/align-stakeholders` commands
+- Manual: `--exec-comm` flag
+- Smart: Strategic personas active (camille, alvaro, diego), VP/SLT context detected
+
+**Workflow Process**:
+1. Audience Analysis: Identify VP/SLT stakeholder priorities, concerns, and decision-making criteria
+2. Message Architecture: Structure strategic narratives with business impact focus and competitive positioning
+3. Data Visualization: Generate executive-level dashboards, ROI models, and trend analysis visualizations
+4. Presentation Design: Create VP/SLT appropriate slide layouts with clear value propositions and call-to-action
+5. Stakeholder Mapping: Identify key decision makers, influencers, and potential objections
+6. Q&A Preparation: Anticipate VP/SLT questions and prepare evidence-based responses
+7. Follow-up Strategy: Define post-presentation actions, metrics tracking, and decision timeline
+8. Communication Optimization: Tailor messaging for technical vs. business stakeholders
+
+**Director-Level Communication Types**:
+- **Technology Strategy Presentations**: Platform roadmaps with business impact, competitive differentiation, market timing
+- **Investment Business Cases**: ROI calculations, resource justification, risk assessment, alternative analysis
+- **Organizational Health Reports**: Team effectiveness metrics, cultural alignment indicators, development velocity trends
+- **Cross-Functional Alignment**: Stakeholder coordination strategies, dependency management, shared success metrics
+- **Risk Assessment Communications**: Technical debt impact, compliance exposure, vendor dependencies, mitigation strategies
+
+**Integration with Strategic Commands**:
+- `/prepare-slt` - Comprehensive VP/SLT presentation generation with business-focused technology narrative
+- `/justify-investment` - Executive business case development with financial modeling and competitive analysis
+- `/align-stakeholders` - Cross-functional communication strategies with stakeholder influence mapping
+- `/assess-org` - Organizational health dashboards with executive-level insights and recommendations
+
+**Error Recovery**:
+- Communication server unavailable → Strategic presentation templates → Executive communication frameworks
+- Data visualization failure → Manual chart creation → Industry benchmark comparisons
+- Message optimization timeout → Standard executive formats → VP/SLT communication best practices
+
+## Strategic Analytics Integration (Director-Level)
+
+**Purpose**: Platform adoption metrics, organizational health indicators, team productivity analysis, strategic decision support
+
+**Activation Patterns**:
+- Automatic: `/assess-org`, `/justify-investment`, `/prepare-slt` commands
+- Manual: `--analytics` flag
+- Smart: Strategic personas active (diego, camille, alvaro, david)
+
+**Workflow Process**:
+1. Metrics Collection: Gather platform adoption, developer satisfaction, cross-team coordination data
+2. Trend Analysis: Identify patterns in organizational health, productivity, and platform usage
+3. Benchmarking: Compare metrics against industry standards and organizational goals
+4. Impact Assessment: Correlate platform investments with business outcomes and team velocity
+5. Predictive Modeling: Forecast resource needs, adoption curves, and scaling requirements
+6. Dashboard Generation: Create executive-level visualizations for VP/SLT presentations
+7. ROI Calculation: Quantify platform value through productivity gains and cost avoidance
+8. Risk Identification: Surface organizational bottlenecks and platform adoption barriers
+
+**Director-Level Metrics Categories**:
+- **Platform Adoption**: Component usage rates, team onboarding velocity, feature utilization across consuming teams
+- **Developer Experience**: Satisfaction scores, onboarding time, documentation effectiveness, support ticket volume
+- **Organizational Health**: Cross-team coordination effectiveness, dependency resolution time, cultural alignment indicators
+- **Quality Metrics**: Accessibility compliance rates, internationalization coverage, performance benchmarks, consistency scores
+- **Business Impact**: Development velocity improvements, design-to-development time reduction, maintenance cost savings
+
+**Integration with Strategic Commands**:
+- `/assess-org` - Real-time organizational health dashboards with trend analysis
+- `/justify-investment` - Evidence-based ROI calculations with predictive modeling
+- `/prepare-slt` - Data-driven strategic presentations with competitive benchmarking
+- `/align-stakeholders` - Cross-team coordination metrics and improvement recommendations
+
+**Error Recovery**:
+- Analytics server unavailable → Manual metric collection workflows → Stakeholder interview processes
+- Data source timeout → Cached organizational metrics → Strategic framework templates
+- Calculation errors → Simplified ROI models → Industry benchmark comparisons
+
 ## MCP Server Use Cases by Command Category
 
 **Development Commands**:
@@ -195,12 +298,22 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 - Failover Management: Automatic failover to backup servers during outages
 
 **Caching Strategies**:
-- Context7 Cache: Documentation lookups with version-aware caching
-- Sequential Cache: Analysis results with pattern matching
+- Context7 Cache: Documentation lookups with version-aware caching, **platform leadership framework templates**
+- Sequential Cache: Analysis results with pattern matching, **strategic analysis patterns, organizational assessment frameworks**
 - Magic Cache: Component patterns with design system versioning
 - Playwright Cache: Test results and screenshots with environment-specific caching
+- **Analytics Cache**: Platform adoption metrics (weekly refresh), organizational health indicators (session-persistent)
+- **Executive Communication Cache**: VP/SLT presentation templates (version-controlled), ROI calculation models (quarterly refresh)
 - Cross-Server Cache: Shared cache for multi-server operations
 - Loop Optimization: Cache iterative analysis results, reuse improvement patterns
+
+**Director-Level Strategic Session Cache**:
+- **Platform Metrics Cache**: Component usage rates, developer satisfaction scores, adoption velocity (weekly refresh)
+- **Competitive Analysis Cache**: Industry benchmark data, market positioning reports (monthly refresh)
+- **Organizational Assessment Cache**: Team effectiveness metrics, cultural alignment indicators (bi-weekly refresh)
+- **Investment Analysis Cache**: ROI models, TCO calculations, budget scenarios (session-persistent with quarterly archive)
+- **VP/SLT Presentation Cache**: Strategic narrative templates, business case frameworks (version-controlled)
+- **Stakeholder Profile Cache**: Decision-maker preferences, communication styles, historical context (quarterly refresh)
 
 **Error Handling and Recovery**:
 - Context7 unavailable → WebSearch for documentation → Manual implementation
