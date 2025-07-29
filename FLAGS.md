@@ -47,6 +47,11 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Direct response without task creation or workflow automation
 - Explicit use only, no auto-activation
 
+**`--single-question`**
+- Ask ONE focused question at a time, wait for response before proceeding
+- Auto-activates: VP/SLT context, strategic persona sessions, executive communications
+- Optimizes for executive efficiency and decision-making clarity
+
 **`--validate`**
 - Pre-operation validation and risk assessment
 - Auto-activates: Risk score >0.7 or resource usage >75%

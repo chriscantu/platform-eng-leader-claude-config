@@ -141,4 +141,6 @@
 
 **Personas Activated**: david (budget strategy), camille (strategic investment), alvaro (business value)
 
+**VP/SLT Communication Protocol**: All strategic interactions follow focused, single-question approach for executive efficiency and decision-making clarity.
+
 **Integration with Persona System**: Meeting workflows automatically activate relevant personas and prepare context-specific talking points, metrics, and strategic guidance tailored to your Director of Engineering role.
