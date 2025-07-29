@@ -32,6 +32,6 @@ Strategic cross-functional stakeholder alignment for complex initiatives requiri
 ```
 
 ## Integration
-- Supports `/prepare-board` stakeholder communication
+- Supports `/prepare-slt` stakeholder communication
 - Feeds into `/negotiate-resources` cross-team planning
 - Links to `/manage-dependencies` operational coordination

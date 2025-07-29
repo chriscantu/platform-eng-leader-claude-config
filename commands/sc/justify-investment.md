@@ -12,7 +12,7 @@ Develop comprehensive business cases for platform investments, technology initia
 - `investment-type`: platform-capability | team-expansion | technology-upgrade | process-improvement
 - `--amount`: budget amount or range for investment analysis
 - `--timeframe`: quarterly | annual | multi-year
-- `--stakeholders`: executive | board | finance | product
+- `--stakeholders`: executive | vp-slt | finance | product
 
 ## Auto-Persona Activation
 - **Primary**: alvaro (business value) + david (financial analysis) + camille (strategic justification)
@@ -32,5 +32,5 @@ Develop comprehensive business cases for platform investments, technology initia
 
 ## Integration
 - Uses `/assess-org` data for capability gap analysis
-- Supports `/prepare-board` investment presentations
+- Supports `/prepare-slt` investment presentations
 - Feeds into `/negotiate-resources` budget planning

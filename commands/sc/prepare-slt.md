@@ -1,17 +1,17 @@
-# /prepare-board Command - Board-Level Technology Presentation
+# /prepare-slt Command - VP/SLT Technology Presentation
 
 ## Purpose
-Prepare comprehensive board-level technology strategy presentations with business impact focus, competitive positioning, and strategic investment justification.
+Prepare comprehensive VP/Senior Leadership Team technology strategy presentations with business impact focus, competitive positioning, and strategic investment justification.
 
 ## Syntax
 ```
-/prepare-board [topic] [--format presentation|report] [--audience board|exec|investors] [--duration timeframe]
+/prepare-slt [topic] [--format presentation|report] [--audience vp|slt|exec] [--duration timeframe]
 ```
 
 ## Parameters
 - `topic`: technology-strategy | platform-update | investment-request | risk-assessment
 - `--format`: presentation (slides) | report (detailed) | summary (executive brief)
-- `--audience`: board | executive-team | investors | audit-committee
+- `--audience`: vp | slt | executive-team | senior-leadership
 - `--duration`: quarterly | annual | special-session
 
 ## Auto-Persona Activation
@@ -23,11 +23,11 @@ Prepare comprehensive board-level technology strategy presentations with busines
 - Financial impact analysis with ROI projections and cost modeling
 - Competitive positioning and market differentiation analysis
 - Risk assessment with mitigation strategies and contingency planning
-- Q&A preparation with anticipated board questions and responses
+- Q&A preparation with anticipated VP/SLT questions and responses
 
 ## Example Usage
 ```bash
-/prepare-board platform-update --format presentation --audience board --duration quarterly
+/prepare-slt platform-update --format presentation --audience slt --duration quarterly
 ```
 
 ## Integration

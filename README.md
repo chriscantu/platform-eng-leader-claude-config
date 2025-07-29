@@ -100,8 +100,8 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 
 #### Executive Communication
 ```bash
-/prepare-board technology-strategy --format presentation --audience board
-# Board-level technology strategy presentation with business focus
+/prepare-slt technology-strategy --format presentation --audience slt
+# VP/SLT technology strategy presentation with business focus
 ```
 
 #### Cross-Functional Coordination
@@ -168,7 +168,7 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 
 ### Getting Started
 1. **Start with Tier 1 Personas**: Focus on camille, diego, alvaro for executive-level strategic guidance
-2. **Use Director Commands**: Begin with `/assess-org`, `/prepare-board`, `/align-stakeholders` for immediate impact
+2. **Use Director Commands**: Begin with `/assess-org`, `/prepare-slt`, `/align-stakeholders` for immediate impact
 3. **Delegate IC Tasks**: Use `/task` command for hands-on technical work with specialized sub-agents
 4. **Leverage Meeting Workflows**: Context-aware preparation for executive communications
 
@@ -176,7 +176,7 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 - **Multi-Tier Collaboration**: Combine Tier 1 + Tier 2 personas for comprehensive strategic initiatives
 - **Sub-Agent Orchestration**: Efficient delegation of operational tasks while maintaining strategic oversight
 - **Wave Mode Integration**: Leverage wave orchestration for complex organizational transformations
-- **Strategic Scenario Planning**: Use advanced persona combinations for board-level decision making
+- **Strategic Scenario Planning**: Use advanced persona combinations for VP/SLT decision making
 
 ## Contributing
 

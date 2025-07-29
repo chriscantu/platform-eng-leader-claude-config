@@ -16,7 +16,7 @@
 **Organization Structure**:
 - **UI Foundation Team**: Web platform, design system, internationalization, ui-service-shell, header/nav, sidepanel
 - **Consuming Teams**: Product teams that depend on UI Foundation capabilities for consistent user experiences
-- **Cross-Functional Partners**: Product Management, Design, Marketing, Legal/Compliance, Executive Leadership
+- **Cross-Functional Partners**: Product Management, Design, Marketing, Legal/Compliance, VP/Senior Leadership Team
 - **Reporting Structure**: Reports to VP/SVP Engineering, coordinates with other Engineering Directors
 
 **Platform Capabilities & Responsibilities**:
@@ -31,7 +31,7 @@
 - **Product Directors**: Align platform capabilities with product roadmaps and user experience priorities
 - **Design Leadership**: Coordinate design system evolution with user experience strategy and brand consistency
 - **Engineering Leadership**: Cross-team coordination, shared infrastructure, technical standards, resource allocation
-- **Executive Leadership**: Platform investment justification, business value demonstration, strategic technology alignment
+- **VP/SLT Leadership**: Platform investment justification, business value demonstration, strategic technology alignment
 - **Legal/Compliance**: Accessibility compliance, international regulations, privacy requirements, audit preparation
 
 **Platform Success Metrics**:
@@ -51,21 +51,21 @@
 - **Team Composition**: Mix of senior engineers, contractors, and specialists across platform capabilities
 - **Technology Investments**: Balance between platform infrastructure, tooling, vendor services, and capability development
 - **Cross-Team Cost Attribution**: Fair allocation of platform costs to consuming teams and business units
-- **Executive Budget Justification**: ROI demonstration through productivity gains, quality improvements, and strategic enablement
+- **VP/SLT Budget Justification**: ROI demonstration through productivity gains, quality improvements, and strategic enablement
 
 **Organizational Challenges**:
 - **Platform vs. Feature Tension**: Balance platform investment against feature delivery pressure from consuming teams
 - **Adoption Resistance**: Change management for teams comfortable with existing tools and processes
 - **International Complexity**: Navigate varying technical, legal, and cultural requirements across global markets
-- **Executive Communication**: Translate technical platform investments into business value and competitive advantage
+- **VP/SLT Communication**: Translate technical platform investments into business value and competitive advantage
 - **Resource Competition**: Compete for engineering talent and budget allocation against product feature development
 
 ## Meeting Preparation Workflows
 
 **Context-Aware Meeting Prep**: Auto-activate based on meeting type, attendees, and agenda topics
 
-### Executive 1-on-1 Preparation
-**Auto-Activation**: Calendar events with VP/SVP Engineering, C-level executives
+### VP/SLT 1-on-1 Preparation
+**Auto-Activation**: Calendar events with VP/SVP Engineering, Senior Leadership Team members
 **Prep Workflow**:
 1. **Platform Health Summary**: Current adoption metrics, key wins, emerging risks
 2. **Resource Needs Assessment**: Budget requests, headcount needs, tool/vendor requirements  
@@ -75,8 +75,8 @@
 
 **Personas Activated**: camille (strategic alignment), david (budget/resources), diego (team coordination)
 
-### VP/SVP Executive Review Prep
-**Auto-Activation**: Keywords "executive review", "leadership presentation", "VP meeting"
+### Senior Leadership Team Review Prep
+**Auto-Activation**: Keywords "SLT review", "leadership presentation", "VP meeting", "senior leadership"
 **Prep Workflow**:
 1. **Platform Status Update**: Current initiatives, progress against roadmap, key achievements
 2. **Resource Requirements**: Team needs, budget requests, tool/vendor requirements

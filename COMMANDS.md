@@ -34,7 +34,7 @@ performance-profile: "optimization|standard|complex"
 
 **Wave-Enabled Commands (Director-Level)**:
 - **Tier 1**: `/analyze`, `/improve`, `/assess-org`, `/justify-investment`  
-- **Tier 2**: `/design`, `/task`, `/align-stakeholders`, `/prepare-board`
+- **Tier 2**: `/design`, `/task`, `/align-stakeholders`, `/prepare-slt`
 
 ### Strategic Development Commands
 
@@ -103,7 +103,7 @@ performance-profile: "optimization"
 
 **`/assess-org [scope] [flags]`** - Organizational health assessment | Auto-Persona: Diego, Camille, Marcus | MCP: Sequential
 
-**`/prepare-board [topic] [flags]`** - Board-level technology presentations | Auto-Persona: Camille, Alvaro, David | MCP: Sequential, Context7
+**`/prepare-slt [topic] [flags]`** - VP/SLT technology presentations | Auto-Persona: Camille, Alvaro, David | MCP: Sequential, Context7
 
 **`/align-stakeholders [initiative] [flags]`** - Cross-functional alignment & coordination | Auto-Persona: Diego, Camille, Rachel | MCP: Sequential
 
@@ -154,7 +154,7 @@ complex: "Resource-intensive with comprehensive analysis"
 ```
 
 ### Director-Level Command Categories
-- **Strategic Leadership**: assess-org, prepare-board, align-stakeholders, justify-investment
+- **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment
 - **Platform Strategy**: analyze, design, improve
 - **Resource Planning**: estimate, task  
 - **Sub-Agent Coordination**: spawn, load, index
