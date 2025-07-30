@@ -79,13 +79,13 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Multi-file analysis (~4K tokens)
 - Enables Sequential MCP for structured problem-solving
 - Auto-activates: Import chains >5 files, cross-module calls >10 references
-- Auto-enables `--seq` and suggests `--persona-analyzer`
+- Auto-enables `--seq` for structured problem-solving
 
 **`--think-hard`**
 - Deep architectural analysis (~10K tokens)
 - System-wide analysis with cross-module dependencies
 - Auto-activates: System refactoring, bottlenecks >3 modules, security vulnerabilities
-- Auto-enables `--seq --c7` and suggests `--persona-architect`
+- Auto-enables `--seq --c7` for comprehensive analysis
 
 **`--ultrathink`**
 - Critical system redesign analysis (~32K tokens)
@@ -232,18 +232,16 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 
 ## Persona Activation Flags
 
-**Available Personas**:
-- `--persona-architect`: Systems architecture specialist
-- `--persona-frontend`: UX specialist, accessibility advocate
-- `--persona-backend`: Reliability engineer, API specialist
-- `--persona-analyzer`: Root cause specialist
-- `--persona-security`: Threat modeler, vulnerability specialist
-- `--persona-mentor`: Knowledge transfer specialist
-- `--persona-refactorer`: Code quality specialist
-- `--persona-performance`: Optimization specialist
-- `--persona-qa`: Quality advocate, testing specialist
-- `--persona-devops`: Infrastructure specialist
-- `--persona-scribe=lang`: Professional writer, documentation specialist
+**Available Strategic Personas**:
+- `--persona-diego`: Engineering leadership, platform strategy, multinational coordination
+- `--persona-camille`: Strategic technology, organizational scaling, executive advisory  
+- `--persona-rachel`: Design systems strategy, cross-functional alignment, UX leadership
+- `--persona-alvaro`: Platform investment ROI, business value, stakeholder communication
+- `--persona-sofia`: Vendor relationships, tool evaluation, technology partnerships
+- `--persona-elena`: Accessibility compliance, legal requirements, audit management
+- `--persona-marcus`: Internal adoption, change management, platform marketing
+- `--persona-david`: Platform investment allocation, cost optimization, financial planning
+- `--persona-martin`: Platform architecture, evolutionary design, technical debt strategy
 
 ## Introspection & Transparency Flags
 
