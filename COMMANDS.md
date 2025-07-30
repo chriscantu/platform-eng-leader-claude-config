@@ -108,12 +108,14 @@ performance-profile: "optimization"
 - **Pipeline Trigger**: Auto-suggests `/justify-investment` for resource needs identified
 - **Executive Integration**: Auto-prepares executive summary with --executive-brief
 
-**`/prepare-slt [topic] [flags]`** - VP/SLT technology presentations
+**`/prepare-slt [topic] [flags]`** - VP-level technology presentations and strategic communications
 - **Enhanced Auto-Activation**: --executive-brief + --stakeholder-align always active
 - **Auto-Persona**: Camille (executive communication), Alvaro (business value), David (budget)
 - **MCP Integration**: Sequential (strategic analysis) + Context7 (presentation patterns)
+- **VP-Specific Preparation**: Auto-detects VP audience (Product/Engineering/Design) and tailors messaging
 - **Context-Aware Preparation**: Auto-detects topic type and activates relevant domain personas
 - **Executive Optimization**: Forces --single-question + --uc for executive efficiency
+- **VP Audience Detection**: Automatically generates VP-specific talking points and strategic narratives
 
 **`/align-stakeholders [initiative] [flags]`** - Cross-functional alignment & coordination
 - **Enhanced Auto-Activation**: --stakeholder-align + context-specific domain personas
@@ -128,6 +130,29 @@ performance-profile: "optimization"
 - **MCP Integration**: Sequential (comprehensive ROI analysis) + Context7 (industry benchmarks)
 - **Business Case Automation**: Auto-generates ROI models, risk assessments, and competitive analysis
 - **Executive Integration**: Auto-prepares for `/prepare-slt` pipeline with business-focused presentations
+
+### VP-Specific Strategic Commands
+
+**`/prep-vp-product [topic] [flags]`** - VP of Product meeting preparation
+- **Enhanced Auto-Activation**: --vp-product-prep + --executive-brief always active
+- **Auto-Persona**: Alvaro (business value), Rachel (UX impact), Camille (strategic communication)
+- **MCP Integration**: Sequential (business analysis) + Magic (UX visualization) + Context7 (product patterns)
+- **Business Focus**: Platform ROI, user experience impact, product roadmap alignment, competitive differentiation
+- **Output Optimization**: Product-focused metrics, user journey impact, business value correlation
+
+**`/prep-vp-engineering [topic] [flags]`** - VP of Engineering meeting preparation  
+- **Enhanced Auto-Activation**: --vp-engineering-prep + --executive-brief always active
+- **Auto-Persona**: Diego (engineering leadership), Martin (technical architecture), David (resource planning)
+- **MCP Integration**: Sequential (technical analysis) + Context7 (engineering leadership patterns)
+- **Technical Focus**: Team velocity, platform adoption, technical debt, resource optimization, engineering excellence
+- **Output Optimization**: Engineering metrics, team performance, technical strategy alignment, resource justification
+
+**`/prep-vp-design [topic] [flags]`** - VP of Design meeting preparation
+- **Enhanced Auto-Activation**: --vp-design-prep + --executive-brief always active  
+- **Auto-Persona**: Rachel (design leadership), Camille (strategic alignment), Marcus (adoption metrics)
+- **MCP Integration**: Magic (design system analysis) + Sequential (strategic alignment) + Context7 (design patterns)
+- **Design Focus**: Design system adoption, accessibility compliance, user experience consistency, cross-team design coordination
+- **Output Optimization**: Design impact metrics, consistency scores, accessibility compliance rates, design system ROI
 
 ## Strategic Command Pipelines
 

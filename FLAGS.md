@@ -27,10 +27,11 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Integration: Sequential for complex relationship analysis + Context7 for collaboration patterns
 
 **`--executive-brief`**
-- VP/SLT focused output with business impact translation + competitive positioning
+- VP-level focused output with business impact translation + competitive positioning
 - Auto-activates: camille (executive communication), alvaro (business value), david (budget)
 - Forces --single-question mode for executive efficiency + --uc for conciseness
 - Integration: All MCP servers for comprehensive executive materials + strategic context
+- VP Audience Optimization: Tailored messaging for VP of Product, VP of Engineering, VP of Design
 
 **`--compliance-scan`**
 - Accessibility + regulatory review automation with international scope + audit preparation
@@ -49,6 +50,24 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Auto-activates: diego (team coordination), camille (org scaling), marcus (adoption)
 - Team capacity analysis + hiring plans + change management strategies + development roadmaps
 - Integration: Sequential for systematic team analysis + Context7 for organizational patterns
+
+**`--vp-product-prep`**
+- VP of Product meeting preparation with platform business value + user impact + competitive positioning
+- Auto-activates: alvaro (business value), rachel (UX impact), camille (strategic communication)
+- Product roadmap alignment + platform capability correlation + user experience metrics + market differentiation
+- Integration: Sequential for business analysis + Context7 for product patterns + Magic for UX visualization
+
+**`--vp-engineering-prep`**
+- VP of Engineering meeting preparation with technical leadership + team performance + platform strategy
+- Auto-activates: diego (engineering leadership), martin (technical architecture), david (resource planning)
+- Team velocity metrics + technical debt analysis + platform adoption rates + resource optimization strategies
+- Integration: Sequential for technical analysis + Context7 for engineering leadership patterns
+
+**`--vp-design-prep`**
+- VP of Design meeting preparation with design system strategy + cross-functional design impact + user experience outcomes
+- Auto-activates: rachel (design leadership), camille (strategic alignment), marcus (adoption metrics)
+- Design system adoption + accessibility compliance + user experience consistency + cross-team design coordination
+- Integration: Magic for design system analysis + Sequential for strategic alignment + Context7 for design leadership patterns
 
 ## Planning & Analysis Flags
 
@@ -264,7 +283,12 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - **Compliance Context**: "compliance", "accessibility", "GDPR", "audit", "legal" → --compliance-scan + elena + rachel + --validate
 - **Vendor/Partnership Context**: "vendor", "tool evaluation", "contract", "partnership" → --vendor-eval + sofia + david + martin
 - **Platform Strategy Context**: "platform adoption", "design system", "developer experience" → --platform-health + diego + marcus + rachel
-- **Executive Communication**: "VP", "SLT", "executive", "board", "presentation" → --executive-brief + --single-question + camille
+- **Executive Communication**: "VP", "executive", "presentation", "VP of Product", "VP of Engineering", "VP of Design" → --executive-brief + --single-question + camille
+
+**VP-Specific Context Auto-Activation**:
+- **VP of Product Context**: "VP of Product", "product roadmap", "user experience metrics", "business value" → --vp-product-prep + alvaro + rachel + camille
+- **VP of Engineering Context**: "VP of Engineering", "my boss", "engineering leadership", "team performance", "technical strategy" → --vp-engineering-prep + diego + martin + david
+- **VP of Design Context**: "VP of Design", "design strategy", "design system adoption", "user experience consistency" → --vp-design-prep + rachel + camille + marcus
 - **Team/Org Context**: "team readiness", "scaling", "capability", "organizational" → --team-readiness + diego + camille + marcus
 - **Stakeholder Context**: "stakeholder", "alignment", "coordination", "cross-functional" → --stakeholder-align + diego + camille + rachel
 

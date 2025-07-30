@@ -361,9 +361,10 @@ token_optimization:
 **Director-Level Strategic Activation Rules**:
 
 **Executive Communication Detected** → `--executive-brief` + `camille` + `--single-question`
-- **Trigger Conditions**: "VP", "SLT", "executive", "board", "presentation", "leadership meeting"
+- **Trigger Conditions**: "VP", "executive", "presentation", "leadership meeting", "VP of Product", "VP of Engineering", "VP of Design"
 - **Confidence Threshold**: 98% for automatic activation
 - **Auto-enables**: --uc for conciseness, Sequential for strategic analysis
+- **VP-Specific Detection**: Auto-identifies target VP audience for tailored messaging
 
 **Platform Assessment Needed** → `--platform-health` + `diego + marcus + alvaro`
 - **Trigger Conditions**: "platform health", "adoption metrics", "team velocity", "platform strategy"
