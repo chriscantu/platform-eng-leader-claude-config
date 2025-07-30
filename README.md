@@ -2,6 +2,18 @@
 
 A strategic Claude Code configuration framework designed for Directors of Engineering leading web platform organizations. This configuration provides AI-powered strategic guidance, executive communication support, and operational workflows tailored for platform engineering leadership roles.
 
+## Recent Enhancements (July 2025)
+
+🎯 **Strategic Decision Frameworks**: Added structured decision frameworks for all strategic personas with clear escalation paths and conflict resolution patterns
+
+📊 **VP/SLT Communication Templates**: Enhanced executive communication with stakeholder-specific messaging templates and presentation frameworks
+
+🔄 **Dynamic Persona Interactions**: Implemented intelligent context switching between personas with collaborative workflow patterns
+
+🏗️ **Complete Platform Architecture**: Full secondary persona definitions for comprehensive platform coverage (frontend, backend, security, performance, etc.)
+
+⚖️ **Conflict Resolution Matrix**: Built-in mediation patterns for cross-persona strategic decision making
+
 ## Overview
 
 This configuration transforms Claude Code into a strategic advisor for platform engineering leaders, with specialized personas, workflows, and context awareness for:
@@ -32,35 +44,47 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 ### Strategic Leadership Hierarchy
 
 **Tier 1 - Executive Leadership & Strategy:**
-- **camille**: Strategic technology leadership, organizational growth, executive advisory
-- **diego**: Engineering leadership, platform strategy, multinational team coordination
-- **alvaro**: Platform investment strategy, business value advocacy, market positioning
+- **camille**: Strategic technology leadership, organizational growth, executive advisory with VP/SLT communication expertise
+- **diego**: Engineering leadership, platform strategy, multinational team coordination with structured decision frameworks
+- **alvaro**: Platform investment strategy, business value advocacy, market positioning with ROI analysis capabilities
 
 **Tier 2 - Strategic Platform Operations:**
-- **rachel**: Design systems strategy, cross-functional alignment, user experience leadership
-- **martin**: Platform architecture strategy, evolutionary design, technical debt management
-- **david**: Platform investment allocation, financial strategy, resource optimization
-- **sofia**: Strategic vendor partnerships, technology partnerships, risk management
-- **elena**: Compliance strategy, legal risk management, accessibility leadership
-- **marcus**: Platform adoption strategy, organizational change management, developer relations
+- **rachel**: Design systems strategy, cross-functional alignment, user experience leadership with accessibility expertise
+- **martin**: Platform architecture strategy, evolutionary design, technical debt management with architectural decision records
+- **david**: Platform investment allocation, financial strategy, resource optimization with TCO analysis
+- **sofia**: Strategic vendor partnerships, technology partnerships, risk management with contract negotiation expertise
+- **elena**: Compliance strategy, legal risk management, accessibility leadership with international regulatory awareness
+- **marcus**: Platform adoption strategy, organizational change management, developer relations with internal evangelism
 
-**Tier 3 - Technical Implementation:** frontend, backend (implementation standards)
-**Sub-Agent Delegation:** IC-level tasks delegated through `/task` command with specialized personas
+**Tier 3 - Technical Implementation:** 
+- **frontend**: UI Foundation specialist, design system implementation, developer experience optimization
+- **backend**: Platform services specialist, API strategy, infrastructure scaling capabilities
+- **analyzer**: Platform issue investigation, root cause analysis, cross-team problem diagnosis
+- **qa**: Platform quality standards, governance processes, automated testing frameworks
+- **security**: Platform security architecture, compliance frameworks, threat modeling
+- **performance**: Platform optimization, scalability planning, bottleneck identification
+- **devops**: Platform operations, deployment automation, infrastructure management
+- **mentor**: Knowledge transfer, team development, documentation strategy
+
+**Sub-Agent Delegation:** IC-level tasks delegated through `/task` command with specialized personas and conflict resolution patterns
 
 ### Meeting Preparation Workflows
-- **Executive 1-on-1**: Platform health, resource needs, strategic alignment
-- **VP/SVP Executive Review**: Status updates, escalations, strategic input
-- **Cross-Team Coordination**: Dependency mapping, impact analysis, standards alignment
-- **Vendor Negotiation**: TCO analysis, risk assessment, contract strategy
-- **Design System Strategy**: Adoption metrics, developer experience, compliance
-- **Compliance/Audit**: Status assessment, evidence collection, risk mitigation
-- **Budget Planning**: Spend analysis, ROI demonstration, resource justification
+- **Executive 1-on-1**: Platform health, resource needs, strategic alignment with persona-driven preparation
+- **VP/SVP Executive Review**: Status updates, escalations, strategic input with executive communication templates
+- **VP-Specific Preparation**: Tailored prep for VP of Product, VP of Engineering, VP of Design with targeted messaging
+- **Cross-Team Coordination**: Dependency mapping, impact analysis, standards alignment with stakeholder influence mapping
+- **Vendor Negotiation**: TCO analysis, risk assessment, contract strategy with enterprise negotiation frameworks
+- **Design System Strategy**: Adoption metrics, developer experience, compliance with accessibility leadership
+- **Compliance/Audit**: Status assessment, evidence collection, risk mitigation with international regulatory awareness
+- **Budget Planning**: Spend analysis, ROI demonstration, resource justification with strategic investment analysis
 
 ### Context-Aware Intelligence
-- **Platform Organization**: Web platform, design system, internationalization, shared components
-- **Stakeholder Relationships**: Product directors, design leadership, engineering leadership, executives
-- **Success Metrics**: Adoption rates, developer satisfaction, quality metrics, business impact
-- **Strategic Priorities**: Platform scalability, cross-team coordination, international expansion
+- **Platform Organization**: Web platform, design system, internationalization, shared components with strategic governance
+- **Stakeholder Relationships**: Product directors, design leadership, engineering leadership, executives with influence mapping
+- **Success Metrics**: Adoption rates, developer satisfaction, quality metrics, business impact with ROI correlation
+- **Strategic Priorities**: Platform scalability, cross-team coordination, international expansion with decision frameworks
+- **Executive Communication**: VP/SLT templates, business value translation, competitive positioning with targeted messaging
+- **Conflict Resolution**: Cross-persona mediation patterns, escalation paths, consensus building frameworks
 
 ## Installation
 
@@ -101,7 +125,13 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 #### Executive Communication
 ```bash
 /prepare-slt technology-strategy --format presentation --audience slt
-# VP/SLT technology strategy presentation with business focus
+# VP/SLT technology strategy presentation with business focus and stakeholder-specific messaging
+
+/prep-vp-product platform-capabilities --focus user-impact --business-value
+# VP of Product meeting prep with platform business value and user experience metrics
+
+/prep-vp-engineering team-performance --metrics velocity --resource-planning
+# VP of Engineering meeting prep with technical leadership and resource optimization
 ```
 
 #### Cross-Functional Coordination
@@ -173,20 +203,24 @@ This configuration transforms Claude Code into a strategic advisor for platform 
 4. **Leverage Meeting Workflows**: Context-aware preparation for executive communications
 
 ### Advanced Usage
-- **Multi-Tier Collaboration**: Combine Tier 1 + Tier 2 personas for comprehensive strategic initiatives
-- **Sub-Agent Orchestration**: Efficient delegation of operational tasks while maintaining strategic oversight
-- **Wave Mode Integration**: Leverage wave orchestration for complex organizational transformations
-- **Strategic Scenario Planning**: Use advanced persona combinations for VP/SLT decision making
+- **Multi-Tier Collaboration**: Combine Tier 1 + Tier 2 personas for comprehensive strategic initiatives with conflict resolution
+- **Sub-Agent Orchestration**: Efficient delegation of operational tasks while maintaining strategic oversight through Tier 3 personas
+- **Wave Mode Integration**: Leverage wave orchestration for complex organizational transformations with systematic validation
+- **Strategic Scenario Planning**: Use advanced persona combinations for VP/SLT decision making with executive communication templates
+- **Dynamic Context Switching**: Intelligent persona activation based on meeting context, stakeholders, and organizational priorities
+- **Escalation Path Management**: Structured decision frameworks with clear escalation triggers and resolution patterns
 
 ## Contributing
 
 This framework is designed to be broadly applicable to platform engineering leadership roles. Contributions that enhance the strategic leadership capabilities while maintaining generalizability are welcome.
 
 ### Areas for Enhancement
-- Additional strategic leadership personas for specific platform domains
-- Enhanced meeting preparation workflows for complex organizational structures
-- Improved cross-persona collaboration patterns
-- Advanced executive communication frameworks
+- Additional strategic leadership personas for specific platform domains (AI/ML, Mobile, DevSecOps)
+- Enhanced meeting preparation workflows for complex matrix organizational structures
+- Advanced cross-persona collaboration patterns with automated conflict resolution
+- Expanded executive communication frameworks for C-level stakeholder management
+- Integration with external strategic planning tools and frameworks
+- Enhanced VP-specific communication templates and presentation automation
 
 ## License
 
