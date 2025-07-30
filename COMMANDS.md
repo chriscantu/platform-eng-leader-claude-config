@@ -101,13 +101,79 @@ performance-profile: "optimization"
 
 ### Director-Level Strategic Commands
 
-**`/assess-org [scope] [flags]`** - Organizational health assessment | Auto-Persona: Diego, Camille, Marcus | MCP: Sequential
+**`/assess-org [scope] [flags]`** - Organizational health assessment
+- **Enhanced Auto-Activation**: --platform-health + --team-readiness when scope includes "platform" or "team"
+- **Auto-Persona**: Diego (coordination), Camille (strategic), Marcus (adoption)
+- **MCP Integration**: Sequential (primary) + Context7 for organizational patterns
+- **Pipeline Trigger**: Auto-suggests `/justify-investment` for resource needs identified
+- **Executive Integration**: Auto-prepares executive summary with --executive-brief
 
-**`/prepare-slt [topic] [flags]`** - VP/SLT technology presentations | Auto-Persona: Camille, Alvaro, David | MCP: Sequential, Context7
+**`/prepare-slt [topic] [flags]`** - VP/SLT technology presentations
+- **Enhanced Auto-Activation**: --executive-brief + --stakeholder-align always active
+- **Auto-Persona**: Camille (executive communication), Alvaro (business value), David (budget)
+- **MCP Integration**: Sequential (strategic analysis) + Context7 (presentation patterns)
+- **Context-Aware Preparation**: Auto-detects topic type and activates relevant domain personas
+- **Executive Optimization**: Forces --single-question + --uc for executive efficiency
 
-**`/align-stakeholders [initiative] [flags]`** - Cross-functional alignment & coordination | Auto-Persona: Diego, Camille, Rachel | MCP: Sequential
+**`/align-stakeholders [initiative] [flags]`** - Cross-functional alignment & coordination
+- **Enhanced Auto-Activation**: --stakeholder-align + context-specific domain personas
+- **Auto-Persona**: Diego (coordination), Camille (strategic), Rachel (design systems)
+- **MCP Integration**: Sequential (complex relationship analysis) + Context7 (collaboration patterns)
+- **Integration**: Auto-coordinates with `/assess-org` and `/prepare-slt` for comprehensive alignment
+- **Dependency Mapping**: Auto-generates cross-team dependency analysis and communication strategies
 
-**`/justify-investment [type] [flags]`** - Strategic investment business cases | Auto-Persona: Alvaro, David, Camille | MCP: Sequential
+**`/justify-investment [type] [flags]`** - Strategic investment business cases
+- **Enhanced Auto-Activation**: --vendor-eval for technology, --platform-health for platform investments
+- **Auto-Persona**: Alvaro (business value), David (financial), Camille (strategic executive communication)
+- **MCP Integration**: Sequential (comprehensive ROI analysis) + Context7 (industry benchmarks)
+- **Business Case Automation**: Auto-generates ROI models, risk assessments, and competitive analysis
+- **Executive Integration**: Auto-prepares for `/prepare-slt` pipeline with business-focused presentations
+
+## Strategic Command Pipelines
+
+**Platform Assessment Pipeline**:
+```
+/assess-org [scope] --platform-health
+  ↓ Auto-triggers
+/analyze platform --adoption-metrics  
+  ↓ Feeds into
+/justify-investment platform --executive-brief
+  ↓ Prepares for
+/prepare-slt "Platform Strategy Update" --stakeholder-align
+```
+
+**Compliance & Risk Pipeline**:
+```
+/analyze compliance --compliance-scan
+  ↓ Auto-triggers  
+/improve accessibility --validation-framework
+  ↓ Feeds into
+/prepare-slt "Compliance Status" --executive-brief
+  ↓ With stakeholder coordination
+/align-stakeholders compliance --team-readiness
+```
+
+**Vendor & Technology Pipeline**:
+```
+/analyze vendor [tool] --vendor-eval
+  ↓ Auto-triggers
+/estimate --vendor-roi --tco-analysis
+  ↓ Feeds into  
+/justify-investment vendor --executive-brief
+  ↓ Prepares for
+/align-stakeholders procurement --stakeholder-align
+```
+
+**Executive Communication Pipeline**:
+```
+/assess-org platform --platform-health + --team-readiness
+  ↓ Generates insights for
+/justify-investment platform --executive-brief + --vendor-eval (if applicable)
+  ↓ Automatically prepares
+/prepare-slt "Strategic Platform Update" --stakeholder-align
+  ↓ With follow-up
+/align-stakeholders "Platform Adoption Strategy" --team-readiness
+```
 
 ### Meta & Orchestration Commands
 

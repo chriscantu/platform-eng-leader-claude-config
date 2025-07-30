@@ -12,6 +12,44 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 5. MCP server flags with context-sensitive activation
 6. Wave flags based on complexity thresholds
 
+## Director-Level Strategic Flags
+
+**`--platform-health`**
+- Comprehensive platform assessment with adoption metrics + team velocity analysis
+- Auto-activates: marcus (adoption), diego (platform), alvaro (business value)
+- Triggers platform health dashboard generation with executive summary
+- Integration: Sequential + Context7 for industry benchmarking + Magic for visualization
+
+**`--stakeholder-align`**
+- Cross-functional coordination planning + alignment strategies + dependency mapping
+- Auto-activates: diego (coordination), camille (strategic), rachel (design systems)
+- Generates stakeholder-specific talking points + influence maps + communication strategies
+- Integration: Sequential for complex relationship analysis + Context7 for collaboration patterns
+
+**`--executive-brief`**
+- VP/SLT focused output with business impact translation + competitive positioning
+- Auto-activates: camille (executive communication), alvaro (business value), david (budget)
+- Forces --single-question mode for executive efficiency + --uc for conciseness
+- Integration: All MCP servers for comprehensive executive materials + strategic context
+
+**`--compliance-scan`**
+- Accessibility + regulatory review automation with international scope + audit preparation
+- Auto-activates: elena (compliance), rachel (design accessibility)
+- Comprehensive WCAG + GDPR + international regulation analysis with remediation plans
+- Integration: Sequential + Playwright for accessibility testing + Context7 for regulatory patterns
+
+**`--vendor-eval`**
+- Third-party tool assessment with TCO analysis + risk evaluation + contract strategy
+- Auto-activates: sofia (vendor management), david (financial analysis), martin (technical integration)
+- Complete vendor evaluation framework with security + compliance + exit strategy planning
+- Integration: Sequential for comprehensive evaluation + Context7 for industry patterns + limited Magic
+
+**`--team-readiness`**
+- Organizational capability evaluation + scaling assessment + cultural readiness + skill gap analysis
+- Auto-activates: diego (team coordination), camille (org scaling), marcus (adoption)
+- Team capacity analysis + hiring plans + change management strategies + development roadmaps
+- Integration: Sequential for systematic team analysis + Context7 for organizational patterns
+
 ## Planning & Analysis Flags
 
 **`--plan`**
@@ -220,6 +258,15 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 10. --uc auto-activation overrides verbose flags
 
 ### Context-Based Auto-Activation
+
+**Director-Level Context Auto-Activation**:
+- **Budget/Financial Context**: "budget", "cost", "ROI", "investment", "resource allocation" → --executive-brief + david + camille + alvaro
+- **Compliance Context**: "compliance", "accessibility", "GDPR", "audit", "legal" → --compliance-scan + elena + rachel + --validate
+- **Vendor/Partnership Context**: "vendor", "tool evaluation", "contract", "partnership" → --vendor-eval + sofia + david + martin
+- **Platform Strategy Context**: "platform adoption", "design system", "developer experience" → --platform-health + diego + marcus + rachel
+- **Executive Communication**: "VP", "SLT", "executive", "board", "presentation" → --executive-brief + --single-question + camille
+- **Team/Org Context**: "team readiness", "scaling", "capability", "organizational" → --team-readiness + diego + camille + marcus
+- **Stakeholder Context**: "stakeholder", "alignment", "coordination", "cross-functional" → --stakeholder-align + diego + camille + rachel
 
 **Wave Auto-Activation**: complexity ≥0.7 AND files >20 AND operation_types >2
 **Sub-Agent Auto-Activation**: >7 directories OR >50 files OR complexity >0.8

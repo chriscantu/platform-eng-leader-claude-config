@@ -209,6 +209,16 @@ wave-strategies:
 | "security audit enterprise" | complex | security | --wave-mode --wave-validation | 95% |
 | "modernize legacy system" | complex | legacy | --wave-mode --enterprise-waves --wave-checkpoint | 92% |
 | "comprehensive code review" | complex | quality | --wave-mode --wave-validation --systematic-waves | 94% |
+| "platform health assessment" | complex | platform | --platform-health, diego + marcus + alvaro, Sequential | 95% |
+| "executive presentation" | moderate | strategic | --executive-brief, camille + alvaro + david, --single-question | 98% |
+| "stakeholder alignment" | complex | strategic | --stakeholder-align, diego + camille + rachel, Sequential | 92% |
+| "compliance review" | complex | compliance | --compliance-scan, elena + rachel, Sequential + Playwright | 96% |
+| "vendor evaluation" | moderate | vendor | --vendor-eval, sofia + david, Sequential + Context7 | 94% |
+| "team capability assessment" | complex | organizational | --team-readiness, diego + camille + marcus, Sequential | 90% |
+| "budget justification" | moderate | financial | --executive-brief, david + camille + alvaro, --single-question | 95% |
+| "VP meeting prep" | moderate | executive | --executive-brief + --stakeholder-align, camille + david + alvaro, --single-question | 97% |
+| "platform investment analysis" | complex | strategic | --platform-health + --executive-brief, alvaro + david + camille, Sequential | 93% |
+| "cross-team coordination" | moderate | organizational | --stakeholder-align, diego + rachel + marcus, Sequential | 88% |
 
 ### Decision Trees
 
@@ -230,6 +240,15 @@ wave-strategies:
 - Focus areas >2 → `--multi-agent --parallel-focus`  
 - High complexity + critical quality → `--wave-mode --wave-validation`
 - Multiple operation types → `--wave-mode --adaptive-waves`
+
+**Director-Level Auto-Flag Assignment**:
+- Executive context detected → `--executive-brief` + `--single-question`
+- Platform assessment needed → `--platform-health` + diego + marcus + alvaro personas
+- Budget/financial discussion → `--executive-brief` + david + camille + alvaro personas
+- Compliance requirements → `--compliance-scan` + elena + rachel personas + `--validate`
+- Vendor discussions → `--vendor-eval` + sofia + david + martin personas
+- Team/org topics → `--team-readiness` + diego + camille + marcus personas
+- Cross-functional coordination → `--stakeholder-align` + diego + camille + rachel personas
 
 #### Task Delegation Intelligence
 
@@ -308,6 +327,12 @@ token_optimization:
 | Comprehensive system improvement | high | --wave-mode --progressive-waves | 80% |
 | Enterprise security audit | high | --wave-mode --wave-validation | 85% |
 | Large-scale refactoring | high | --wave-mode --systematic-waves | 75% |
+| Platform health assessment | high | --platform-health + diego + marcus + alvaro | 85% |
+| Executive presentation prep | moderate | --executive-brief + camille + alvaro + david | 75% |
+| Stakeholder alignment planning | moderate | --stakeholder-align + diego + camille + rachel | 70% |
+| Compliance audit preparation | high | --compliance-scan + elena + rachel + --validate | 80% |
+| Vendor evaluation process | moderate | --vendor-eval + sofia + david + martin | 65% |
+| Team readiness assessment | high | --team-readiness + diego + camille + marcus | 75% |
 
 **Sub-Agent Specialization Matrix**:
 - **Quality**: qa persona, complexity/maintainability focus, Read/Grep/Sequential tools
@@ -332,6 +357,43 @@ token_optimization:
 - **Performance Metrics**: Current system state and bottlenecks (10%)
 
 **Intelligent Activation Rules**:
+
+**Director-Level Strategic Activation Rules**:
+
+**Executive Communication Detected** → `--executive-brief` + `camille` + `--single-question`
+- **Trigger Conditions**: "VP", "SLT", "executive", "board", "presentation", "leadership meeting"
+- **Confidence Threshold**: 98% for automatic activation
+- **Auto-enables**: --uc for conciseness, Sequential for strategic analysis
+
+**Platform Assessment Needed** → `--platform-health` + `diego + marcus + alvaro`
+- **Trigger Conditions**: "platform health", "adoption metrics", "team velocity", "platform strategy"
+- **Confidence Threshold**: 95% for automatic activation
+- **Auto-enables**: Sequential + Context7 for benchmarking + Magic for visualization
+
+**Budget/Financial Discussion** → `--executive-brief` + `david + camille + alvaro`
+- **Trigger Conditions**: "budget", "cost", "ROI", "investment", "resource allocation", "financial planning"
+- **Confidence Threshold**: 95% for automatic activation
+- **Auto-enables**: --single-question for executive efficiency, Sequential for financial analysis
+
+**Compliance Requirements** → `--compliance-scan` + `elena + rachel` + `--validate`
+- **Trigger Conditions**: "compliance", "accessibility", "GDPR", "audit", "legal", "regulatory"
+- **Confidence Threshold**: 96% for automatic activation
+- **Auto-enables**: Sequential + Playwright for accessibility testing, Context7 for regulatory patterns
+
+**Vendor Discussions** → `--vendor-eval` + `sofia + david + martin`
+- **Trigger Conditions**: "vendor", "tool evaluation", "contract", "partnership", "procurement", "third-party"
+- **Confidence Threshold**: 94% for automatic activation
+- **Auto-enables**: Sequential for comprehensive evaluation, Context7 for industry patterns
+
+**Team/Organizational Topics** → `--team-readiness` + `diego + camille + marcus`
+- **Trigger Conditions**: "team readiness", "scaling", "capability", "organizational", "hiring", "skill gap"
+- **Confidence Threshold**: 90% for automatic activation
+- **Auto-enables**: Sequential for systematic team analysis, Context7 for organizational patterns
+
+**Cross-Functional Coordination** → `--stakeholder-align` + `diego + camille + rachel`
+- **Trigger Conditions**: "stakeholder", "alignment", "coordination", "cross-functional", "dependency"
+- **Confidence Threshold**: 92% for automatic activation
+- **Auto-enables**: Sequential for complex relationship analysis, Context7 for collaboration patterns
 
 **Performance Issues** → `--persona-performance` + `--focus performance`
 - **Trigger Conditions**: Response time >500ms, error rate >1%, high resource usage
