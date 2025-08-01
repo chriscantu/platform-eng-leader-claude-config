@@ -1,0 +1,216 @@
+# Weekly Report Configuration
+# Director of Engineering - UI Foundation Platform
+
+## Jira Integration Settings
+jira:
+  # Jira instance configuration
+  base_url: "https://procoretech.atlassian.net"
+  api_version: "3"  # Jira Cloud API v3
+  
+  # Authentication (choose one method)
+  auth:
+    # Method 1: API Token (Recommended for Jira Cloud)
+    email: "chris.cantu@procore.com"  # Your Procore email
+    api_token: "${JIRA_API_TOKEN}"    # Environment variable
+    
+    # Method 2: Personal Access Token (Jira Data Center)
+    # pat_token: "${JIRA_PAT_TOKEN}"
+    
+    # Method 3: OAuth (Enterprise setup)
+    # oauth_consumer_key: "${JIRA_OAUTH_KEY}"
+    # oauth_private_key_file: "~/.jira/oauth-private.pem"
+
+## Team Structure Configuration
+teams:
+  # UI Foundation Platform Teams
+  web_platform:
+    name: "Web Platform"
+    jira_project: "Web Platform"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Build Systems", "Developer Tooling", "CI/CD", "Performance"]
+    business_impact_category: "Developer Velocity"
+    
+  design_system:
+    name: "Web Design Systems"
+    jira_project: "Web Design Systems"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Component Library", "Design Tokens", "Accessibility", "Documentation"]
+    business_impact_category: "Brand Consistency & Developer Efficiency"
+    
+  special_projects:
+    name: "UIF Special Projects"
+    jira_project: "UIF Special Projects"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Strategic Initiatives", "Innovation", "Cross-Platform", "Experiments"]
+    business_impact_category: "Strategic Innovation & Competitive Advantage"
+    
+  hubs:
+    name: "Hubs"
+    jira_project: "Hubs"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Navigation Hubs", "Landing Pages", "Information Architecture", "User Flows"]
+    business_impact_category: "User Experience & Navigation"
+    
+  onboarding:
+    name: "Onboarding"
+    jira_project: "Onboarding"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["User Onboarding", "First Experience", "Setup Flows", "Activation"]
+    business_impact_category: "User Activation & Retention"
+    
+  globalizers:
+    name: "Globalizers"
+    jira_project: "Globalizers"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Internationalization", "Localization", "Cultural Adaptation", "Multi-region"]
+    business_impact_category: "Market Expansion"
+    
+  experience_services:
+    name: "Experience Services"
+    jira_project: "Experience Services"
+    team_lead: "TBD - Update with actual team lead"
+    focus_areas: ["Service Architecture", "API Design", "Backend Services", "Integration"]
+    business_impact_category: "Platform Services & Developer Experience"
+
+## Sprint Configuration
+sprint:
+  # Sprint identification
+  current_sprint_auto_detect: true  # Auto-detect current active sprint
+  sprint_field: "customfield_10020"  # Jira field ID for sprint
+  
+  # Manual sprint specification (when auto-detect is false)
+  current_sprint_name: "2024-W31"
+  current_sprint_id: 1234
+  
+  # Sprint filtering
+  include_completed_epics: true
+  include_in_progress_epics: true
+  include_planned_epics: false  # Epics planned but not started
+
+## Epic Configuration
+epics:
+  # Epic filtering
+  epic_link_field: "customfield_10014"  # Jira field ID for epic link
+  status_categories:
+    completing: ["In Progress", "In Review", "Ready for Release"]
+    at_risk: ["Blocked", "On Hold"]
+    completed: ["Done", "Released", "Closed"]
+  
+  # Business value extraction
+  business_value_field: "customfield_10030"  # Custom field for business value
+  business_value_fallback: "description"     # Fallback to description if no custom field
+  
+  # Priority mapping
+  priority_mapping:
+    "Highest": "Critical Path"
+    "High": "Strategic Priority" 
+    "Medium": "Standard Delivery"
+    "Low": "Enhancement"
+
+## Business Value Translation
+business_value_frameworks:
+  platform_capabilities:
+    keywords: ["developer experience", "platform", "tooling", "automation"]
+    translation: "Organizational velocity multipliers and competitive advantages"
+    impact_metrics: ["development velocity", "onboarding time", "developer satisfaction"]
+    
+  technical_debt:
+    keywords: ["refactor", "migration", "cleanup", "modernization"]
+    translation: "Cost savings and developer productivity gains"
+    impact_metrics: ["maintenance cost", "bug rate", "development speed"]
+    
+  design_system:
+    keywords: ["component", "design system", "consistency", "accessibility"]
+    translation: "Brand consistency, development efficiency, and user experience impact"
+    impact_metrics: ["design consistency", "implementation time", "accessibility compliance"]
+    
+  internationalization:
+    keywords: ["i18n", "localization", "translation", "multi-region"]
+    translation: "Market expansion enablement and compliance risk mitigation" 
+    impact_metrics: ["market coverage", "localization speed", "cultural compliance"]
+    
+  developer_experience:
+    keywords: ["dx", "developer experience", "onboarding", "documentation"]
+    translation: "Team satisfaction, retention, and hiring advantages"
+    impact_metrics: ["developer NPS", "onboarding time", "retention rate"]
+
+## Report Formatting
+report:
+  # Executive summary configuration
+  max_epic_summary: 5  # Maximum epics in executive summary
+  confidence_threshold: 0.7  # Minimum confidence for "completing this sprint"
+  
+  # Risk assessment
+  risk_indicators:
+    - "blocked"
+    - "dependency" 
+    - "resource constraint"
+    - "scope creep"
+    - "timeline pressure"
+  
+  # Metrics collection
+  metrics:
+    platform_adoption: "customfield_10040"
+    developer_satisfaction: "customfield_10041" 
+    support_tickets: "customfield_10042"
+    
+  # Output formatting
+  formats:
+    markdown:
+      template: "weekly-report-template.md"
+      output_file: "weekly-report-{date}.md"
+    
+    email:
+      subject: "Weekly SLT Report - UI Foundation Platform - Week of {date}"
+      template: "weekly-report-email-template.html"
+      
+    pdf:
+      template: "weekly-report-pdf-template.md"
+      output_file: "weekly-report-{date}.pdf"
+
+## Executive Communication Settings
+executive:
+  # VP/SLT specific formatting
+  single_question_mode: true
+  business_translation_required: true
+  
+  # Stakeholder-specific messaging
+  stakeholders:
+    vp_engineering:
+      focus: ["team velocity", "technical debt", "platform adoption", "resource optimization"]
+      metrics: ["development velocity", "incident rate", "developer satisfaction"]
+      
+    vp_product: 
+      focus: ["user experience impact", "business value", "market differentiation"]
+      metrics: ["user satisfaction", "feature adoption", "competitive advantage"]
+      
+    vp_design:
+      focus: ["design consistency", "accessibility compliance", "brand impact"]
+      metrics: ["design system adoption", "accessibility score", "brand consistency"]
+      
+    ceo:
+      focus: ["competitive advantage", "market positioning", "strategic investment ROI"]
+      metrics: ["business impact", "cost savings", "market expansion"]
+
+## Environment Variables Required
+# Add these to your ~/.zshrc or ~/.bashrc:
+# export JIRA_API_TOKEN="your-procore-jira-api-token"
+# export JIRA_EMAIL="chris.cantu@procore.com" 
+# export JIRA_BASE_URL="https://procoretech.atlassian.net"
+
+## Setup Status for Procore Integration
+# ✅ JIRA_BASE_URL configured for Procore
+# ✅ JIRA_API_TOKEN - Set via environment variable
+# ✅ JIRA_EMAIL - Set to chris.cantu@procore.com
+# ✅ Team project keys - Updated with actual Procore project names
+# ❌ Team leads - Update TBD values with actual team lead names
+
+## Procore UI Foundation Teams Configured
+# Based on JQL: project in ("Web Platform", "Web Design Systems", "UIF Special Projects", Hubs, Onboarding, Globalizers, "Experience Services")
+# - Web Platform: Developer tooling, build systems, CI/CD
+# - Web Design Systems: Component library, design tokens, accessibility  
+# - UIF Special Projects: Strategic initiatives and innovation
+# - Hubs: Navigation and information architecture
+# - Onboarding: User activation and first experience
+# - Globalizers: Internationalization and market expansion
+# - Experience Services: Platform services and backend integration

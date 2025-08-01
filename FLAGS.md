@@ -69,6 +69,12 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Design system adoption + accessibility compliance + user experience consistency + cross-team design coordination
 - Integration: Magic for design system analysis + Sequential for strategic alignment + Context7 for design leadership patterns
 
+**`--weekly-report-gen`**
+- Weekly SLT report generation with Jira epic analysis + business value translation + executive formatting
+- Auto-activates: camille (executive communication), alvaro (business value), diego (platform coordination)
+- Epic completion forecasting + business impact translation + risk assessment + resource implications
+- Integration: Sequential for epic analysis + Context7 for business value frameworks + WebFetch for Jira API
+
 ## Planning & Analysis Flags
 
 **`--plan`**
@@ -282,6 +288,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - **Vendor/Partnership Context**: "vendor", "tool evaluation", "contract", "partnership" → --vendor-eval + sofia + david + martin
 - **Platform Strategy Context**: "platform adoption", "design system", "developer experience" → --platform-health + diego + marcus + rachel
 - **Executive Communication**: "VP", "executive", "presentation", "VP of Product", "VP of Engineering", "VP of Design" → --executive-brief + --single-question + camille
+- **Weekly Reporting**: "weekly report", "SLT report", "sprint summary", "epic status", "business value" → --weekly-report-gen + camille + alvaro + diego
 
 **VP-Specific Context Auto-Activation**:
 - **VP of Product Context**: "VP of Product", "product roadmap", "user experience metrics", "business value" → --vp-product-prep + alvaro + rachel + camille
