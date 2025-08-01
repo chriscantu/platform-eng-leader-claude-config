@@ -1,596 +1,181 @@
-# ORCHESTRATOR.md - SuperClaude Intelligent Routing System
-
-Intelligent routing system for Claude Code SuperClaude framework.
-
-## 🧠 Detection Engine
-
-Analyzes requests to understand intent, complexity, and requirements.
-
-### Pre-Operation Validation Checks
-
-**Resource Validation**:
-- Token usage prediction based on operation complexity and scope
-- Memory and processing requirements estimation
-- File system permissions and available space verification
-- MCP server availability and response time checks
-
-**Compatibility Validation**:
-- Flag combination conflict detection (e.g., `--no-mcp` with `--seq`)
-- Persona + command compatibility verification
-- Tool availability for requested operations
-- Project structure requirements validation
-
-**Risk Assessment**:
-- Operation complexity scoring (0.0-1.0 scale)
-- Failure probability based on historical patterns
-- Resource exhaustion likelihood prediction
-- Cascading failure potential analysis
-
-**Validation Logic**: Resource availability, flag compatibility, risk assessment, outcome prediction, and safety recommendations. Operations with risk scores >0.8 trigger safe mode suggestions.
-
-**Resource Management Thresholds**:
-- **Green Zone** (0-60%): Full operations, predictive monitoring active
-- **Yellow Zone** (60-75%): Resource optimization, caching, suggest --uc mode
-- **Orange Zone** (75-85%): Warning alerts, defer non-critical operations  
-- **Red Zone** (85-95%): Force efficiency modes, block resource-intensive operations
-- **Critical Zone** (95%+): Emergency protocols, essential operations only
-
-### Pattern Recognition Rules
-
-#### Complexity Detection
-```yaml
-simple:
-  indicators:
-    - single file operations
-    - basic CRUD tasks
-    - straightforward queries
-    - < 3 step workflows
-  token_budget: 5K
-  time_estimate: < 5 min
-
-moderate:
-  indicators:
-    - multi-file operations
-    - analysis tasks
-    - refactoring requests
-    - 3-10 step workflows
-  token_budget: 15K
-  time_estimate: 5-30 min
-
-complex:
-  indicators:
-    - system-wide changes
-    - architectural decisions
-    - performance optimization
-    - > 10 step workflows
-  token_budget: 30K+
-  time_estimate: > 30 min
-```
-
-#### Domain Identification
-```yaml
-frontend:
-  keywords: [UI, component, React, Vue, CSS, responsive, accessibility, implement component, build UI]
-  file_patterns: ["*.jsx", "*.tsx", "*.vue", "*.css", "*.scss"]
-  typical_operations: [create, implement, style, optimize, test]
-
-backend:
-  keywords: [API, database, server, endpoint, authentication, performance, implement API, build service]
-  file_patterns: ["*.js", "*.ts", "*.py", "*.go", "controllers/*", "models/*"]
-  typical_operations: [implement, optimize, secure, scale]
-
-infrastructure:
-  keywords: [deploy, Docker, CI/CD, monitoring, scaling, configuration]
-  file_patterns: ["Dockerfile", "*.yml", "*.yaml", ".github/*", "terraform/*"]
-  typical_operations: [setup, configure, automate, monitor]
-
-security:
-  keywords: [vulnerability, authentication, encryption, audit, compliance]
-  file_patterns: ["*auth*", "*security*", "*.pem", "*.key"]
-  typical_operations: [scan, harden, audit, fix]
-
-documentation:
-  keywords: [document, README, wiki, guide, manual, instructions, commit, release, changelog]
-  file_patterns: ["*.md", "*.rst", "*.txt", "docs/*", "README*", "CHANGELOG*"]
-  typical_operations: [write, document, explain, translate, localize]
-
-iterative:
-  keywords: [improve, refine, enhance, correct, polish, fix, iterate, loop, repeatedly]
-  file_patterns: ["*.*"]  # Can apply to any file type
-  typical_operations: [improve, refine, enhance, correct, polish, fix, iterate]
-
-wave_eligible:
-  keywords: [comprehensive, systematically, thoroughly, enterprise, large-scale, multi-stage, progressive, iterative, campaign, audit]
-  complexity_indicators: [system-wide, architecture, performance, security, quality, scalability]
-  operation_indicators: [improve, optimize, refactor, modernize, enhance, audit, transform]
-  scale_indicators: [entire, complete, full, comprehensive, enterprise, large, massive]
-  typical_operations: [comprehensive_improvement, systematic_optimization, enterprise_transformation, progressive_enhancement]
-```
-
-#### Operation Type Classification
-```yaml
-analysis:
-  verbs: [analyze, review, explain, understand, investigate, troubleshoot]
-  outputs: [insights, recommendations, reports]
-  typical_tools: [Grep, Read, Sequential]
-
-creation:
-  verbs: [create, build, implement, generate, design]
-  outputs: [new files, features, components]
-  typical_tools: [Write, Magic, Context7]
-
-implementation:
-  verbs: [implement, develop, code, construct, realize]
-  outputs: [working features, functional code, integrated components]
-  typical_tools: [Write, Edit, MultiEdit, Magic, Context7, Sequential]
-
-modification:
-  verbs: [update, refactor, improve, optimize, fix]
-  outputs: [edited files, improvements]
-  typical_tools: [Edit, MultiEdit, Sequential]
-
-debugging:
-  verbs: [debug, fix, troubleshoot, resolve, investigate]
-  outputs: [fixes, root causes, solutions]
-  typical_tools: [Grep, Sequential, Playwright]
-
-iterative:
-  verbs: [improve, refine, enhance, correct, polish, fix, iterate, loop]
-  outputs: [progressive improvements, refined results, enhanced quality]
-  typical_tools: [Sequential, Read, Edit, MultiEdit, TodoWrite]
-
-wave_operations:
-  verbs: [comprehensively, systematically, thoroughly, progressively, iteratively]
-  modifiers: [improve, optimize, refactor, modernize, enhance, audit, transform]
-  outputs: [comprehensive improvements, systematic enhancements, progressive transformations]
-  typical_tools: [Sequential, Task, Read, Edit, MultiEdit, Context7]
-  wave_patterns: [review-plan-implement-validate, assess-design-execute-verify, analyze-strategize-transform-optimize]
-```
-
-### Intent Extraction Algorithm
-```
-1. Parse user request for keywords and patterns
-2. Match against domain/operation matrices
-3. Score complexity based on scope and steps
-4. Evaluate wave opportunity scoring
-5. Estimate resource requirements
-6. Generate routing recommendation (traditional vs wave mode)
-7. Apply auto-detection triggers for wave activation
-```
-
-**Enhanced Wave Detection Algorithm**:
-- **Flag Overrides**: `--single-wave` disables, `--force-waves`/`--wave-mode` enables
-- **Scoring Factors**: Complexity (0.2-0.4), scale (0.2-0.3), operations (0.2), domains (0.1), flag modifiers (0.05-0.1)
-- **Thresholds**: Default 0.7, customizable via `--wave-threshold`, enterprise strategy lowers file thresholds
-- **Decision Logic**: Sum all indicators, trigger waves when total ≥ threshold
-
-## 🚦 Routing Intelligence
-
-Dynamic decision trees that map detected patterns to optimal tool combinations, persona activation, and orchestration strategies.
-
-### Wave Orchestration Engine
-Multi-stage command execution with compound intelligence. Automatic complexity assessment or explicit flag control.
-
-**Wave Control Matrix**:
-```yaml
-wave-activation:
-  automatic: "complexity >= 0.7"
-  explicit: "--wave-mode, --force-waves"
-  override: "--single-wave, --wave-dry-run"
-  
-wave-strategies:
-  progressive: "Incremental enhancement"
-  systematic: "Methodical analysis"
-  adaptive: "Dynamic configuration"
-```
-
-**Wave-Enabled Commands**:
-- **Tier 1**: `/analyze`, `/build`, `/implement`, `/improve`
-- **Tier 2**: `/design`, `/task`
-
-### Master Routing Table
-
-| Pattern | Complexity | Domain | Auto-Activates | Confidence |
-|---------|------------|---------|----------------|------------|
-| "analyze architecture" | complex | infrastructure | architect persona, --ultrathink, Sequential | 95% |
-| "create component" | simple | frontend | frontend persona, Magic, --uc | 90% |
-| "implement feature" | moderate | any | domain-specific persona, Context7, Sequential | 88% |
-| "implement API" | moderate | backend | backend persona, --seq, Context7 | 92% |
-| "implement UI component" | simple | frontend | frontend persona, Magic, --c7 | 94% |
-| "implement authentication" | complex | security | security persona, backend persona, --validate | 90% |
-| "fix bug" | moderate | any | analyzer persona, --think, Sequential | 85% |
-| "optimize performance" | complex | backend | performance persona, --think-hard, Playwright | 90% |
-| "security audit" | complex | security | security persona, --ultrathink, Sequential | 95% |
-| "write documentation" | moderate | documentation | scribe persona, --persona-scribe=en, Context7 | 95% |
-| "improve iteratively" | moderate | iterative | intelligent persona, --seq, loop creation | 90% |
-| "analyze large codebase" | complex | any | --delegate --parallel-dirs, domain specialists | 95% |
-| "comprehensive audit" | complex | multi | --multi-agent --parallel-focus, specialized agents | 95% |
-| "improve large system" | complex | any | --wave-mode --adaptive-waves | 90% |
-| "security audit enterprise" | complex | security | --wave-mode --wave-validation | 95% |
-| "modernize legacy system" | complex | legacy | --wave-mode --enterprise-waves --wave-checkpoint | 92% |
-| "comprehensive code review" | complex | quality | --wave-mode --wave-validation --systematic-waves | 94% |
-| "platform health assessment" | complex | platform | --platform-health, diego + marcus + alvaro, Sequential | 95% |
-| "executive presentation" | moderate | strategic | --executive-brief, camille + alvaro + david, --single-question | 98% |
-| "stakeholder alignment" | complex | strategic | --stakeholder-align, diego + camille + rachel, Sequential | 92% |
-| "compliance review" | complex | compliance | --compliance-scan, elena + rachel, Sequential + Playwright | 96% |
-| "vendor evaluation" | moderate | vendor | --vendor-eval, sofia + david, Sequential + Context7 | 94% |
-| "team capability assessment" | complex | organizational | --team-readiness, diego + camille + marcus, Sequential | 90% |
-| "budget justification" | moderate | financial | --executive-brief, david + camille + alvaro, --single-question | 95% |
-| "VP meeting prep" | moderate | executive | --executive-brief + --stakeholder-align, camille + david + alvaro, --single-question | 97% |
-| "platform investment analysis" | complex | strategic | --platform-health + --executive-brief, alvaro + david + camille, Sequential | 93% |
-| "cross-team coordination" | moderate | organizational | --stakeholder-align, diego + rachel + marcus, Sequential | 88% |
-
-### Decision Trees
-
-#### Tool Selection Logic
-
-**Base Tool Selection**:
-- **Search**: Grep (specific patterns) or Agent (open-ended)
-- **Understanding**: Sequential (complexity >0.7) or Read (simple)  
-- **Documentation**: Context7
-- **UI**: Magic
-- **Testing**: Playwright
-
-**Delegation & Wave Evaluation**:
-- **Delegation Score >0.6**: Add Task tool, auto-enable delegation flags based on scope
-- **Wave Score >0.7**: Add Sequential for coordination, auto-enable wave strategies based on requirements
-
-**Auto-Flag Assignment**:
-- Directory count >7 → `--delegate --parallel-dirs`
-- Focus areas >2 → `--multi-agent --parallel-focus`  
-- High complexity + critical quality → `--wave-mode --wave-validation`
-- Multiple operation types → `--wave-mode --adaptive-waves`
-
-**Director-Level Auto-Flag Assignment**:
-- Executive context detected → `--executive-brief` + `--single-question`
-- Platform assessment needed → `--platform-health` + diego + marcus + alvaro personas
-- Budget/financial discussion → `--executive-brief` + david + camille + alvaro personas
-- Compliance requirements → `--compliance-scan` + elena + rachel personas + `--validate`
-- Vendor discussions → `--vendor-eval` + sofia + david + martin personas
-- Team/org topics → `--team-readiness` + diego + camille + marcus personas
-- Cross-functional coordination → `--stakeholder-align` + diego + camille + rachel personas
-
-#### Task Delegation Intelligence
-
-**Sub-Agent Delegation Decision Matrix**:
-
-**Delegation Scoring Factors**:
-- **Complexity >0.6**: +0.3 score
-- **Parallelizable Operations**: +0.4 (scaled by opportunities/5, max 1.0)
-- **High Token Requirements >15K**: +0.2 score  
-- **Multi-domain Operations >2**: +0.1 per domain
-
-**Wave Opportunity Scoring**:
-- **High Complexity >0.8**: +0.4 score
-- **Multiple Operation Types >2**: +0.3 score
-- **Critical Quality Requirements**: +0.2 score
-- **Large File Count >50**: +0.1 score
-- **Iterative Indicators**: +0.2 (scaled by indicators/3)
-- **Enterprise Scale**: +0.15 score
-
-**Strategy Recommendations**:
-- **Wave Score >0.7**: Use wave strategies
-- **Directories >7**: `parallel_dirs`
-- **Focus Areas >2**: `parallel_focus`  
-- **High Complexity**: `adaptive_delegation`
-- **Default**: `single_agent`
-
-**Wave Strategy Selection**:
-- **Security Focus**: `wave_validation`
-- **Performance Focus**: `progressive_waves`
-- **Critical Operations**: `wave_validation`
-- **Multiple Operations**: `adaptive_waves`
-- **Enterprise Scale**: `enterprise_waves`
-- **Default**: `systematic_waves`
-
-**Auto-Delegation Triggers**:
-```yaml
-directory_threshold:
-  condition: directory_count > 7
-  action: auto_enable --delegate --parallel-dirs
-  confidence: 95%
-
-file_threshold:
-  condition: file_count > 50 AND complexity > 0.6
-  action: auto_enable --delegate --sub-agents [calculated]
-  confidence: 90%
-
-multi_domain:
-  condition: domains.length > 3
-  action: auto_enable --delegate --parallel-focus
-  confidence: 85%
-
-complex_analysis:
-  condition: complexity > 0.8 AND scope = comprehensive
-  action: auto_enable --delegate --focus-agents
-  confidence: 90%
-
-token_optimization:
-  condition: estimated_tokens > 20000
-  action: auto_enable --delegate --aggregate-results
-  confidence: 80%
-```
-
-**Wave Auto-Delegation Triggers**:
-- Complex improvement: complexity > 0.8 AND files > 20 AND operation_types > 2 → --wave-count 5 (95%)
-- Multi-domain analysis: domains > 3 AND tokens > 15K → --adaptive-waves (90%)
-- Critical operations: production_deploy OR security_audit → --wave-validation (95%)
-- Enterprise scale: files > 100 AND complexity > 0.7 AND domains > 2 → --enterprise-waves (85%)
-- Large refactoring: large_scope AND structural_changes AND complexity > 0.8 → --systematic-waves --wave-validation (93%)
-
-**Delegation Routing Table**:
-
-| Operation | Complexity | Auto-Delegates | Performance Gain |
-|-----------|------------|----------------|------------------|
-| `/load @monorepo/` | moderate | --delegate --parallel-dirs | 65% |
-| `/analyze --comprehensive` | high | --multi-agent --parallel-focus | 70% |
-| Comprehensive system improvement | high | --wave-mode --progressive-waves | 80% |
-| Enterprise security audit | high | --wave-mode --wave-validation | 85% |
-| Large-scale refactoring | high | --wave-mode --systematic-waves | 75% |
-| Platform health assessment | high | --platform-health + diego + marcus + alvaro | 85% |
-| Executive presentation prep | moderate | --executive-brief + camille + alvaro + david | 75% |
-| Stakeholder alignment planning | moderate | --stakeholder-align + diego + camille + rachel | 70% |
-| Compliance audit preparation | high | --compliance-scan + elena + rachel + --validate | 80% |
-| Vendor evaluation process | moderate | --vendor-eval + sofia + david + martin | 65% |
-| Team readiness assessment | high | --team-readiness + diego + camille + marcus | 75% |
-
-**Sub-Agent Specialization Matrix**:
-- **Quality**: qa persona, complexity/maintainability focus, Read/Grep/Sequential tools
-- **Security**: security persona, vulnerabilities/compliance focus, Grep/Sequential/Context7 tools
-- **Performance**: performance persona, bottlenecks/optimization focus, Read/Sequential/Playwright tools
-- **Architecture**: architect persona, patterns/structure focus, Read/Sequential/Context7 tools
-- **API**: backend persona, endpoints/contracts focus, Grep/Context7/Sequential tools
-
-**Wave-Specific Specialization Matrix**:
-- **Review**: analyzer persona, current_state/quality_assessment focus, Read/Grep/Sequential tools
-- **Planning**: architect persona, strategy/design focus, Sequential/Context7/Write tools
-- **Implementation**: intelligent persona, code_modification/feature_creation focus, Edit/MultiEdit/Task tools
-- **Validation**: qa persona, testing/validation focus, Sequential/Playwright/Context7 tools
-- **Optimization**: performance persona, performance_tuning/resource_optimization focus, Read/Sequential/Grep tools
-
-#### Persona Auto-Activation System
-
-**Multi-Factor Activation Scoring**:
-- **Keyword Matching**: Base score from domain-specific terms (30%)
-- **Context Analysis**: Project phase, urgency, complexity assessment (40%)
-- **User History**: Past preferences and successful outcomes (20%)
-- **Performance Metrics**: Current system state and bottlenecks (10%)
-
-**Intelligent Activation Rules**:
-
-**Director-Level Strategic Activation Rules**:
-
-**Executive Communication Detected** → `--executive-brief` + `camille` + `--single-question`
-- **Trigger Conditions**: "VP", "executive", "presentation", "leadership meeting", "VP of Product", "VP of Engineering", "VP of Design"
-- **Confidence Threshold**: 98% for automatic activation
-- **Auto-enables**: --uc for conciseness, Sequential for strategic analysis
-- **VP-Specific Detection**: Auto-identifies target VP audience for tailored messaging
-
-**Platform Assessment Needed** → `--platform-health` + `diego + marcus + alvaro`
-- **Trigger Conditions**: "platform health", "adoption metrics", "team velocity", "platform strategy"
-- **Confidence Threshold**: 95% for automatic activation
-- **Auto-enables**: Sequential + Context7 for benchmarking + Magic for visualization
-
-**Budget/Financial Discussion** → `--executive-brief` + `david + camille + alvaro`
-- **Trigger Conditions**: "budget", "cost", "ROI", "investment", "resource allocation", "financial planning"
-- **Confidence Threshold**: 95% for automatic activation
-- **Auto-enables**: --single-question for executive efficiency, Sequential for financial analysis
-
-**Compliance Requirements** → `--compliance-scan` + `elena + rachel` + `--validate`
-- **Trigger Conditions**: "compliance", "accessibility", "GDPR", "audit", "legal", "regulatory"
-- **Confidence Threshold**: 96% for automatic activation
-- **Auto-enables**: Sequential + Playwright for accessibility testing, Context7 for regulatory patterns
-
-**Vendor Discussions** → `--vendor-eval` + `sofia + david + martin`
-- **Trigger Conditions**: "vendor", "tool evaluation", "contract", "partnership", "procurement", "third-party"
-- **Confidence Threshold**: 94% for automatic activation
-- **Auto-enables**: Sequential for comprehensive evaluation, Context7 for industry patterns
-
-**Team/Organizational Topics** → `--team-readiness` + `diego + camille + marcus`
-- **Trigger Conditions**: "team readiness", "scaling", "capability", "organizational", "hiring", "skill gap"
-- **Confidence Threshold**: 90% for automatic activation
-- **Auto-enables**: Sequential for systematic team analysis, Context7 for organizational patterns
-
-**Cross-Functional Coordination** → `--stakeholder-align` + `diego + camille + rachel`
-- **Trigger Conditions**: "stakeholder", "alignment", "coordination", "cross-functional", "dependency"
-- **Confidence Threshold**: 92% for automatic activation
-- **Auto-enables**: Sequential for complex relationship analysis, Context7 for collaboration patterns
-
-**Performance Issues** → `--persona-performance` + `--focus performance`
-- **Trigger Conditions**: Response time >500ms, error rate >1%, high resource usage
-- **Confidence Threshold**: 85% for automatic activation
-
-**Security Concerns** → `--persona-security` + `--focus security`
-- **Trigger Conditions**: Vulnerability detection, auth failures, compliance gaps
-- **Confidence Threshold**: 90% for automatic activation
-
-**UI/UX Tasks** → `--persona-frontend` + `--magic`
-- **Trigger Conditions**: Component creation, responsive design, accessibility
-- **Confidence Threshold**: 80% for automatic activation
-
-**Complex Debugging** → `--persona-analyzer` + `--think` + `--seq`
-- **Trigger Conditions**: Multi-component failures, root cause investigation
-- **Confidence Threshold**: 75% for automatic activation
-
-**Documentation Tasks** → `--persona-scribe=en`
-- **Trigger Conditions**: README, wiki, guides, commit messages, API docs
-- **Confidence Threshold**: 70% for automatic activation
-
-#### Flag Auto-Activation Patterns
-
-**Context-Based Auto-Activation**:
-- Performance issues → --persona-performance + --focus performance + --think
-- Security concerns → --persona-security + --focus security + --validate
-- UI/UX tasks → --persona-frontend + --magic + --c7
-- Complex debugging → --think + --seq + --persona-analyzer
-- Large codebase → --uc when context >75% + --delegate auto
-- Testing operations → --persona-qa + --play + --validate
-- DevOps operations → --persona-devops + --safe-mode + --validate
-- Refactoring → --persona-refactorer + --wave-strategy systematic + --validate
-- Iterative improvement → --loop for polish, refine, enhance keywords
-
-**Wave Auto-Activation**:
-- Complex multi-domain → --wave-mode auto when complexity >0.8 AND files >20 AND types >2
-- Enterprise scale → --wave-strategy enterprise when files >100 AND complexity >0.7 AND domains >2
-- Critical operations → Wave validation enabled by default for production deployments
-- Legacy modernization → --wave-strategy enterprise --wave-delegation tasks
-- Performance optimization → --wave-strategy progressive --wave-delegation files
-- Large refactoring → --wave-strategy systematic --wave-delegation folders
-
-**Sub-Agent Auto-Activation**:
-- File analysis → --delegate files when >50 files detected
-- Directory analysis → --delegate folders when >7 directories detected
-- Mixed scope → --delegate auto for complex project structures
-- High concurrency → --concurrency auto-adjusted based on system resources
-
-**Loop Auto-Activation**:
-- Quality improvement → --loop for polish, refine, enhance, improve keywords
-- Iterative requests → --loop when "iteratively", "step by step", "incrementally" detected
-- Refinement operations → --loop for cleanup, fix, correct operations on existing code
-
-#### Flag Precedence Rules
-1. Safety flags (--safe-mode) > optimization flags
-2. Explicit flags > auto-activation
-3. Thinking depth: --ultrathink > --think-hard > --think
-4. --no-mcp overrides all individual MCP flags
-5. Scope: system > project > module > file
-6. Last specified persona takes precedence
-7. Wave mode: --wave-mode off > --wave-mode force > --wave-mode auto
-8. Sub-Agent delegation: explicit --delegate > auto-detection
-9. Loop mode: explicit --loop > auto-detection based on refinement keywords
-10. --uc auto-activation overrides verbose flags
-
-### Confidence Scoring
-Based on pattern match strength (40%), historical success rate (30%), context completeness (20%), resource availability (10%).
-
-## Quality Gates & Validation Framework
-
-### 8-Step Validation Cycle with AI Integration
-```yaml
-quality_gates:
-  step_1_syntax: "language parsers, Context7 validation, intelligent suggestions"
-  step_2_type: "Sequential analysis, type compatibility, context-aware suggestions"
-  step_3_lint: "Context7 rules, quality analysis, refactoring suggestions"
-  step_4_security: "Sequential analysis, vulnerability assessment, OWASP compliance"
-  step_5_test: "Playwright E2E, coverage analysis (≥80% unit, ≥70% integration)"
-  step_6_performance: "Sequential analysis, benchmarking, optimization suggestions"
-  step_7_documentation: "Context7 patterns, completeness validation, accuracy verification"
-  step_8_integration: "Playwright testing, deployment validation, compatibility verification"
-
-validation_automation:
-  continuous_integration: "CI/CD pipeline integration, progressive validation, early failure detection"
-  intelligent_monitoring: "success rate monitoring, ML prediction, adaptive validation"
-  evidence_generation: "comprehensive evidence, validation metrics, improvement recommendations"
-
-wave_integration:
-  validation_across_waves: "wave boundary gates, progressive validation, rollback capability"
-  compound_validation: "AI orchestration, domain-specific patterns, intelligent aggregation"
-```
-
-### Task Completion Criteria
-```yaml
-completion_requirements:
-  validation: "all 8 steps pass, evidence provided, metrics documented"
-  ai_integration: "MCP coordination, persona integration, tool orchestration, ≥90% context retention"
-  performance: "response time targets, resource limits, success thresholds, token efficiency"
-  quality: "code quality standards, security compliance, performance assessment, integration testing"
-
-evidence_requirements:
-  quantitative: "performance/quality/security metrics, coverage percentages, response times"
-  qualitative: "code quality improvements, security enhancements, UX improvements"
-  documentation: "change rationale, test results, performance benchmarks, security scans"
-```
-
-## ⚡ Performance Optimization
-
-Resource management, operation batching, and intelligent optimization for sub-100ms performance targets.
-
-**Token Management**: Intelligent resource allocation based on unified Resource Management Thresholds (see Detection Engine section)
-
-**Operation Batching**:
-- **Tool Coordination**: Parallel operations when no dependencies
-- **Context Sharing**: Reuse analysis results across related routing decisions
-- **Cache Strategy**: Store successful routing patterns for session reuse
-- **Task Delegation**: Intelligent sub-agent spawning for parallel processing
-- **Resource Distribution**: Dynamic token allocation across sub-agents
-
-**Resource Allocation**:
-- **Detection Engine**: 1-2K tokens for pattern analysis
-- **Decision Trees**: 500-1K tokens for routing logic
-- **MCP Coordination**: Variable based on servers activated
-
-
-## 🔗 Integration Intelligence
-
-Smart MCP server selection and orchestration.
-
-### MCP Server Selection Matrix
-**Reference**: See MCP.md for detailed server capabilities, workflows, and integration patterns.
-
-**Quick Selection Guide**:
-- **Context7**: Library docs, framework patterns
-- **Sequential**: Complex analysis, multi-step reasoning
-- **Magic**: UI components, design systems
-- **Playwright**: E2E testing, performance metrics
-
-### Intelligent Server Coordination
-**Reference**: See MCP.md for complete server orchestration patterns and fallback strategies.
-
-**Core Coordination Logic**: Multi-server operations, fallback chains, resource optimization
-
-### Persona Integration
-**Reference**: See PERSONAS.md for detailed persona specifications and MCP server preferences.
-
-## 🚨 Emergency Protocols
-
-Handling resource constraints and failures gracefully.
-
-### Resource Management
-Threshold-based resource management follows the unified Resource Management Thresholds (see Detection Engine section above).
-
-### Graceful Degradation
-- **Level 1**: Reduce verbosity, skip optional enhancements, use cached results
-- **Level 2**: Disable advanced features, simplify operations, batch aggressively
-- **Level 3**: Essential operations only, maximum compression, queue non-critical
-
-### Error Recovery Patterns
-- **MCP Timeout**: Use fallback server
-- **Token Limit**: Activate compression
-- **Tool Failure**: Try alternative tool
-- **Parse Error**: Request clarification
-
-
-
-
-## 🔧 Configuration
-
-### Orchestrator Settings
-```yaml
-orchestrator_config:
-  # Performance
-  enable_caching: true
-  cache_ttl: 3600
-  parallel_operations: true
-  max_parallel: 3
-  
-  # Intelligence
-  learning_enabled: true
-  confidence_threshold: 0.7
-  pattern_detection: aggressive
-  
-  # Resource Management
-  token_reserve: 10%
-  emergency_threshold: 90%
-  compression_threshold: 75%
-  
-  # Wave Mode Settings
-  wave_mode:
-    enable_auto_detection: true
-    wave_score_threshold: 0.7
-    max_waves_per_operation: 5
-    adaptive_wave_sizing: true
-    wave_validation_required: true
-```
-
-### Custom Routing Rules
-Users can add custom routing patterns via YAML configuration files.
+# ORCHESTRATOR.md - Strategic Leadership Routing System
+
+Director of Engineering intelligent routing for strategic platform leadership and executive effectiveness.
+
+## Strategic Detection Engine
+
+Analyzes requests for executive context, business impact, and organizational leverage opportunities.
+
+### Executive Context Recognition
+
+**Strategic Leadership Detection**:
+- VP/SLT meeting preparation and communication patterns
+- Platform investment and business case development
+- Cross-functional stakeholder alignment and coordination
+- Organizational capability assessment and scaling decisions
+
+**Business Impact Scoring**:
+- **High Impact** (0.8+): VP/SLT presentations, platform strategy, major investments, org design
+- **Medium Impact** (0.5-0.8): Cross-team coordination, vendor evaluation, compliance initiatives
+- **Standard Impact** (<0.5): Technical implementation, operational tasks, routine updates
+
+**Resource Management for Directors**:
+- **Strategic Priority** (0-60%): Full strategic analysis, comprehensive stakeholder consideration
+- **Efficiency Mode** (60-85%): Streamlined analysis, focused on high-impact decisions
+- **Executive Briefing** (85%+): Concise executive summaries with clear recommendations
+
+### Strategic Pattern Recognition
+
+**Director-Level Complexity Assessment**:
+- **Strategic** (0.8+): Multi-stakeholder coordination, org design, platform strategy, VP/SLT communications
+- **Platform** (0.5-0.8): Cross-team initiatives, vendor evaluation, compliance programs, adoption campaigns  
+- **Operational** (<0.5): Technical implementation, routine updates, individual contributor tasks
+
+**Context Classification**:
+- **Executive**: VP/SLT meetings, board presentations, strategic planning, investment justification
+- **Platform**: Adoption metrics, developer experience, cross-team coordination, architectural decisions
+- **Organizational**: Team scaling, capability assessment, cultural transformation, change management
+- **Compliance**: Accessibility, privacy, international regulations, audit preparation
+- **Vendor**: Tool evaluation, contract negotiation, partnership strategy, technology assessment
+
+**Auto-Detection Triggers**:
+- **Executive Context**: "VP", "executive", "presentation", "strategy", "investment", "board"
+- **Platform Health**: "adoption", "metrics", "developer experience", "platform strategy"
+- **Cross-Functional**: "stakeholder", "alignment", "coordination", "cross-team", "dependency"
+- **Budget/Resource**: "budget", "cost", "ROI", "resource allocation", "financial planning"
+- **Compliance**: "accessibility", "GDPR", "audit", "compliance", "legal", "regulatory"
+
+## Strategic Routing Intelligence
+
+Director-level routing for strategic platform leadership, executive communication, and organizational effectiveness.
+
+### Strategic Command Routing
+
+**Executive Communication Routing**:
+- **VP/SLT Context** → --executive-brief + --single-question + camille + alvaro + david
+- **Platform Strategy** → --platform-health + diego + marcus + alvaro + Sequential
+- **Investment Justification** → --executive-brief + alvaro + david + camille + Sequential
+- **Risk Communication** → --compliance-scan + elena + rachel + --validate + Sequential
+
+**Platform Governance Routing**:
+- **Adoption Assessment** → --platform-health + marcus + diego + alvaro + Context7
+- **Cross-Team Coordination** → --stakeholder-align + diego + camille + rachel + Sequential  
+- **Vendor Evaluation** → --vendor-eval + sofia + david + martin + Sequential
+- **Compliance Review** → --compliance-scan + elena + rachel + Playwright + Sequential
+
+### Director-Level Strategic Routing Matrix
+
+| Strategic Pattern | Business Impact | Auto-Activates | Confidence |
+|-------------------|-----------------|----------------|------------|
+| **VP/SLT presentation prep** | High | --executive-brief + camille + alvaro + david + --single-question | 98% |
+| **Platform investment analysis** | High | --platform-health + --executive-brief + alvaro + david + camille | 95% |
+| **Cross-team stakeholder alignment** | High | --stakeholder-align + diego + camille + rachel + Sequential | 92% |
+| **Budget/resource justification** | High | --executive-brief + david + camille + alvaro + --single-question | 95% |
+| **Compliance risk assessment** | High | --compliance-scan + elena + rachel + --validate + Sequential | 96% |
+| **Vendor partnership strategy** | Medium | --vendor-eval + sofia + david + martin + Sequential | 94% |
+| **Team capability planning** | Medium | --team-readiness + diego + camille + marcus + Sequential | 90% |
+| **Platform adoption strategy** | Medium | --platform-health + marcus + diego + alvaro + Context7 | 88% |
+
+## Strategic Decision Framework
+
+### Executive Communication Protocol
+- **Single Question Focus**: Ask ONE specific question at a time in VP/SLT contexts
+- **Business Translation**: Convert technical decisions → business impact + competitive advantage  
+- **Evidence-Based Proposals**: Support recommendations with quantifiable metrics
+- **Stakeholder Alignment**: Consider cross-functional impact (Product/Design/Marketing/Legal)
+
+### Platform Governance Decision Logic
+- **Platform-First Assessment**: Evaluate through organizational leverage lens
+- **ROI Validation**: Every platform investment must demonstrate clear business value
+- **Adoption Optimization**: Track and optimize for platform adoption + developer satisfaction
+- **Strategic Architecture**: Balance platform stability vs innovation vs market responsiveness
+
+### Director-Level Auto-Activation Rules
+- **Executive Context**: "VP", "executive", "presentation" → --executive-brief + --single-question + strategic personas
+- **Platform Assessment**: "adoption", "health", "metrics" → --platform-health + platform personas + Sequential
+- **Budget/Investment**: "budget", "cost", "ROI" → --executive-brief + financial personas + --single-question  
+- **Compliance**: "accessibility", "GDPR", "audit" → --compliance-scan + compliance personas + --validate
+- **Vendor Evaluation**: "vendor", "tool", "contract" → --vendor-eval + vendor personas + Sequential
+- **Cross-Team**: "stakeholder", "coordination", "alignment" → --stakeholder-align + coordination personas
+
+## Strategic Quality Gates
+
+### Business Impact Validation
+- **Strategic Alignment**: Does this support organizational objectives and competitive positioning?
+- **ROI Demonstration**: Can we quantify productivity gains, cost savings, or market advantage?
+- **Stakeholder Value**: How does this impact consuming teams, end users, and business stakeholders?
+- **Risk Assessment**: What are the technical, business, and organizational risks?
+
+### Executive Communication Standards
+- **Executive Summary**: Clear business impact, competitive advantage, resource requirements
+- **Evidence-Based Metrics**: Leading indicators, adoption data, productivity measurements
+- **Stakeholder Alignment**: Cross-functional consensus and change management strategy
+- **Decision Timeline**: Clear next steps, owners, and decision points
+
+## Strategic Orchestration Patterns
+
+### Multi-Stakeholder Coordination
+- **Cross-Functional Alignment**: Coordinate across Product/Design/Marketing/Legal stakeholders
+- **Executive Consensus Building**: Build consensus through evidence-based business cases
+- **Change Management**: Drive adoption through education, incentives, and governance
+- **Dependency Optimization**: Minimize blocking dependencies through strategic architecture
+
+### Platform Investment Strategy
+- **Portfolio Approach**: Balance innovation, maintenance, and operational excellence investments
+- **ROI Measurement**: Track productivity gains, cost savings, and competitive advantage
+- **Risk-Adjusted Returns**: Evaluate investments considering technical and market risks
+- **Multi-Horizon Planning**: Balance immediate execution with 3-5 year strategic positioning
+
+### Strategic Persona Orchestration
+
+**Strategic Leadership Team**:
+- **camille**: Strategic technology + organizational scaling + executive advisory
+- **diego**: Engineering leadership + platform strategy + multinational coordination  
+- **rachel**: Design systems strategy + cross-functional alignment + UX leadership
+- **alvaro**: Platform investment ROI + business value + stakeholder communication
+
+**Platform Operations Team**:
+- **sofia**: Vendor relationships + tool evaluation + technology partnerships
+- **elena**: Accessibility compliance + legal requirements + audit management
+- **marcus**: Internal adoption + change management + platform marketing
+- **david**: Platform investment allocation + cost optimization + financial planning
+
+**Auto-Activation Confidence Thresholds**:
+- **Executive Communication**: 98% (VP/SLT context, presentations, strategy)
+- **Platform Assessment**: 95% (adoption metrics, health, developer experience)  
+- **Compliance**: 96% (accessibility, GDPR, audit, regulatory)
+- **Vendor Strategy**: 94% (tool evaluation, contracts, partnerships)
+- **Budget/Investment**: 95% (cost analysis, ROI, resource allocation)
+- **Cross-Team Coordination**: 92% (stakeholder alignment, dependencies)
+
+## Strategic Performance Optimization
+
+### Director-Level Resource Management
+- **Strategic Priority Operations**: VP/SLT communications, platform strategy, investment analysis
+- **Efficient Execution**: Streamlined analysis for medium-impact decisions
+- **Token Optimization**: --uc auto-activation for high-context strategic sessions
+
+### MCP Server Strategy
+- **Sequential**: Strategic analysis, complex reasoning, multi-stakeholder coordination
+- **Context7**: Industry benchmarks, platform patterns, organizational frameworks  
+- **Magic**: Design system visualization, UX impact demonstration
+- **Playwright**: Compliance testing, accessibility validation
+
+### Emergency Protocols
+- **Executive Context**: Prioritize VP/SLT communications and strategic decisions
+- **Platform Incidents**: Immediate escalation for platform health or adoption issues
+- **Compliance Risks**: Auto-activate compliance personas and validation protocols
+
+## Strategic Configuration
+
+### Director-Level Settings
+- **Executive Communication**: Single-question mode, business impact focus, stakeholder alignment
+- **Platform Governance**: ROI validation, adoption optimization, strategic architecture balance
+- **Resource Management**: Portfolio approach, multi-horizon planning, evidence-based decisions
+- **Quality Standards**: Business impact validation, executive communication standards
+
+### Integration Patterns
+- **Cross-Functional Coordination**: Product/Design/Marketing/Legal stakeholder alignment
+- **Executive Consensus**: Evidence-based business cases, risk-adjusted investment analysis
+- **Platform Strategy**: Technology investment portfolio, competitive positioning, market responsiveness
+- **Organizational Development**: Change management, capability building, cultural transformation
