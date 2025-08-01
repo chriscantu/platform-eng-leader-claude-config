@@ -154,6 +154,39 @@ performance-profile: "optimization"
 - **Design Focus**: Design system adoption, accessibility compliance, user experience consistency, cross-team design coordination
 - **Output Optimization**: Design impact metrics, consistency scores, accessibility compliance rates, design system ROI
 
+**`/generate-weekly-report [flags]`** - Automated weekly SLT report generation
+```yaml
+---
+command: "/generate-weekly-report"
+category: "Executive Communication & Reporting"
+purpose: "Automated weekly SLT report with Jira epic analysis and business value translation"
+wave-enabled: false
+performance-profile: "standard"
+---
+```
+- **Enhanced Auto-Activation**: --executive-brief + --stakeholder-align always active
+- **Auto-Persona**: Camille (executive communication), Alvaro (business value), Diego (platform coordination)
+- **MCP Integration**: Sequential (epic analysis) + Context7 (business value frameworks) + WebFetch (Jira API)
+- **Tool Orchestration**: [WebFetch, Sequential, TodoWrite, Write]
+- **Arguments**: `--config [file]`, `--teams [list]`, `--sprint [id]`, `--format [markdown|pdf|email]`, `--stakeholder [vp]`, `--dry-run`, `--<flags>`
+
+**Workflow Process**:
+1. **Configuration Loading**: Load team mappings, Jira projects, and business value frameworks from config file
+2. **Multi-Team Data Collection**: Pull epics from all UI Foundation teams (Web Platform, Design System, i18n, UI Shell, Header/Nav)
+3. **Epic Analysis Per Team**: Calculate completion probability, extract business value, identify risks and blockers
+4. **Cross-Team Aggregation**: Consolidate insights across all reporting teams with strategic impact assessment
+5. **Business Value Translation**: Apply team-specific frameworks to translate technical work → organizational outcomes
+6. **Executive Summary Generation**: Create VP/SLT appropriate executive summary with single-question focus
+7. **Risk & Resource Assessment**: Identify cross-team dependencies, resource constraints, and mitigation strategies
+8. **Stakeholder-Specific Formatting**: Generate report optimized for target VP audience (Engineering/Product/Design)
+
+**Business Value Translation Framework**:
+- **Platform Capabilities** → Organizational velocity multipliers + competitive advantages
+- **Technical Debt Reduction** → Cost savings + developer productivity gains
+- **Design System Evolution** → Brand consistency + development efficiency + user experience impact
+- **Internationalization** → Market expansion enablement + compliance risk mitigation
+- **Developer Experience** → Team satisfaction + retention + hiring advantages
+
 ## Strategic Command Pipelines
 
 **Platform Assessment Pipeline**:
@@ -245,7 +278,7 @@ complex: "Resource-intensive with comprehensive analysis"
 ```
 
 ### Director-Level Command Categories
-- **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment
+- **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment, generate-weekly-report
 - **Platform Strategy**: analyze, design, improve
 - **Resource Planning**: estimate, task  
 - **Sub-Agent Coordination**: spawn, load, index
