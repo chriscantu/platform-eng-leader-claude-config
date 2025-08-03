@@ -21,10 +21,11 @@ fi
 
 echo "🚀 Generating Weekly SLT Report - $(date '+%B %d, %Y')"
 
-# JQL Query for UI Foundation epics
-JQL='project in ("Web Platform", "Web Design Systems", "UIF Special Projects", "Hubs", "Onboarding", "Globalizers", "Experience Services") AND issueType = Epic AND (sprint in openSprints() OR status in ("In Progress", "In Review", "Ready for Release", "Done")) ORDER BY project, priority DESC'
+# JQL Query for UI Foundation epics - ONLY completed or story-complete epics
+SEVEN_DAYS_AGO=$(date -d '7 days ago' '+%Y-%m-%d' 2>/dev/null || date -v-7d '+%Y-%m-%d')
+JQL="project in (\"Web Platform\", \"Web Design Systems\", \"UIF Special Projects\", \"Hubs\", \"Onboarding\", \"Globalizers\", \"Experience Services\") AND issueType = Epic AND (status IN (\"Done\", \"Released\", \"Closed\") OR status CHANGED TO (\"Done\", \"Released\", \"Closed\") AFTER \"${SEVEN_DAYS_AGO}\") ORDER BY updated DESC"
 
-echo "📊 Fetching epic data from Procore Jira..."
+echo "📊 Fetching completed epics from Procore Jira (since ${SEVEN_DAYS_AGO})..."
 
 # Fetch Jira data
 JIRA_DATA=$(curl -s \
@@ -33,7 +34,7 @@ JIRA_DATA=$(curl -s \
     "${JIRA_BASE_URL}/rest/api/3/search" \
     -G \
     --data-urlencode "jql=${JQL}" \
-    --data-urlencode "fields=key,summary,status,assignee,customfield_10030,description,priority,project,progress" \
+    --data-urlencode "fields=key,summary,status,assignee,customfield_10030,description,priority,project,progress,aggregateprogress,updated" \
     --data-urlencode "maxResults=100")
 
 # Validate response
@@ -59,14 +60,18 @@ Context: You are operating as Director of Engineering for UI Foundation Platform
 
 Data Source: The file jira-data-$(date +"%Y-%m-%d").json contains live epic data from our 7 UI Foundation teams.
 
-Task: Generate the weekly SLT report following these requirements:
+Task: Generate an **ULTRA-BRIEF** weekly SLT report (MAX 1 PAGE) focusing ONLY on completed epics:
 
-1. **Use the approved template format** from weekly-report-2025-02-03.md as the structure
-2. **Process actual Jira data** - replace sample data with real epic information
-3. **Apply business value translation** using the frameworks from weekly-report-config.yaml
-4. **Follow data integrity rules** - cite actual sources, use "[Data Source Needed]" for missing metrics
-5. **Generate executive summary** with single focused question for leadership
-6. **Include proper VP/SLT formatting** with business impact and competitive positioning
+1. **Ultra-brief format** - maximum 1 page, bullet points only
+2. **ONLY completed epics** - status = Done/Released/Closed OR recently completed
+3. **Include epic links** - add clickable Jira links for each epic
+4. **Business value focus** - one sentence per epic explaining business impact
+5. **Structure**:
+   - **Executive Summary** (2-3 sentences max)
+   - **Completed Deliverables** (bullet list with links)
+   - **Business Impact** (1-2 sentences total)
+   - **Next Week Focus** (1 sentence)
+6. **Maximum length**: 1 page / ~300 words total
 
 Auto-activate: --executive-brief + --platform-health + --stakeholder-align + camille + diego + alvaro
 

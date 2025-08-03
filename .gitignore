@@ -109,3 +109,18 @@ current-jira-data.json
 
 # Company-Specific Configuration Files (contain internal URLs, team names, etc.)
 weekly-report-config.yaml
+# Claude Context - Local project context only
+.claude/context/PROJECT_CONTEXT.md
+.claude/context/TEAM_COMPOSITION.md
+.claude/context/TECHNICAL_CONTEXT.md
+
+# Claude Config - Global framework files (synced from global)
+.claude/CLAUDE.md
+.claude/PERSONAS.md
+.claude/COMMANDS.md
+.claude/FLAGS.md
+.claude/PRINCIPLES.md
+.claude/RULES.md
+.claude/MCP.md
+.claude/ORCHESTRATOR.md
+.claude/MODES.md
