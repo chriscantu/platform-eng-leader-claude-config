@@ -90,3 +90,18 @@ ENV/
 *override*
 *local*
 *private*
+
+# Weekly Report Generated Files (contain private Jira data)
+weekly-report-*.md
+jira-epics-*.json
+jira-data-*.json
+
+# Generated Reports and Automation
+*.plist
+cron-wrapper.sh
+weekly-report-automation.sh
+
+# Jira API Responses (contain sensitive project data)
+jira-*.json
+epic-*.json
+sprint-*.json

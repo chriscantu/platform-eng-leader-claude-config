@@ -159,16 +159,19 @@ performance-profile: "optimization"
 ---
 command: "/generate-weekly-report"
 category: "Executive Communication & Reporting"
-purpose: "Automated weekly SLT report with Jira epic analysis and business value translation"
+purpose: "Automated weekly SLT report with live Jira epic analysis and business value translation"
 wave-enabled: false
 performance-profile: "standard"
+execution: "bash ./generate-weekly-report-claude.sh"
 ---
 ```
-- **Enhanced Auto-Activation**: --executive-brief + --stakeholder-align always active
+- **Enhanced Auto-Activation**: --executive-brief + --stakeholder-align + --weekly-report-gen always active
 - **Auto-Persona**: Camille (executive communication), Alvaro (business value), Diego (platform coordination)
 - **MCP Integration**: Sequential (epic analysis) + Context7 (business value frameworks) + WebFetch (Jira API)
-- **Tool Orchestration**: [WebFetch, Sequential, TodoWrite, Write]
+- **Tool Orchestration**: [WebFetch, Sequential, TodoWrite, Write, Bash]
 - **Arguments**: `--config [file]`, `--teams [list]`, `--sprint [id]`, `--format [markdown|pdf|email]`, `--stakeholder [vp]`, `--dry-run`, `--<flags>`
+- **Live Data Integration**: Company Jira API connection with real epic analysis and business value translation
+- **Template**: Uses approved weekly-report-2025-08-02.md format with data integrity validation
 
 **Workflow Process**:
 1. **Configuration Loading**: Load team mappings, Jira projects, and business value frameworks from config file
@@ -176,9 +179,16 @@ performance-profile: "standard"
 3. **Epic Analysis Per Team**: Calculate completion probability, extract business value, identify risks and blockers
 4. **Cross-Team Aggregation**: Consolidate insights across all reporting teams with strategic impact assessment
 5. **Business Value Translation**: Apply team-specific frameworks to translate technical work → organizational outcomes
-6. **Executive Summary Generation**: Create VP/SLT appropriate executive summary with single-question focus
-7. **Risk & Resource Assessment**: Identify cross-team dependencies, resource constraints, and mitigation strategies
-8. **Stakeholder-Specific Formatting**: Generate report optimized for target VP audience (Engineering/Product/Design)
+6. **Data Integrity Validation**: Enforce no-invented-numbers rule, require data sources for all metrics
+7. **Executive Summary Generation**: Create VP/SLT appropriate executive summary with single-question focus
+8. **Risk & Resource Assessment**: Identify cross-team dependencies, resource constraints, and mitigation strategies
+9. **Stakeholder-Specific Formatting**: Generate report optimized for target VP audience (Engineering/Product/Design)
+
+**Data Integrity Rules**:
+- **NEVER invent numbers**: No percentages, dollar amounts, or metrics without actual data sources
+- **Cite all sources**: Every number must reference its origin (surveys, analytics, build data, etc.)
+- **Use placeholders**: "[Data Source Needed]" when actual data is unavailable
+- **Qualitative when needed**: Describe impact qualitatively when quantitative data doesn't exist
 
 **Business Value Translation Framework**:
 - **Platform Capabilities** → Organizational velocity multipliers + competitive advantages
@@ -233,6 +243,17 @@ performance-profile: "standard"
 /align-stakeholders "Platform Adoption Strategy" --team-readiness
 ```
 
+**Weekly Reporting Pipeline**:
+```
+/generate-weekly-report --config weekly-report-config.yaml
+  ↓ Pulls live Jira data and generates
+weekly-report-{date}.md with executive summary
+  ↓ Auto-triggers strategic follow-up
+/prepare-slt "Weekly Platform Update" --executive-brief (if issues identified)
+  ↓ Coordinates with
+/align-stakeholders "Resource Requirements" --stakeholder-align (if needed)
+```
+
 ### Meta & Orchestration Commands
 
 **`/index [query] [flags]`** - Command catalog browsing | Auto-Persona: Mentor, Analyzer | MCP: Sequential
@@ -278,7 +299,8 @@ complex: "Resource-intensive with comprehensive analysis"
 ```
 
 ### Director-Level Command Categories
-- **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment, generate-weekly-report
+- **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment
+- **Executive Communication**: generate-weekly-report, prep-vp-product, prep-vp-engineering, prep-vp-design
 - **Platform Strategy**: analyze, design, improve
 - **Resource Planning**: estimate, task  
 - **Sub-Agent Coordination**: spawn, load, index

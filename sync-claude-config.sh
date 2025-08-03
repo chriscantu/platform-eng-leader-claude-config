@@ -27,6 +27,9 @@ CORE_FILES=(
     "PERSONAS.md"
     "ORCHESTRATOR.md"
     "MODES.md"
+    "weekly-report-config.yaml"
+    "weekly-report-template.md"
+    "jira-integration-spec.md"
 )
 
 # Function to print colored output
