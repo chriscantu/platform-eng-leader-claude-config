@@ -104,4 +104,4 @@ weekly-report-automation.sh
 # Jira API Responses (contain sensitive project data)
 jira-*.json
 epic-*.json
-sprint-*.json
+sprint-*.jsoncurrent-jira-data.json
