@@ -8,6 +8,7 @@
 @PERSONAS.md
 @ORCHESTRATOR.md
 @MODES.md
+@MODEL-SELECTION.md
 
 ## UI Foundation Context
 

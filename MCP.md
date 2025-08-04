@@ -14,7 +14,7 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 7. Load Distribution: Prevent server overload through intelligent queuing
 8. Fallback Readiness: Maintain backup servers for critical operations, **executive communication continuity**
 
-**Selection Process**: **Strategic Impact Assessment** → Task Analysis → Server Capability Match → **Business Value Evaluation** → Performance Check → Load Assessment → Final Selection
+**Selection Process** (Enhanced): **Strategic Impact Assessment** → Context-Aware Pre-Selection → Task Analysis → Server Capability Match → **Business Value Evaluation** → Performance Check → Load Assessment → Intelligent Fallback → Final Selection
 
 **Director-Level Selection Criteria**:
 - **VP/SLT Context Detection**: Automatic prioritization of Executive Communication and Analytics servers for strategic presentations
@@ -307,13 +307,18 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 - Cross-Server Cache: Shared cache for multi-server operations
 - Loop Optimization: Cache iterative analysis results, reuse improvement patterns
 
-**Director-Level Strategic Session Cache**:
+**Director-Level Strategic Session Cache** (Enhanced):
+- **Real-Time Cache** (Session Persistent):
+  - Executive personas (camille/alvaro/david) activation patterns
+  - Strategic analysis frameworks and templates
+  - VP/SLT communication templates with business impact models
 - **Platform Metrics Cache**: Component usage rates, developer satisfaction scores, adoption velocity (weekly refresh)
-- **Competitive Analysis Cache**: Industry benchmark data, market positioning reports (monthly refresh)
+- **Competitive Analysis Cache**: Industry benchmark data, market positioning reports (monthly refresh)  
 - **Organizational Assessment Cache**: Team effectiveness metrics, cultural alignment indicators (bi-weekly refresh)
 - **Investment Analysis Cache**: ROI models, TCO calculations, budget scenarios (session-persistent with quarterly archive)
 - **VP/SLT Presentation Cache**: Strategic narrative templates, business case frameworks (version-controlled)
 - **Stakeholder Profile Cache**: Decision-maker preferences, communication styles, historical context (quarterly refresh)
+- **Context Switch Cache**: Intelligent server switching patterns based on conversation flow (session persistent)
 
 **Error Handling and Recovery**:
 - Context7 unavailable → WebSearch for documentation → Manual implementation
@@ -328,11 +333,23 @@ MCP (Model Context Protocol) server integration and orchestration system for Cla
 - Alternative Routing: Route requests to backup servers automatically
 - Partial Result Handling: Process and utilize partial results from failed operations
 
-**Integration Patterns**:
-- Minimal Start: Start with minimal MCP usage and expand based on needs
-- Progressive Enhancement: Progressively enhance with additional servers
-- Result Combination: Combine MCP results for comprehensive solutions
-- Graceful Fallback: Fallback gracefully when servers unavailable
-- Loop Integration: Sequential for iterative analysis, Context7 for improvement patterns
-- Dependency Orchestration: Manage inter-server dependencies and data flow
+**Integration Patterns** (Optimized):
+- **Context-Aware Server Selection**: Dynamic server switching based on conversation context and persona activation
+- **Intelligent Fallback Hierarchy**: Primary → Secondary → Tertiary server routing with quality preservation
+- **Progressive Enhancement**: Progressively enhance with additional servers based on complexity scoring
+- **Result Combination**: Combine MCP results for comprehensive solutions with conflict resolution
+- **Loop Integration**: Sequential for iterative analysis, Context7 for improvement patterns, Magic for design visualization
+- **Dependency Orchestration**: Manage inter-server dependencies and data flow with load balancing
+- **Executive Communication Pipeline**: Streamlined VP/SLT workflow with Executive Communication → Sequential → Context7
+
+**Task-Specific Server Selection Matrix**:
+| Task Type | Primary Server | Secondary | Tertiary | Confidence |
+|-----------|---------------|-----------|----------|------------|
+| **VP/SLT Presentations** | Executive Communication | Sequential | Context7 | 98% |
+| **Platform Investment** | Strategic Analytics | Sequential | Context7 | 97% |
+| **Design System Strategy** | Magic | Context7 | Sequential | 96% |
+| **Compliance Assessment** | Playwright | Sequential | Context7 | 96% |
+| **Vendor Evaluation** | Sequential | Context7 | - | 96% |
+| **Security Analysis** | Sequential | Context7 | Playwright | 95% |
+| **Cross-Team Coordination** | Sequential | Context7 | Executive Communication | 94% |
 

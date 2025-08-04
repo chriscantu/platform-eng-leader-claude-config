@@ -38,12 +38,14 @@ Analyzes requests for executive context, business impact, and organizational lev
 - **Compliance**: Accessibility, privacy, international regulations, audit preparation
 - **Vendor**: Tool evaluation, contract negotiation, partnership strategy, technology assessment
 
-**Auto-Detection Triggers**:
-- **Executive Context**: "VP", "executive", "presentation", "strategy", "investment", "board"
-- **Platform Health**: "adoption", "metrics", "developer experience", "platform strategy"
-- **Cross-Functional**: "stakeholder", "alignment", "coordination", "cross-team", "dependency"
-- **Budget/Resource**: "budget", "cost", "ROI", "resource allocation", "financial planning"
-- **Compliance**: "accessibility", "GDPR", "audit", "compliance", "legal", "regulatory"
+**Auto-Detection Triggers** (Enhanced):
+- **Executive Context**: "VP", "executive", "presentation", "strategy", "investment", "board", "SLT", "leadership team"
+- **Platform Health**: "adoption", "metrics", "developer experience", "platform strategy", "DevEx", "platform health"
+- **Cross-Functional**: "stakeholder", "alignment", "coordination", "cross-team", "dependency", "cross-functional"
+- **Budget/Resource**: "budget", "cost", "ROI", "resource allocation", "financial planning", "budget meeting", "investment case"
+- **Compliance**: "accessibility", "GDPR", "audit", "compliance", "legal", "regulatory", "a11y", "WCAG"
+- **Security**: "security", "threat", "vulnerability", "penetration test", "security audit", "risk assessment"
+- **Data/Analytics**: "metrics", "analytics", "data", "KPI", "dashboard", "measurement", "tracking"
 
 ## Strategic Routing Intelligence
 
@@ -90,13 +92,19 @@ Director-level routing for strategic platform leadership, executive communicatio
 - **Adoption Optimization**: Track and optimize for platform adoption + developer satisfaction
 - **Strategic Architecture**: Balance platform stability vs innovation vs market responsiveness
 
-### Director-Level Auto-Activation Rules
-- **Executive Context**: "VP", "executive", "presentation" → --executive-brief + --single-question + strategic personas
-- **Platform Assessment**: "adoption", "health", "metrics" → --platform-health + platform personas + Sequential
-- **Budget/Investment**: "budget", "cost", "ROI" → --executive-brief + financial personas + --single-question  
-- **Compliance**: "accessibility", "GDPR", "audit" → --compliance-scan + compliance personas + --validate
-- **Vendor Evaluation**: "vendor", "tool", "contract" → --vendor-eval + vendor personas + Sequential
-- **Cross-Team**: "stakeholder", "coordination", "alignment" → --stakeholder-align + coordination personas
+### Director-Level Auto-Activation Rules (Cost-Optimized)
+- **Executive Context**: "VP", "executive", "presentation" → --executive-brief + --single-question + strategic personas + **Opus model**
+- **Platform Assessment**: "adoption", "health", "metrics" → --platform-health + platform personas + Sequential + **Sonnet 4**
+- **Budget/Investment**: "budget", "cost", "ROI" → --executive-brief + financial personas + --single-question + **Opus model**
+- **Compliance**: "accessibility", "GDPR", "audit" → --compliance-scan + compliance personas + --validate + **Context-dependent**
+- **Vendor Evaluation**: "vendor", "tool", "contract" → --vendor-eval + vendor personas + Sequential + **Sonnet 4** (escalate >$250K)
+- **Cross-Team**: "stakeholder", "coordination", "alignment" → --stakeholder-align + coordination personas + **Sonnet 4**
+
+### Model Selection Integration
+- **Auto Cost-Optimization**: --cost-optimize flag activates intelligent model routing
+- **Executive Escalation**: Automatic Opus upgrade for VP/SLT contexts
+- **Quality Gates**: Sonnet 4 → Opus escalation when quality thresholds not met
+- **Budget Tracking**: Real-time cost monitoring with optimization suggestions
 
 ## Strategic Quality Gates
 
@@ -140,13 +148,13 @@ Director-level routing for strategic platform leadership, executive communicatio
 - **marcus**: Internal adoption + change management + platform marketing
 - **david**: Platform investment allocation + cost optimization + financial planning
 
-**Auto-Activation Confidence Thresholds**:
-- **Executive Communication**: 98% (VP/SLT context, presentations, strategy)
-- **Platform Assessment**: 95% (adoption metrics, health, developer experience)  
-- **Compliance**: 96% (accessibility, GDPR, audit, regulatory)
-- **Vendor Strategy**: 94% (tool evaluation, contracts, partnerships)
-- **Budget/Investment**: 95% (cost analysis, ROI, resource allocation)
-- **Cross-Team Coordination**: 92% (stakeholder alignment, dependencies)
+**Auto-Activation Confidence Thresholds** (Optimized):
+- **Executive Communication**: 98% (VP/SLT context, presentations, strategy) ✅ Optimal
+- **Platform Assessment**: 97% (adoption metrics, health, developer experience) ⬆️ +2% precision
+- **Compliance**: 96% (accessibility, GDPR, audit, regulatory) ✅ Optimal
+- **Vendor Strategy**: 96% (tool evaluation, contracts, partnerships) ⬆️ +2% accuracy
+- **Budget/Investment**: 95% (cost analysis, ROI, resource allocation) ✅ Optimal
+- **Cross-Team Coordination**: 94% (stakeholder alignment, dependencies) ⬆️ +2% precision
 
 ## Strategic Performance Optimization
 

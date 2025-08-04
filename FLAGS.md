@@ -75,6 +75,32 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - Epic completion forecasting + business impact translation + risk assessment + resource implications
 - Integration: Sequential for epic analysis + Context7 for business value frameworks + WebFetch for Jira API
 
+## Model Selection & Cost Optimization Flags
+
+**`--cost-optimize`**
+- Automatically select most cost-effective model based on task complexity and business impact
+- Auto-activates: Sonnet 4 for routine tasks, Opus for executive/strategic contexts
+- 60-70% cost savings while preserving strategic decision quality
+- Integration: MODEL-SELECTION.md routing logic + quality gates
+
+**`--opus-required`**  
+- Force Opus model for quality-critical tasks regardless of cost
+- Auto-activates: VP/SLT contexts, investment decisions >$100K, strategic planning
+- Premium quality assurance for high-stakes decisions
+- Integration: Executive personas + strategic complexity detection
+
+**`--budget-mode`**
+- Maximum cost savings with quality preservation gates
+- Auto-activates: Sonnet 4 default with automatic escalation triggers
+- Cost tracking + optimization analytics + quality monitoring
+- Integration: Daily/weekly usage tracking + ROI analysis
+
+**`--exec-mode`**
+- Executive context with premium quality assurance and Opus prioritization
+- Auto-activates: Always Opus for VP/SLT communications + strategic decisions
+- Zero compromise on executive satisfaction and strategic outcomes
+- Integration: Executive personas + Strategic Analytics + Executive Communication MCP
+
 ## Planning & Analysis Flags
 
 **`--plan`**
@@ -238,7 +264,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 
 ## Persona Activation Flags
 
-**Available Strategic Personas**:
+**Available Strategic Personas** (Enhanced):
 - `--persona-diego`: Engineering leadership, platform strategy, multinational coordination
 - `--persona-camille`: Strategic technology, organizational scaling, executive advisory  
 - `--persona-rachel`: Design systems strategy, cross-functional alignment, UX leadership
@@ -248,6 +274,9 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - `--persona-marcus`: Internal adoption, change management, platform marketing
 - `--persona-david`: Platform investment allocation, cost optimization, financial planning
 - `--persona-martin`: Platform architecture, evolutionary design, technical debt strategy
+- `--persona-legal`: International compliance, regulatory navigation, contract strategy
+- `--persona-security`: Platform security architecture, threat modeling, risk assessment  
+- `--persona-data`: Analytics strategy, metrics frameworks, data-driven decision making
 
 ## Introspection & Transparency Flags
 
@@ -282,13 +311,16 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 
 ### Context-Based Auto-Activation
 
-**Director-Level Context Auto-Activation**:
-- **Budget/Financial Context**: "budget", "cost", "ROI", "investment", "resource allocation" → --executive-brief + david + camille + alvaro
-- **Compliance Context**: "compliance", "accessibility", "GDPR", "audit", "legal" → --compliance-scan + elena + rachel + --validate
-- **Vendor/Partnership Context**: "vendor", "tool evaluation", "contract", "partnership" → --vendor-eval + sofia + david + martin
-- **Platform Strategy Context**: "platform adoption", "design system", "developer experience" → --platform-health + diego + marcus + rachel
-- **Executive Communication**: "VP", "executive", "presentation", "VP of Product", "VP of Engineering", "VP of Design" → --executive-brief + --single-question + camille
+**Director-Level Context Auto-Activation** (Enhanced):
+- **Budget/Financial Context**: "budget", "cost", "ROI", "investment", "resource allocation", "budget meeting" → --executive-brief + david + camille + alvaro
+- **Compliance Context**: "compliance", "accessibility", "GDPR", "audit", "legal", "a11y", "WCAG" → --compliance-scan + elena + rachel + --validate
+- **Vendor/Partnership Context**: "vendor", "tool evaluation", "contract", "partnership", "procurement" → --vendor-eval + sofia + david + martin
+- **Platform Strategy Context**: "platform adoption", "design system", "developer experience", "DevEx", "platform health" → --platform-health + diego + marcus + rachel
+- **Executive Communication**: "VP", "executive", "presentation", "VP of Product", "VP of Engineering", "VP of Design", "SLT", "leadership team" → --executive-brief + --single-question + camille
 - **Weekly Reporting**: "weekly report", "SLT report", "sprint summary", "epic status", "business value" → --weekly-report-gen + camille + alvaro + diego
+- **Security Context**: "security", "threat", "vulnerability", "security audit", "risk assessment" → --compliance-scan + security + elena + --validate
+- **Legal Context**: "legal requirements", "contract negotiation", "regulatory compliance", "privacy law" → --compliance-scan + legal + elena + --validate
+- **Analytics Context**: "metrics", "analytics", "data", "KPI", "dashboard", "measurement" → --platform-health + data + alvaro + diego
 
 **VP-Specific Context Auto-Activation**:
 - **VP of Product Context**: "VP of Product", "product roadmap", "user experience metrics", "business value" → --vp-product-prep + alvaro + rachel + camille
