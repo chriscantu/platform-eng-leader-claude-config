@@ -1,126 +1,33 @@
-# SuperClaude Configuration .gitignore
+# SuperClaude Configuration
+.claude/context/STAKEHOLDERS.yaml
+.claude/context/TECHNOLOGY_RADAR.yaml
+.claude/logs/
+.claude/backups/
+*.log
 
-# Sensitive Configuration & Metadata
-.superclaude-metadata.json
-*.api-key
-*.token
+# Environment variables
 .env
 .env.local
 
-# User-Specific Data & Sessions
-logs/
-projects/
-todos/
-statsig/
+# Sensitive configuration
+weekly-report-config.yaml
+*-config.yaml
+*-credentials.*
 
-# Personal Backups (keep template backups)
-backups/superclaude_backup_*.tar.gz
-backups/superclaude_backup_*.tar.tar.gz
-
-# Local Development & Testing
-local/node_modules/
-local/package-lock.json
-local/.cache/
-local/dist/
-local/build/
-
-# IDE & Editor Files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
-# OS Generated Files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Desktop.ini
-
-# Temporary Files
+# Temporary files
 *.tmp
 *.temp
-*.log
-*.pid
-*.seed
-*.pid.lock
-
-# Personal Notes & Drafts
-notes/
-drafts/
-scratch/
-personal/
-
-# Hook Configurations (may contain sensitive data)
-hooks/*
-!hooks/.gitkeep
-
-# Claude Code Session Data
-.claude/
-claude-*.json
-session-*.json
-
-# Backup Files
-*.bak
-*.backup
-*.old
-
-# Node.js (if any)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Python (if any)
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-
-# Configuration Override Files
-*override*
-*local*
-*private*
-
-# Weekly Report Generated Files (contain private Jira data)
-weekly-report-*.md
-jira-epics-*.json
-jira-data-*.json
-
-# Generated Reports and Automation
-*.plist
-cron-wrapper.sh
-weekly-report-automation.sh
-
-# Jira API Responses (contain sensitive project data)
-jira-*.json
-epic-*.json
-sprint-*.json
 current-jira-data.json
 
-# Company-Specific Configuration Files (contain internal URLs, team names, etc.)
-weekly-report-config.yaml
-# Claude Context - Local project context only
-.claude/context/PROJECT_CONTEXT.md
-.claude/context/TEAM_COMPOSITION.md
-.claude/context/TECHNICAL_CONTEXT.md
+# User-specific directories
+.claude/
+local/
 
-# Claude Config - Global framework files (synced from global)
-.claude/CLAUDE.md
-.claude/PERSONAS.md
-.claude/COMMANDS.md
-.claude/FLAGS.md
-.claude/PRINCIPLES.md
-.claude/RULES.md
-.claude/MCP.md
-.claude/ORCHESTRATOR.md
-.claude/MODES.md
+# Generated reports (may contain sensitive data)
+weekly-report-*.md
+
+# Live data files
+jira-epics-*.json
+
+# SuperClaude metadata
+.superclaude-metadata.json
