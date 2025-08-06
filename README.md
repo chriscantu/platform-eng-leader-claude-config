@@ -20,7 +20,13 @@ SuperClaude is optimized for platform engineering leadership with:
 - SQLite3 for strategic memory persistence
 - Git for version control
 
-### Installation
+### Installation Options
+
+Choose between **Directory-Based** (recommended) or **Global Configuration** setup:
+
+#### Option A: Directory-Based Installation (Recommended)
+
+**Benefits**: Self-contained, portable, no global system changes, easy to version control
 
 1. **Clone and Initialize**
    ```bash
@@ -37,15 +43,91 @@ SuperClaude is optimized for platform engineering leadership with:
    python3 memory/memory_manager.py --status
    ```
 
-3. **Configure Memory-Enhanced Commands** (Optional)
+3. **Use Claude Code from This Directory**
+   ```bash
+   # All SuperClaude functionality works from this directory
+   # The framework files (CLAUDE.md, PERSONAS.md, etc.) are automatically loaded
+   
+   # Test the framework
+   claude --help
+   
+   # Start using strategic commands immediately
+   ```
+
+4. **Configure Memory-Enhanced Commands** (Optional)
    ```bash
    # Make memory commands executable
    chmod +x commands/memory-enhanced-commands.sh
    
-   # Add to PATH for global access
+   # For convenience, add to PATH (optional)
    echo 'export PATH="$PATH:$(pwd)/commands"' >> ~/.bashrc
    source ~/.bashrc
    ```
+
+#### Option B: Global Configuration Installation
+
+**Benefits**: Available from any directory, integrates with existing Claude Code setup
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/[your-username]/platform-eng-leader-claude-config.git
+   cd platform-eng-leader-claude-config
+   ```
+
+2. **Copy to Global Claude Configuration**
+   ```bash
+   # Create global directory if it doesn't exist
+   mkdir -p ~/.claude
+   
+   # Copy framework files to global location
+   cp CLAUDE.md COMMANDS.md PERSONAS.md FLAGS.md RULES.md PRINCIPLES.md MCP.md ORCHESTRATOR.md MODES.md MODEL-SELECTION.md ~/.claude/
+   
+   # Copy enhanced framework files
+   cp MEMORY.md ENHANCED-COMMANDS.md COST-OPTIMIZATION.md STRATEGIC-TOOLS.md ~/.claude/
+   ```
+
+3. **Set up Strategic Memory System**
+   ```bash
+   # Keep memory system in project directory
+   sqlite3 memory/strategic_memory.db < memory/schema.sql
+   python3 memory/memory_manager.py --status
+   
+   # Or set up globally
+   mkdir -p ~/.claude/memory
+   cp memory/* ~/.claude/memory/
+   cd ~/.claude/memory && sqlite3 strategic_memory.db < schema.sql
+   ```
+
+### Which Option Should You Choose?
+
+| Feature | Directory-Based | Global Configuration |
+|---------|-----------------|----------------------|
+| **Setup Complexity** | ✅ Simple - just clone | ⚠️ Requires copying files |
+| **Portability** | ✅ Self-contained | ❌ Tied to machine |
+| **Version Control** | ✅ Everything tracked | ⚠️ Manual sync needed |
+| **Multiple Projects** | ⚠️ Need separate directories | ✅ Available everywhere |
+| **Updates** | ✅ `git pull` to update | ⚠️ Manual file copying |
+| **Team Sharing** | ✅ Share via git repo | ❌ Individual setup required |
+| **Isolation** | ✅ No system changes | ⚠️ Modifies global config |
+
+**Recommendation**: Use **Directory-Based** (Option A) unless you specifically need the framework available from any directory on your system.
+
+### How It Works
+
+#### Directory-Based Framework Loading
+
+Claude Code automatically loads configuration files from the current directory in this order:
+
+1. **Current Directory**: `./CLAUDE.md` (highest priority)
+2. **Global Configuration**: `~/.claude/CLAUDE.md` (fallback)
+
+When you run Claude Code from the SuperClaude directory, it automatically:
+- Loads all 12 strategic personas from `PERSONAS.md`
+- Activates the strategic command system from `COMMANDS.md`  
+- Applies Director-level flags and optimization from `FLAGS.md`
+- Uses the enhanced memory system and tool integration
+
+**No additional configuration needed** - just `cd` into the directory and start using strategic commands!
 
 ### Usage
 
