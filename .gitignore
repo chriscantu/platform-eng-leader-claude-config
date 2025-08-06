@@ -62,8 +62,29 @@ Thumbs.db
 Desktop.ini
 
 # === WORKSPACE FILES ===
-# Ignore all workspace files (personal working directory)
+# Ignore personal workspace files but track reference materials structure
 workspace/
+# Exception: Track reference materials README and directory structure
+!workspace/reference-materials/
+!workspace/reference-materials/README.md
+!workspace/reference-materials/**/README.md
+
+# Ignore large files and potentially copyrighted content in reference materials
+workspace/reference-materials/**/*.pdf
+workspace/reference-materials/**/*.epub
+workspace/reference-materials/**/*.mobi
+workspace/reference-materials/**/books/
+workspace/reference-materials/**/pdfs/
+
+# But track summaries, templates, and knowledge base articles
+!workspace/reference-materials/summaries/
+!workspace/reference-materials/templates/
+!workspace/reference-materials/knowledge-base/
+!workspace/reference-materials/research/
+!workspace/reference-materials/**/*.md
+!workspace/reference-materials/**/*.yaml
+!workspace/reference-materials/**/*.json
+
 local/
 
 # === PROJECT SPECIFIC ===
