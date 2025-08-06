@@ -61,6 +61,11 @@ weekly-report-*.md
 Thumbs.db
 Desktop.ini
 
+# === WORKSPACE FILES ===
+# Ignore all workspace files (personal working directory)
+workspace/
+local/
+
 # === PROJECT SPECIFIC ===
 # Keep example/template files, ignore actual configurations
 *-actual.yaml
