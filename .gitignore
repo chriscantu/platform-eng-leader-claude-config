@@ -1,35 +1,68 @@
-# SuperClaude Configuration
-.claude/context/STAKEHOLDERS.yaml
-.claude/context/TECHNOLOGY_RADAR.yaml
-.claude/logs/
-.claude/backups/
-*.log
+# SuperClaude Platform Engineering Leader Configuration
+# Git ignore file for production repository
 
-# Environment variables
-.env
-.env.local
+# === SENSITIVE DATA ===
+# Never commit sensitive configuration or credentials
+.claude/
+*.token
+*.key
+*.secret
+*password*
+*credential*
 
-# Sensitive configuration
-weekly-report-config.yaml
-*-config.yaml
-*-credentials.*
+# === MEMORY DATABASE ===
+# SQLite database contains sensitive strategic information
+memory/strategic_memory.db
+*.db
+*.sqlite
+*.sqlite3
 
-# Temporary files
+# === TEMPORARY FILES ===
+# Build artifacts and temporary files
 *.tmp
 *.temp
-current-jira-data.json
+*~
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# User-specific directories
-.claude/
+# === LOG FILES ===
+# Logs may contain sensitive information
+*.log
+logs/
+log/
+
+# === RUNTIME DATA ===
+# Runtime generated files and caches
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === DEVELOPMENT FILES ===
+# Development-only files and directories
 local/
+tmp/
+temp/
+*.bak
+*.orig
 
-# Generated reports (may contain sensitive data)
+# === JIRA DATA ===
+# Jira integration files may contain sensitive project data
+current-jira-data.json
+jira-epics-*.json
+weekly-report-config.yaml
 weekly-report-*.md
 
-# Live data files
-jira-epics-*.json
+# === OS GENERATED FILES ===
+# Operating system generated files
+Thumbs.db
+Desktop.ini
 
-# SuperClaude metadata
-.superclaude-metadata.json
-
-.DS_Store
+# === PROJECT SPECIFIC ===
+# Keep example/template files, ignore actual configurations
+*-actual.yaml
+*-production.yaml
+*-live.yaml
