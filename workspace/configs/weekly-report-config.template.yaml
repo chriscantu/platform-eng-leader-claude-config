@@ -1,0 +1,193 @@
+# Weekly Report Configuration Template
+# Director of Engineering - UI Foundation Platform
+# 
+# IMPORTANT: Copy this file to weekly-report-config.yaml and customize
+# DO NOT commit the actual config file - it contains sensitive company data
+
+## Jira Integration Settings
+jira:
+  # Jira instance configuration
+  base_url: "https://[YOUR-COMPANY].atlassian.net"  # CUSTOMIZE: Your Jira instance URL
+  api_version: "3"  # Jira Cloud API v3
+  
+  # Authentication (choose one method)
+  auth:
+    # Method 1: API Token (Recommended for Jira Cloud)
+    email: "[YOUR-EMAIL]@[YOUR-COMPANY].com"  # CUSTOMIZE: Your company email
+    api_token: "${JIRA_API_TOKEN}"           # Environment variable
+    
+    # Method 2: Personal Access Token (Jira Data Center)
+    # pat_token: "${JIRA_PAT_TOKEN}"
+    
+    # Method 3: OAuth (Enterprise setup)
+    # oauth_consumer_key: "${JIRA_OAUTH_KEY}"
+    # oauth_private_key_file: "~/.jira/oauth-private.pem"
+
+## Team Structure Configuration
+teams:
+  # CUSTOMIZE: Update with your actual teams and project names
+  team1:
+    name: "[Team 1 Name]"
+    jira_project: "[JIRA-PROJECT-KEY]"
+    team_lead: "[Team Lead Name]"
+    focus_areas: ["[Focus Area 1]", "[Focus Area 2]", "[Focus Area 3]"]
+    business_impact_category: "[Business Impact Category]"
+    
+  team2:
+    name: "[Team 2 Name]"
+    jira_project: "[JIRA-PROJECT-KEY]"
+    team_lead: "[Team Lead Name]"
+    focus_areas: ["[Focus Area 1]", "[Focus Area 2]", "[Focus Area 3]"]
+    business_impact_category: "[Business Impact Category]"
+    
+  # Add more teams as needed...
+
+## Sprint Configuration
+sprint:
+  # Sprint identification
+  current_sprint_auto_detect: true  # Auto-detect current active sprint
+  sprint_field: "customfield_10020"  # CUSTOMIZE: Your Jira field ID for sprint
+  
+  # Manual sprint specification (when auto-detect is false)
+  current_sprint_name: "2025-W05"
+  current_sprint_id: 1234
+  
+  # Sprint filtering
+  include_completed_epics: true
+  include_in_progress_epics: true
+  include_planned_epics: false  # Epics planned but not started
+
+## Epic Configuration
+epics:
+  # Epic filtering
+  epic_link_field: "customfield_10014"  # CUSTOMIZE: Your Jira field ID for epic link
+  status_categories:
+    completing: ["In Progress", "In Review", "Ready for Release"]
+    at_risk: ["Blocked", "On Hold"]
+    completed: ["Done", "Released", "Closed"]
+  
+  # Business value extraction
+  business_value_field: "customfield_10030"  # CUSTOMIZE: Your custom field for business value
+  business_value_fallback: "description"     # Fallback to description if no custom field
+  
+  # Priority mapping
+  priority_mapping:
+    "Highest": "Critical Path"
+    "High": "Strategic Priority" 
+    "Medium": "Standard Delivery"
+    "Low": "Enhancement"
+
+## Business Value Translation
+business_value_frameworks:
+  platform_capabilities:
+    keywords: ["developer experience", "platform", "tooling", "automation"]
+    translation: "Organizational velocity multipliers and competitive advantages"
+    impact_metrics: ["development velocity", "onboarding time", "developer satisfaction"]
+    measurement_requirement: "REQUIRED - Must source actual metrics from team surveys, build analytics, or existing performance data"
+    
+  technical_debt:
+    keywords: ["refactor", "migration", "cleanup", "modernization"]
+    translation: "Cost savings and developer productivity gains"
+    impact_metrics: ["maintenance cost", "bug rate", "development speed"]
+    measurement_requirement: "REQUIRED - Must cite actual incident data, build time metrics, or maintenance hour tracking"
+    
+  design_system:
+    keywords: ["component", "design system", "consistency", "accessibility"]
+    translation: "Brand consistency, development efficiency, and user experience impact"
+    impact_metrics: ["design consistency", "implementation time", "accessibility compliance"]
+    measurement_requirement: "REQUIRED - Must reference design system usage analytics, component adoption rates, or accessibility audit results"
+    
+  internationalization:
+    keywords: ["i18n", "localization", "translation", "multi-region"]
+    translation: "Market expansion enablement and compliance risk mitigation" 
+    impact_metrics: ["market coverage", "localization speed", "cultural compliance"]
+    measurement_requirement: "REQUIRED - Must cite actual localization deployment times, market expansion data, or compliance audit results"
+    
+  developer_experience:
+    keywords: ["dx", "developer experience", "onboarding", "documentation"]
+    translation: "Team satisfaction, retention, and hiring advantages"
+    impact_metrics: ["developer NPS", "onboarding time", "retention rate"]
+    measurement_requirement: "REQUIRED - Must source from developer surveys, HR onboarding metrics, or team satisfaction data"
+
+## Report Formatting
+report:
+  # Executive summary configuration
+  max_epic_summary: 5  # Maximum epics in executive summary
+  confidence_threshold: 0.7  # Minimum confidence for "completing this sprint"
+  
+  # Data integrity requirements
+  data_sourcing_rules:
+    no_invented_numbers: true  # NEVER invent percentages, dollar amounts, or metrics
+    require_data_sources: true  # All numbers must cite their source
+    placeholder_for_missing_data: "[Data Source Needed]"  # Use when actual data unavailable
+    qualitative_only_when_no_data: true  # Use qualitative descriptions when quantitative data unavailable
+  
+  # Risk assessment
+  risk_indicators:
+    - "blocked"
+    - "dependency" 
+    - "resource constraint"
+    - "scope creep"
+    - "timeline pressure"
+  
+  # Metrics collection
+  metrics:
+    platform_adoption: "customfield_10040"     # CUSTOMIZE: Your field IDs
+    developer_satisfaction: "customfield_10041" 
+    support_tickets: "customfield_10042"
+    
+  # Output formatting
+  formats:
+    markdown:
+      template: "weekly-report-2025-02-03.md"  # Use as template
+      output_file: "weekly-report-{date}.md"
+      date_format: "YYYY-MM-DD"  # ISO format: 2025-02-03
+    
+    email:
+      subject: "Weekly SLT Report - [YOUR TEAM] - Week of {date}"  # CUSTOMIZE: Your team name
+      template: "weekly-report-email-template.html"
+      date_format: "MMMM D, YYYY"  # Full format: February 3, 2025
+      
+    pdf:
+      template: "weekly-report-pdf-template.md"
+      output_file: "weekly-report-{date}.pdf"
+      date_format: "YYYY-MM-DD"  # ISO format for file names
+
+## Executive Communication Settings
+executive:
+  # VP/SLT specific formatting
+  single_question_mode: true
+  business_translation_required: true
+  
+  # Stakeholder-specific messaging
+  stakeholders:
+    vp_engineering:
+      focus: ["team velocity", "technical debt", "platform adoption", "resource optimization"]
+      metrics: ["development velocity", "incident rate", "developer satisfaction"]
+      
+    vp_product: 
+      focus: ["user experience impact", "business value", "market differentiation"]
+      metrics: ["user satisfaction", "feature adoption", "competitive advantage"]
+      
+    vp_design:
+      focus: ["design consistency", "accessibility compliance", "brand impact"]
+      metrics: ["design system adoption", "accessibility score", "brand consistency"]
+      
+    ceo:
+      focus: ["competitive advantage", "market positioning", "strategic investment ROI"]
+      metrics: ["business impact", "cost savings", "market expansion"]
+
+## Environment Variables Required
+# Add these to your ~/.zshrc or ~/.bashrc:
+# export JIRA_API_TOKEN="your-jira-api-token"
+# export JIRA_EMAIL="[YOUR-EMAIL]@[YOUR-COMPANY].com" 
+# export JIRA_BASE_URL="https://[YOUR-COMPANY].atlassian.net"
+
+## Setup Instructions
+# 1. Copy this file to weekly-report-config.yaml
+# 2. Replace all [PLACEHOLDER] values with your actual company information
+# 3. Set up environment variables for API access
+# 4. Customize team structure and Jira field IDs
+# 5. Test with /generate-weekly-report command
+#
+# SECURITY NOTE: Never commit the actual config file to version control!

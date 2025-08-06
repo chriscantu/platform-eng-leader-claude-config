@@ -1,0 +1,151 @@
+{
+  "dashboard": {
+    "name": "UI Foundation Initiative Tracking",
+    "description": "Monthly PI Initiative monitoring for UI Foundation Platform",
+    "gadgets": [
+      {
+        "id": "issue-statistics",
+        "title": "Initiative Status Distribution",
+        "position": {"column": 0, "row": 0},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status not in (Done, Closed, Completed, Canceled)",
+          "groupBy": "status",
+          "displayType": "pie"
+        },
+        "purpose": "Red/Yellow/Green status equivalent visualization"
+      },
+      {
+        "id": "filter-results",
+        "title": "Active UI Foundation Initiatives",
+        "position": {"column": 1, "row": 0},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status not in (Done, Closed, Completed, Canceled) ORDER BY priority DESC, updated ASC",
+          "columns": ["issuekey", "summary", "status", "priority", "assignee", "updated"],
+          "maxResults": 20
+        },
+        "purpose": "Detailed initiative list with clickable links"
+      },
+      {
+        "id": "two-dimensional-filter-statistics", 
+        "title": "Risk Matrix (Priority vs Status)",
+        "position": {"column": 0, "row": 1},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status not in (Done, Closed, Completed, Canceled)",
+          "xAxis": "status",
+          "yAxis": "priority"
+        },
+        "purpose": "Visual risk assessment matrix"
+      },
+      {
+        "id": "average-time-in-status",
+        "title": "Initiative Velocity",
+        "position": {"column": 1, "row": 1},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)",
+          "statuses": ["New", "In Progress", "At Risk"],
+          "period": "Last 90 days"
+        },
+        "purpose": "Identify stalled or slow-moving initiatives"
+      },
+      {
+        "id": "filter-results",
+        "title": "🔴 At Risk Initiatives",
+        "position": {"column": 0, "row": 2},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND (status = \"At Risk\" OR (priority = Critical AND updated < -7d))",
+          "columns": ["issuekey", "summary", "assignee", "updated"],
+          "maxResults": 10
+        },
+        "purpose": "Immediate attention items"
+      },
+      {
+        "id": "filter-results", 
+        "title": "🟡 Stale Initiatives (>14 days)",
+        "position": {"column": 1, "row": 2},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status in (New, Committed) AND updated < -14d ORDER BY updated ASC",
+          "columns": ["issuekey", "summary", "assignee", "updated"],
+          "maxResults": 10
+        },
+        "purpose": "Initiatives needing attention"
+      },
+      {
+        "id": "created-vs-resolved-chart",
+        "title": "Initiative Completion Trend",
+        "position": {"column": 0, "row": 3, "colspan": 2},
+        "configuration": {
+          "filter": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)",
+          "period": "Last 6 months",
+          "cumulative": false
+        },
+        "purpose": "Track initiative completion velocity over time"
+      }
+    ],
+    "filters": [
+      {
+        "name": "UI Foundation Active Initiatives",
+        "jql": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status not in (Done, Closed, Completed, Canceled) ORDER BY priority DESC, updated ASC",
+        "description": "All active UI Foundation initiatives from PI project"
+      },
+      {
+        "name": "UI Foundation At Risk",
+        "jql": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND (status = \"At Risk\" OR (priority = Critical AND updated < -7d)) ORDER BY updated ASC",
+        "description": "High-risk initiatives requiring immediate attention"
+      },
+      {
+        "name": "UI Foundation Stale Initiatives",
+        "jql": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND status in (New, Committed) AND updated < -14d ORDER BY updated ASC",
+        "description": "Initiatives not updated in 2+ weeks"
+      },
+      {
+        "name": "UI Foundation Migration Focus",
+        "jql": "project = PI AND assignee in (chris.cantu@procore.com, alvaro.soto@procore.com) AND summary ~ \"Migration OR \\\"New Relic\\\"\" AND status not in (Done, Closed, Completed)",
+        "description": "Migration-related initiatives requiring coordination"
+      }
+    ],
+    "automation_rules": [
+      {
+        "name": "Auto-flag stale Critical initiatives",
+        "trigger": "Scheduled (Daily at 9 AM)",
+        "conditions": [
+          "project = PI",
+          "assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)",
+          "priority = Critical", 
+          "status != \"At Risk\"",
+          "updated < -7d"
+        ],
+        "actions": [
+          "Transition issue to 'At Risk'",
+          "Add comment: 'Initiative auto-flagged as at-risk due to 7+ days without updates on Critical priority item'",
+          "Send notification to assignee"
+        ]
+      },
+      {
+        "name": "At Risk Initiative Notifications",
+        "trigger": "Issue transitioned to 'At Risk'",
+        "conditions": [
+          "project = PI",
+          "assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)"
+        ],
+        "actions": [
+          "Send email to chris.cantu@procore.com",
+          "Add to #ui-foundation-alerts Slack channel",
+          "Create calendar reminder for daily check-in"
+        ]
+      },
+      {
+        "name": "Initiative Progress Updates",
+        "trigger": "Issue updated",
+        "conditions": [
+          "project = PI",
+          "assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)",
+          "status changed from 'At Risk' to 'In Progress'"
+        ],
+        "actions": [
+          "Add comment: 'Initiative back on track - risk status cleared'",
+          "Send notification to stakeholders"
+        ]
+      }
+    ]
+  }
+}
