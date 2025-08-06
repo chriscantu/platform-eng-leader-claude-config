@@ -327,6 +327,41 @@ This enhanced SuperClaude system delivers:
 - **40% executive preparation efficiency** improvement with data-driven insights
 - **Cross-session intelligence building** for organizational pattern recognition
 
+## IDE Integration
+
+### Cursor IDE Integration
+
+This framework includes Cursor IDE integration files for seamless strategic context:
+
+#### Automatic Integration
+- **`.cursorrules`**: Cursor automatically loads SuperClaude personas and strategic context
+- **`CURSOR_CONTEXT.md`**: Additional framework context for Cursor's AI features  
+- **`.vscode/settings.json`**: Language-specific persona activation and system prompts
+
+#### Usage in Cursor
+```typescript
+// Cursor will automatically apply strategic context
+// Ask for code reviews with strategic lens
+"Review this code with martin persona (platform architecture focus)"
+
+// Get strategic guidance
+"How does this component align with our design system strategy?" 
+// ^ Automatically applies rachel persona context
+
+// Platform leadership perspective
+"What are the cross-team coordination implications of this API change?"
+// ^ Automatically applies diego persona context
+```
+
+#### Framework Context Available
+- All 12 strategic personas automatically available
+- Platform leadership context (UI Foundation, design system, i18n)
+- Strategic decision frameworks and principles
+- Memory system integration awareness
+- Executive communication protocols
+
+**Benefits**: Get strategic platform leadership guidance directly in your IDE while coding, with full SuperClaude context automatically applied.
+
 ---
 
 **Version**: 2.0.0 - Strategic Tool Integration Complete  
