@@ -18,7 +18,7 @@ This guide provides implementation approaches for initiative tracking using Atla
 
 ```
 📊 Issue Statistics Gadget
-- Filter: project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)
+- Filter: project = PI AND assignee in (user1@company.com, user2@company.com)
 - Group by: Status
 - Display: Pie Chart
 - Purpose: Status distribution (Green/Yellow/Red equivalent)
@@ -59,22 +59,22 @@ Create saved filters for consistent reporting:
 
 ```sql
 -- Active UI Foundation Initiatives
-project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) 
+project = PI AND assignee in (user1@company.com, user2@company.com) 
 AND status not in (Done, Closed, Completed, Canceled)
 ORDER BY priority DESC, updated ASC
 
 -- At Risk Initiatives (Red Status)
-project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) 
+project = PI AND assignee in (user1@company.com, user2@company.com) 
 AND (status = "At Risk" OR (priority = Critical AND updated < -7d))
 ORDER BY updated ASC
 
 -- Stale Initiatives (Yellow Status)  
-project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)
+project = PI AND assignee in (user1@company.com, user2@company.com)
 AND status in (New, Committed) AND updated < -14d
 ORDER BY updated ASC
 
 -- Migration Initiatives (Special Focus)
-project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)
+project = PI AND assignee in (user1@company.com, user2@company.com)
 AND summary ~ "Migration OR \"New Relic\""
 AND status not in (Done, Closed, Completed)
 ```
@@ -96,7 +96,7 @@ AND status not in (Done, Closed, Completed)
    ```
    Trigger: Status changed to "At Risk"  
    Condition: Project = PI AND assignee in UI Foundation team
-   Action: Send email to chris.cantu@procore.com, user2@company.com
+   Action: Send email to user1@company.com, user2@company.com
    ```
 
 ## Option 2: Confluence + Live Jira Integration
@@ -115,21 +115,21 @@ Create a Confluence page template with live Jira data:
 ## Initiative Status Dashboard
 
 ### 🔴 At Risk Initiatives
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee,priority,updated}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee,priority,updated}}
 
 ### 🟡 Attention Needed  
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status in (New, Committed) AND updated < -14d|columns=key,summary,assignee,priority,updated}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status in (New, Committed) AND updated < -14d|columns=key,summary,assignee,priority,updated}}
 
 ### 🟢 On Track
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "In Progress" AND updated > -7d|columns=key,summary,assignee,priority,updated}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "In Progress" AND updated > -7d|columns=key,summary,assignee,priority,updated}}
 
 ## Status Distribution Chart
-{{chart:type=pie|dataSource=jql|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)|groupBy=status}}
+{{chart:type=pie|dataSource=jql|jql=project = PI AND assignee in (user1@company.com, user2@company.com)|groupBy=status}}
 
 ## Strategic Risk Assessment
 
 ### High Priority Stalled
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND priority = Critical AND status != "In Progress"|columns=key,summary,status,updated}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND priority = Critical AND status != "In Progress"|columns=key,summary,status,updated}}
 ```
 
 ### Confluence Automation

@@ -36,7 +36,7 @@ if [[ -n "$JIRA_API_TOKEN" ]]; then
     echo "🔐 Testing Jira API authentication..."
     USER_RESPONSE=$(curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
         -H "Accept: application/json" \
-        "https://procoretech.atlassian.net/rest/api/3/myself" | \
+        "https://company.atlassian.net/rest/api/3/myself" | \
         jq -r '.displayName // "Auth failed"')
     
     if [[ "$USER_RESPONSE" != "Auth failed" ]]; then
@@ -66,7 +66,7 @@ pull_team_epics() {
         # Execute query and save results
         curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
             -H "Accept: application/json" \
-            "https://procoretech.atlassian.net/rest/api/3/search?jql=$(echo "$JIRA_QUERY" | sed 's/ /%20/g')&maxResults=100" | \
+            "https://company.atlassian.net/rest/api/3/search?jql=$(echo "$JIRA_QUERY" | sed 's/ /%20/g')&maxResults=100" | \
             jq -r '.issues[] | "\(.fields.project.key): \(.key) - \(.fields.summary) - \(.fields.assignee.displayName // "Unassigned") - \(.fields.updated[0:10])"' > /tmp/ui_foundation_epics.txt
         
         # Validate all teams have data
@@ -119,7 +119,7 @@ generate_business_value() {
         *"FedRAMP"*|*"Security"*|*"Vulnerability"*)
             echo "Security compliance and risk mitigation enabling government market access and enterprise security standards"
             ;;
-        *"Procore Explore"*|*"GA"*|*"General Availability"*)
+        *"Company Explore"*|*"GA"*|*"General Availability"*)
             echo "Beta program platform ready for General Availability enabling scalable customer engagement and product launches"
             ;;
         *"New Relic"*|*"Migration"*|*"DataBricks"*)
@@ -165,7 +165,7 @@ generate_team_content() {
             
             local business_value=$(generate_business_value "$summary" "$team_name")
             
-            echo "- **[$epic_key](https://procoretech.atlassian.net/browse/$epic_key)**: \"$summary\" ✅"
+            echo "- **[$epic_key](https://company.atlassian.net/browse/$epic_key)**: \"$summary\" ✅"
             echo "  - **Business Value**: $business_value"
             echo "  - **Impact**: Enhanced platform capabilities and improved user experience through $team_name team contributions"
             if [[ "$assignee" != "Unassigned" && -n "$assignee" ]]; then
@@ -194,7 +194,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_epics.txt" ]]; then
     cat >> "$OUTPUT_FILE" << EOF
 **Platform Health**: Strong operational foundation across all teams. **Experience Services** completed critical infrastructure and security initiatives, **Globalizers** advanced international expansion capabilities, **Hubs** enhanced project navigation UX, **Onboarding** improved user experience tools, **UIF Special Projects** modernized platform architecture, **Web Platform** standardized developer tooling, **Web Design Systems** enhanced accessibility and design workflows.
 
-**Key Wins**: **Experience Services** - Procore Explore GA readiness + security compliance. **Globalizers** - Localization service infrastructure + translation automation. **Onboarding** - User experience improvements + system enhancements. **Hubs** - Project navigation + integration features. **UIF Special Projects** - MFE architecture + observability tooling. **Web Platform** - Developer tooling standardization + security governance. **Web Design Systems** - Code Connect automation + accessibility compliance.
+**Key Wins**: **Experience Services** - Company Explore GA readiness + security compliance. **Globalizers** - Localization service infrastructure + translation automation. **Onboarding** - User experience improvements + system enhancements. **Hubs** - Project navigation + integration features. **UIF Special Projects** - MFE architecture + observability tooling. **Web Platform** - Developer tooling standardization + security governance. **Web Design Systems** - Code Connect automation + accessibility compliance.
 
 **Strategic Focus**: **Experience Services** driving platform reliability and compliance, **Globalizers** enabling international market expansion, **Onboarding** optimizing user activation flows, **Hubs** improving cross-tool workflows, **UIF Special Projects** advancing platform modernization, **Web Platform** standardizing development infrastructure, **Web Design Systems** automating design-to-code processes.
 
@@ -530,7 +530,7 @@ EOF
 # Add data source footer with actual epic count
 if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_epics.txt" ]]; then
     epic_count=$(wc -l < /tmp/ui_foundation_epics.txt)
-    echo "*Data sources: Procore Jira API ($epic_count completed epics analyzed across 7 UI Foundation teams)*" >> "$OUTPUT_FILE"
+    echo "*Data sources: Company Jira API ($epic_count completed epics analyzed across 7 UI Foundation teams)*" >> "$OUTPUT_FILE"
 else
     echo "*Data sources: [Data Source Needed] - Configure JIRA_API_TOKEN for live epic analysis*" >> "$OUTPUT_FILE"
 fi

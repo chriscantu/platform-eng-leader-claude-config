@@ -24,7 +24,7 @@ if [[ -n "$JIRA_API_TOKEN" ]]; then
     echo "🔐 Testing Jira API authentication..."
     USER_RESPONSE=$(curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
         -H "Accept: application/json" \
-        "https://procoretech.atlassian.net/rest/api/3/myself" | \
+        "https://company.atlassian.net/rest/api/3/myself" | \
         jq -r '.displayName // "Auth failed"')
     
     if [[ "$USER_RESPONSE" != "Auth failed" ]]; then
@@ -162,14 +162,14 @@ pull_ui_foundation_initiatives() {
         echo "📊 Pulling UI Foundation initiatives from PI project..."
         
         # Query for UI Foundation related L1 initiatives assigned to UI Foundation leadership
-        INITIATIVE_QUERY="project = PI AND assignee in (\"user1@company.com\",\"alvaro.soto@procore.com\") AND status not in (Done,Closed,Completed) ORDER BY priority DESC, updated DESC"
+        INITIATIVE_QUERY="project = PI AND assignee in (\"user1@company.com\",\"user2@company.com\") AND status not in (Done,Closed,Completed) ORDER BY priority DESC, updated DESC"
         
         echo "🔍 Jira Query: $INITIATIVE_QUERY"
         
         # Execute query and process results  
         curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
             -H "Accept: application/json" \
-            -G "https://procoretech.atlassian.net/rest/api/3/search" \
+            -G "https://company.atlassian.net/rest/api/3/search" \
             --data-urlencode "jql=$INITIATIVE_QUERY" \
             --data-urlencode "fields=key,summary,status,progress,aggregateprogress,assignee,updated,priority,duedate,created,parent,issuelinks" \
             --data-urlencode "maxResults=50" > /tmp/ui_foundation_initiatives.json
@@ -282,7 +282,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
         # Generate content
         cat >> "$OUTPUT_FILE" << EOF
 
-### $status_indicator [$key](https://procoretech.atlassian.net/browse/$key)
+### $status_indicator [$key](https://company.atlassian.net/browse/$key)
 **Initiative**: $summary  
 **Parent Initiative**: $parent_summary  
 **Assignee**: $assignee  
@@ -302,7 +302,7 @@ EOF
 else
     cat >> "$OUTPUT_FILE" << EOF
 
-### 🟢 [PI-XXXXX](https://procoretech.atlassian.net/browse/PI-XXXXX)
+### 🟢 [PI-XXXXX](https://company.atlassian.net/browse/PI-XXXXX)
 **Initiative**: [Data Source Needed] - Initiative summary  
 **Parent Initiative**: [Data Source Needed] - Parent initiative context  
 **Assignee**: [Data Source Needed]  
@@ -378,7 +378,7 @@ EOF
 # Generate resource analysis
 if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; then
     CHRIS_INITIATIVES=$(jq -r '.issues[] | select(.fields.assignee.emailAddress == "user1@company.com") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
-    ALVARO_INITIATIVES=$(jq -r '.issues[] | select(.fields.assignee.emailAddress == "alvaro.soto@procore.com") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
+    ALVARO_INITIATIVES=$(jq -r '.issues[] | select(.fields.assignee.emailAddress == "user2@company.com") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
     
     cat >> "$OUTPUT_FILE" << EOF
 **Current Resource Allocation**:
@@ -446,7 +446,7 @@ cat >> "$OUTPUT_FILE" << EOF
 
 ---
 
-*📊 **Data Integrity**: All metrics sourced from Procore Jira PI project. No invented numbers or estimates.*
+*📊 **Data Integrity**: All metrics sourced from Company Jira PI project. No invented numbers or estimates.*
 
 *🤖 Generated with [Claude Code](https://claude.ai/code) SuperClaude Platform Leadership Framework*
 

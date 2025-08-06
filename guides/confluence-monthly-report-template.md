@@ -22,15 +22,15 @@
 
 ## Executive Summary
 
-**Initiative Portfolio Health**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)}} active initiatives tracked across UI Foundation platform capabilities.
+**Initiative Portfolio Health**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)}} active initiatives tracked across UI Foundation platform capabilities.
 
 **Status Distribution**:
 
-{{chart:type=pie|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)|groupBy=status|title=Initiative Status Distribution}}
+{{chart:type=pie|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)|groupBy=status|title=Initiative Status Distribution}}
 
-- 🟢 **Green**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "In Progress" AND updated > -7d}} initiatives (On Track)
-- 🟡 **Yellow**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status in (New, Committed) AND updated < -14d}} initiatives (Attention Needed)
-- 🔴 **Red**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "At Risk"}} initiatives (At Risk)
+- 🟢 **Green**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "In Progress" AND updated > -7d}} initiatives (On Track)
+- 🟡 **Yellow**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status in (New, Committed) AND updated < -14d}} initiatives (Attention Needed)
+- 🔴 **Red**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "At Risk"}} initiatives (At Risk)
 
 **Key Focus Areas**: Observability cost optimization, New Relic migration execution, security posture improvements, platform performance enhancements, and deployment reliability initiatives.
 
@@ -42,7 +42,7 @@
 
 ### 🔴 At Risk Initiatives
 
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee,priority,updated|title=false}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee,priority,updated|title=false}}
 
 **Immediate Actions Required**:
 - Daily standups for blocked initiatives
@@ -51,7 +51,7 @@
 
 ### 🟡 Attention Needed (Stale >14 Days)
 
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status in (New, Committed) AND updated < -14d ORDER BY updated ASC|columns=key,summary,assignee,priority,updated|title=false}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status in (New, Committed) AND updated < -14d ORDER BY updated ASC|columns=key,summary,assignee,priority,updated|title=false}}
 
 **Recommended Actions**:
 - Status review and planning sessions
@@ -60,11 +60,11 @@
 
 ### 🟢 On Track Initiatives
 
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "In Progress" AND updated > -7d ORDER BY priority DESC|columns=key,summary,assignee,priority,updated|title=false}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "In Progress" AND updated > -7d ORDER BY priority DESC|columns=key,summary,assignee,priority,updated|title=false}}
 
 ### 🚀 Priority Focus: Migration Initiatives
 
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Migration OR \"New Relic\"" AND status not in (Done, Closed, Completed)|columns=key,summary,status,assignee,updated|title=false}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Migration OR \"New Relic\"" AND status not in (Done, Closed, Completed)|columns=key,summary,status,assignee,updated|title=false}}
 
 ---
 
@@ -72,12 +72,12 @@
 
 ### High-Risk Patterns
 
-{{chart:type=bar|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND priority = Critical|groupBy=status|title=Critical Priority Initiative Status}}
+{{chart:type=bar|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND priority = Critical|groupBy=status|title=Critical Priority Initiative Status}}
 
 **Risk Indicators**:
-- **Critical Stalled**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND priority = Critical AND status != "In Progress"}} critical initiatives not in active progress
-- **Long Stale**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND updated < -21d}} initiatives inactive >3 weeks
-- **Migration Dependencies**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Migration"}} migration initiatives requiring coordination
+- **Critical Stalled**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND priority = Critical AND status != "In Progress"}} critical initiatives not in active progress
+- **Long Stale**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND updated < -21d}} initiatives inactive >3 weeks
+- **Migration Dependencies**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Migration"}} migration initiatives requiring coordination
 
 ### Mitigation Strategies
 
@@ -102,10 +102,10 @@
 
 ### Current Allocation
 
-{{chart:type=pie|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)|groupBy=assignee|title=Initiative Distribution by Assignee}}
+{{chart:type=pie|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status not in (Done, Closed, Completed, Canceled)|groupBy=assignee|title=Initiative Distribution by Assignee}}
 
 **Chris Cantu Focus Areas**:
-{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee = chris.cantu@procore.com AND status not in (Done, Closed, Completed, Canceled)|columns=key,summary,status,priority|title=false}}
+{{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee = user1@company.com AND status not in (Done, Closed, Completed, Canceled)|columns=key,summary,status,priority|title=false}}
 
 **Alvaro Soto Focus Areas**:  
 {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee = user2@company.com AND status not in (Done, Closed, Completed, Canceled)|columns=key,summary,status,priority|title=false}}
@@ -122,10 +122,10 @@
 ## Competitive Intelligence & Market Position
 
 **Platform Leadership Indicators**:
-- **Observability Excellence**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Observability OR Cost"}} cost optimization initiatives
-- **Security Leadership**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Security OR Cloudflare"}} security enhancement initiatives  
-- **Migration Expertise**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Migration"}} complex migration initiatives
-- **Performance Focus**: {{jira-issue-count:jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Performance"}} performance optimization initiatives
+- **Observability Excellence**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Observability OR Cost"}} cost optimization initiatives
+- **Security Leadership**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Security OR Cloudflare"}} security enhancement initiatives  
+- **Migration Expertise**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Migration"}} complex migration initiatives
+- **Performance Focus**: {{jira-issue-count:jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Performance"}} performance optimization initiatives
 
 ---
 
@@ -133,11 +133,11 @@
 
 ### Initiative Completion Velocity
 
-{{chart:type=line|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)|timePeriod=createdVsResolved|groupBy=month|title=Initiative Creation vs Resolution Trend}}
+{{chart:type=line|jql=project = PI AND assignee in (user1@company.com, user2@company.com)|timePeriod=createdVsResolved|groupBy=month|title=Initiative Creation vs Resolution Trend}}
 
 ### Status Evolution
 
-{{chart:type=area|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com)|timePeriod=statusChanges|groupBy=week|title=Initiative Status Changes Over Time}}
+{{chart:type=area|jql=project = PI AND assignee in (user1@company.com, user2@company.com)|timePeriod=statusChanges|groupBy=week|title=Initiative Status Changes Over Time}}
 
 ---
 
@@ -146,13 +146,13 @@
 ### Immediate Priorities (Next 30 Days)
 
 1. **Complete Migration Initiatives**: 
-   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND summary ~ "Migration" AND status = "In Progress"|columns=key,summary,updated|title=false}}
+   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND summary ~ "Migration" AND status = "In Progress"|columns=key,summary,updated|title=false}}
 
 2. **Resolve At-Risk Items**:
-   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee|title=false}}
+   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee|title=false}}
 
 3. **Advance Stale Initiatives**:
-   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (chris.cantu@procore.com, user2@company.com) AND status in (New, Committed) AND updated < -14d ORDER BY priority DESC|columns=key,summary,priority|maxCount=5|title=false}}
+   {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status in (New, Committed) AND updated < -14d ORDER BY priority DESC|columns=key,summary,priority|maxCount=5|title=false}}
 
 ### Strategic Initiatives (60-90 Days)
 
