@@ -31,3 +31,5 @@ jira-epics-*.json
 
 # SuperClaude metadata
 .superclaude-metadata.json
+
+.DS_Store
