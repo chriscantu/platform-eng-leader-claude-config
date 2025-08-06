@@ -331,7 +331,9 @@ This enhanced SuperClaude system delivers:
 
 ### Cursor IDE Integration
 
-This framework includes Cursor IDE integration files for seamless strategic context:
+This framework includes Cursor IDE integration files for seamless strategic context.
+
+**🚀 Quick Start**: See [`CURSOR_SETUP.md`](CURSOR_SETUP.md) for a 5-minute setup guide.
 
 #### Automatic Integration
 - **`.cursorrules`**: Cursor automatically loads SuperClaude personas and strategic context
@@ -361,6 +363,139 @@ This framework includes Cursor IDE integration files for seamless strategic cont
 - Executive communication protocols
 
 **Benefits**: Get strategic platform leadership guidance directly in your IDE while coding, with full SuperClaude context automatically applied.
+
+## Workspace Organization
+
+### Directory Structure for Your Projects
+
+When using this SuperClaude framework, organize your workspace to maximize efficiency:
+
+#### Recommended Project Structure
+
+```
+your-main-project/                  # Your actual work project
+├── src/                           # Your project source code
+├── docs/                          # Project documentation
+├── package.json                   # Project dependencies
+└── ...                           # Other project files
+
+platform-eng-leader-claude-config/ # SuperClaude framework (this repo)
+├── framework/                     # Core framework files
+├── workspace/                     # Your working files go here
+│   ├── current-initiatives/       # Active platform initiatives
+│   ├── meeting-prep/              # Meeting preparation materials
+│   ├── strategic-docs/            # Strategic planning documents
+│   ├── vendor-evaluations/        # Vendor assessment files
+│   └── budget-planning/           # Budget and resource planning
+├── local/                         # Local scratch files (gitignored)
+├── memory/                        # Strategic memory system
+└── tools/                         # Automation scripts
+```
+
+#### Using the `workspace/` Directory
+
+The `workspace/` directory is designed for your day-to-day strategic work:
+
+**Current Initiatives** (`workspace/current-initiatives/`)
+```
+workspace/current-initiatives/
+├── design-system-v3/
+│   ├── roadmap.md
+│   ├── stakeholder-analysis.md
+│   └── roi-analysis.md
+├── platform-modernization/
+│   ├── technical-plan.md
+│   ├── migration-strategy.md
+│   └── risk-assessment.md
+└── international-expansion/
+    ├── compliance-requirements.md
+    ├── localization-strategy.md
+    └── vendor-evaluations.md
+```
+
+**Meeting Preparation** (`workspace/meeting-prep/`)
+```
+workspace/meeting-prep/
+├── vp-1on1s/
+│   ├── 2024-q1-preparation.md
+│   ├── talking-points.md
+│   └── follow-up-actions.md
+├── slt-reviews/
+│   ├── quarterly-review-prep.md
+│   ├── platform-metrics.md
+│   └── executive-summary.md
+└── stakeholder-meetings/
+    ├── cross-team-coordination.md
+    ├── vendor-negotiations.md
+    └── design-leadership-sync.md
+```
+
+**Strategic Documents** (`workspace/strategic-docs/`)
+```
+workspace/strategic-docs/
+├── platform-strategy-2024.md
+├── team-capability-matrix.md
+├── technology-radar.md
+├── competitive-analysis.md
+└── org-health-assessment.md
+```
+
+#### Using the `local/` Directory
+
+The `local/` directory is gitignored and perfect for:
+- Temporary analysis files
+- Sensitive information (that you'll process and sanitize)
+- Scratch notes and experimental documents
+- Personal reminders and TODO lists
+
+#### Cursor IDE Setup for This Structure
+
+1. **Open the SuperClaude directory in Cursor**
+   ```bash
+   cd platform-eng-leader-claude-config
+   cursor .
+   ```
+
+2. **The framework will automatically activate** with all personas and strategic context
+
+3. **Work on your strategic documents** in the `workspace/` directory:
+   - Strategic planning documents
+   - Meeting preparation materials  
+   - Initiative tracking and analysis
+   - Vendor evaluations and comparisons
+
+4. **Use Cursor's AI features** with full SuperClaude context:
+   ```
+   "Help me prepare for my VP 1-on-1 using diego persona"
+   "Review this vendor evaluation with sofia's expertise"
+   "Create a budget justification using david and alvaro perspectives"
+   ```
+
+#### Multi-Project Workflow
+
+If you work on multiple projects:
+
+```
+~/work/
+├── project-alpha/                 # Your main development project
+├── project-beta/                  # Another development project  
+├── platform-eng-leader-claude-config/  # SuperClaude framework
+└── strategic-planning/            # Optional: additional strategic workspace
+```
+
+**Workflow**:
+1. **Development work**: Use your project directories with regular Cursor/IDE setup
+2. **Strategic work**: Switch to the SuperClaude directory for strategic planning, meeting prep, etc.
+3. **Strategic context**: All SuperClaude personas and memory system available when you need them
+
+#### Benefits of This Organization
+
+✅ **Clear separation** between strategic work and development work  
+✅ **Version control** for your strategic planning and analysis  
+✅ **Automatic Cursor integration** when working on strategic tasks  
+✅ **Memory system persistence** across strategic sessions  
+✅ **Framework updates** via simple `git pull`  
+✅ **Team collaboration** on strategic initiatives via shared repository
 
 ---
 
