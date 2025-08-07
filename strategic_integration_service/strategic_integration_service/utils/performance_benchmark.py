@@ -195,7 +195,6 @@ class ExtractionBenchmark(PerformanceBenchmark):
             method=extraction_method,
             **method_kwargs,
         ) as result:
-
             extraction_result = method(**method_kwargs)
 
             # Add extraction-specific metadata
@@ -318,7 +317,6 @@ def benchmark_jira_queries(
                 with benchmark.measure(
                     f"{query_name}_run_{i + 1}", query=query_name, jql=jql, max_results=max_results
                 ) as result:
-
                     search_result = jira_client.search_issues(
                         jql, fields=fields, max_results=max_results
                     )

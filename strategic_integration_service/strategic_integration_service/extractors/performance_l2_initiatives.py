@@ -182,13 +182,17 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
         cache_efficiency = (
             "Excellent"
             if metrics.get("cache_hit_rate", 0) > 0.8
-            else "Good" if metrics.get("cache_hit_rate", 0) > 0.5 else "Needs Improvement"
+            else "Good"
+            if metrics.get("cache_hit_rate", 0) > 0.5
+            else "Needs Improvement"
         )
 
         api_efficiency = (
             "Excellent"
             if metrics.get("average_api_time", 1) < 0.5
-            else "Good" if metrics.get("average_api_time", 1) < 1.0 else "Needs Improvement"
+            else "Good"
+            if metrics.get("average_api_time", 1) < 1.0
+            else "Needs Improvement"
         )
 
         return {

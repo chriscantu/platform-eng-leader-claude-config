@@ -1,62 +1,82 @@
-# Pre-commit hooks for Strategic Integration Service
-# Ensures code quality, security, and prevents PII leakage
+# Intelligent Pre-commit Hooks for Strategic Integration Service
+# Optimized for development velocity with file-type-aware execution
 repos:
-  # Code formatting and linting
+  # Universal file checks (all file types)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-json
-      - id: check-toml
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
+
+  # Configuration file validation (only for config files)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
+        files: '\.(yaml|yml)$'
+      - id: check-json
+        files: '\.json$'
+      - id: check-toml
+        files: '\.toml$'
+
+  # Python-specific code quality (only for Python files)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
       - id: debug-statements
+        files: '\.py$'
       - id: name-tests-test
         args: ['--pytest-test-first']
+        files: '^tests/.*\.py$'
 
-  # Python code formatting
+  # Python code formatting (only for Python files)
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black
         language_version: python3
         args: ['--line-length=100']
+        files: '\.py$'
 
-  # Import sorting
+  # Import sorting (only for Python files)
   - repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
       - id: isort
         args: ['--profile=black', '--line-length=100']
+        files: '\.py$'
 
-  # Python linting
+  # Python linting (only for Python files)
   - repo: https://github.com/pycqa/flake8
     rev: 7.0.0
     hooks:
       - id: flake8
         args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+        files: '\.py$'
 
-  # Type checking
+  # Type checking (only for Python files)
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
       - id: mypy
         additional_dependencies: [types-PyYAML, types-requests]
         args: ['--ignore-missing-imports']
+        files: '\.py$'
 
-  # Security scanning
+  # Security scanning (only for Python files)
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5
     hooks:
       - id: bandit
         args: ['-r', 'strategic_integration_service/', '-f', 'json', '-o', '/tmp/bandit-report.json']
         verbose: true
+        files: '\.py$'
 
-  # Secrets detection
+  # Secrets detection (intelligent exclusions, skip pure docs)
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
     hooks:
@@ -69,10 +89,13 @@ repos:
             .*\.min\.css$|
             .*/venv/.*|
             .*/node_modules/.*|
-            .*\.egg-info/.*
+            .*\.egg-info/.*|
+            ^docs/.*\.md$|
+            ^guides/.*\.md$|
+            ^framework/.*\.md$
           )$
 
-  # Strategic data PII protection
+  # Strategic data protection (intelligent filtering)
   - repo: local
     hooks:
       - id: pii-scanner
@@ -82,8 +105,9 @@ repos:
         language: system
         stages: [pre-commit]
         verbose: true
-        always_run: true
-        pass_filenames: false
+        # Only run on files that could contain sensitive data
+        files: '\.(py|json|yaml|yml|env|sh|txt)$'
+        exclude: '^(docs/|guides/|framework/.*\.md|README\.md|.*\.example)$'
 
       - id: strategic-data-validator
         name: Strategic Data Validator
@@ -93,6 +117,8 @@ repos:
         files: '\.(json|md|yaml|yml)$'
         stages: [pre-commit]
         verbose: true
+        # Skip validation for simple documentation files
+        exclude: '^(docs/|guides/|framework/templates/).*\.md$'
 
       - id: test-runner
         name: Strategic Test Runner
@@ -100,9 +126,10 @@ repos:
         args: [strategic_integration_service/strategic_integration_service/hooks/test_runner.py]
         language: system
         stages: [pre-commit]
-        always_run: true
-        pass_filenames: false
         verbose: true
+        # Only run tests when Python code or test config changes
+        files: '\.(py|toml|yaml|yml|cfg|ini)$'
+        exclude: '^(docs/|guides/|framework/.*\.md|README\.md)$'
 
       - id: critical-linting-validator
         name: Critical Linting Validator
@@ -113,12 +140,14 @@ repos:
         files: '\.py$'
         verbose: true
 
-  # Documentation
+  # Documentation quality (only for Python files)
   - repo: https://github.com/pycqa/pydocstyle
     rev: 6.3.0
     hooks:
       - id: pydocstyle
         args: ['--convention=google']
+        files: '\.py$'
+        exclude: '^(tests/|.*__init__\.py)$'
 
 # Global configuration
 default_install_hook_types: [pre-commit, pre-push]

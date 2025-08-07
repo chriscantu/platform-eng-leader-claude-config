@@ -352,9 +352,7 @@ def main() -> int:
 
     # Determine exit code
     _ = [name for name, (success, _) in results.items() if not success]
-    _ = [
-        name for name in failed_tests if name in ["Git Status", "Unit Tests", "Code Quality"]
-    ]
+    _ = [name for name in failed_tests if name in ["Git Status", "Unit Tests", "Code Quality"]]
 
     if critical_failures:
         print(f"\n❌ COMMIT BLOCKED: Critical failures in {critical_failures}")

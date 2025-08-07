@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""
+Intelligent Git Commit Wrapper for Strategic Integration Service
+
+Analyzes staged files and optimizes pre-commit hook execution for maximum
+development velocity while maintaining code quality and security.
+
+Usage:
+    git-commit-smart -m "Your commit message"
+    git-commit-smart --analyze-only  # See what optimizations would be applied
+    git-commit-smart --force-full    # Run all hooks regardless of file types
+"""
+
+import sys
+import os
+import subprocess
+import argparse
+from pathlib import Path
+
+# Add the strategic integration service to Python path
+SCRIPT_DIR = Path(__file__).parent.absolute()
+SIS_PATH = SCRIPT_DIR / "strategic_integration_service" / "strategic_integration_service"
+sys.path.insert(0, str(SIS_PATH))
+
+try:
+    from hooks.intelligent_hook_filter import IntelligentHookFilter
+except ImportError:
+    print("⚠️  Warning: Could not import intelligent hook filter. Using standard git commit.")
+    IntelligentHookFilter = None
+
+
+def run_git_commit_with_optimization(commit_args: list, optimization_strategy: dict) -> int:
+    """Run git commit with intelligent hook optimization."""
+    env = os.environ.copy()
+
+    # Apply hook optimizations
+    if optimization_strategy.get('skip_hooks'):
+        skip_hooks = ','.join(optimization_strategy['skip_hooks'])
+        env['SKIP'] = skip_hooks
+        print(f"🚀 Optimizing commit: skipping {len(optimization_strategy['skip_hooks'])} hooks")
+
+    # Build git commit command
+    git_cmd = ['git', 'commit'] + commit_args
+
+    try:
+        result = subprocess.run(git_cmd, env=env)
+        return result.returncode
+    except KeyboardInterrupt:
+        print("\n⚠️  Commit interrupted by user")
+        return 1
+    except Exception as e:
+        print(f"❌ Error running git commit: {e}")
+        return 1
+
+
+def main():
+    """Main entry point for intelligent git commit."""
+    parser = argparse.ArgumentParser(
+        description='Intelligent git commit with optimized pre-commit hooks',
+        add_help=False  # We'll handle help ourselves to pass through to git
+    )
+    parser.add_argument('--analyze-only', action='store_true',
+                       help='Analyze optimization strategy without committing')
+    parser.add_argument('--force-full', action='store_true',
+                       help='Run all hooks regardless of file types')
+    parser.add_argument('--smart-help', action='store_true',
+                       help='Show smart commit help')
+
+    # Parse known args, pass the rest to git commit
+    known_args, git_args = parser.parse_known_args()
+
+    if known_args.smart_help:
+        parser.print_help()
+        print("\nAll other arguments are passed directly to 'git commit'")
+        print("Examples:")
+        print("  git-commit-smart -m 'Update documentation'")
+        print("  git-commit-smart --analyze-only")
+        print("  git-commit-smart --force-full -m 'Critical security fix'")
+        return 0
+
+    # Check if we can use intelligent filtering
+    if not IntelligentHookFilter:
+        print("⚠️  Intelligent filtering unavailable - using standard git commit")
+        result = subprocess.run(['git', 'commit'] + git_args)
+        return result.returncode
+
+    # Analyze staged files for optimization
+    filter_tool = IntelligentHookFilter()
+    staged_files = filter_tool.get_staged_files()
+
+    if not staged_files:
+        print("ℹ️  No staged files found")
+        if not known_args.analyze_only:
+            result = subprocess.run(['git', 'commit'] + git_args)
+            return result.returncode
+        return 0
+
+    # Determine optimization strategy
+    file_classification = filter_tool.classify_files(staged_files)
+    strategy = filter_tool.determine_hook_strategy(file_classification)
+
+    # Generate and display analysis
+    report = filter_tool.generate_hook_report(strategy, file_classification)
+    print(report)
+
+    # Handle analyze-only mode
+    if known_args.analyze_only:
+        print("\n📊 Analysis complete - no commit performed")
+        if strategy['estimated_time_saved'] > 0:
+            print(f"💡 Tip: This commit would save ~{strategy['estimated_time_saved']} seconds")
+        return 0
+
+    # Handle force-full mode
+    if known_args.force_full:
+        print("\n🔧 Force-full mode: running all hooks")
+        strategy = {'skip_hooks': [], 'run_hooks': []}
+
+    # Execute optimized commit
+    print(f"\n🚀 Executing optimized commit...")
+    return run_git_commit_with_optimization(git_args, strategy)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
