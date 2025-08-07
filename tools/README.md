@@ -76,8 +76,8 @@ python -c "import keyring; keyring.set_password('jira-api', 'token', 'your-token
 
 For questions or issues:
 1. Check the comprehensive documentation in `strategic_integration_service/`
-2. Review the migration plan in `BASH_TO_PYTHON_MIGRATION_PLAN.md`
-3. Contact the UI Foundation Platform Engineering team
+2. Review the main project README.md for architecture overview
+3. Contact the Platform Engineering team
 
 ## Legacy Scripts
 
