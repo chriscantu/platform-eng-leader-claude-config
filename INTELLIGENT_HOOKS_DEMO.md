@@ -12,8 +12,8 @@
 
 ### **1. Setup (One-time)**
 ```bash
-# Run the setup script to create git aliases
-./setup-smart-git.sh
+# Run the Python setup script to create git aliases
+python setup_smart_git.py
 
 # Or manually create alias
 git config --global alias.sc '!'"$PWD/git-commit-smart"
