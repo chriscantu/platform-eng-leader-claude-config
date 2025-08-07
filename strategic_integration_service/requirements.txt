@@ -8,6 +8,7 @@ pydantic-settings>=2.1.0  # Configuration management
 pyyaml>=6.0.1            # YAML configuration files
 click>=8.1.0             # CLI framework
 structlog>=23.2.0        # Structured logging
+jinja2>=3.1.0            # Template engine for report generation
 
 # Development and testing
 pytest>=7.4.0           # Testing framework
