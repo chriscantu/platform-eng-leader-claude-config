@@ -11,9 +11,10 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from meeting_intelligence import MeetingIntelligenceManager
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
+
+from memory.meeting_intelligence import MeetingIntelligenceManager
 
 
 class StrategicWorkspaceHandler(FileSystemEventHandler):
