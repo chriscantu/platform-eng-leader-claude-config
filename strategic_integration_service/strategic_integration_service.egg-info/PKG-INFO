@@ -90,7 +90,7 @@ sis-extract-l2 --validate-only
 
 ```
 strategic_integration_service/
-├── src/strategic_integration_service/
+├── strategic_integration_service/  # Main package
 │   ├── core/                 # Core infrastructure
 │   │   ├── config.py        # Configuration management
 │   │   ├── authentication.py # Secure credential handling
@@ -108,6 +108,7 @@ strategic_integration_service/
 │       └── extract_l2_initiatives.py
 ├── tests/                   # Comprehensive test suite
 ├── config/                  # Configuration files
+├── pyproject.toml          # Modern Python packaging
 └── requirements.txt
 ```
 

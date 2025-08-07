@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     jira_timeout: int = Field(default=30, description="Jira API timeout in seconds")
     jira_max_retries: int = Field(default=3, description="Maximum number of API retries")
     jira_retry_backoff: float = Field(default=1.0, description="Retry backoff factor")
+    jira_max_results: int = Field(default=200, description="Maximum results per Jira query")
 
     # UI Foundation team configuration
     ui_foundation_projects: Set[str] = Field(

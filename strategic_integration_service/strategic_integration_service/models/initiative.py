@@ -2,9 +2,9 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class InitiativeStatus(str, Enum):
@@ -30,6 +30,44 @@ class InitiativePriority(str, Enum):
     HIGH = "High"
     HIGHEST = "Highest"
     CRITICAL = "Critical"
+
+
+class UIFoundationTeam(str, Enum):
+    """UI Foundation team project mappings."""
+
+    EXPERIENCE_SERVICES = "WES"
+    GLOBALIZERS = "GLB"
+    HUBS = "HUBS"
+    ONBOARDING = "FSGD"
+    UIF_SPECIAL_PROJECTS = "UISP"
+    WEB_PLATFORM = "UIS"
+    WEB_DESIGN_SYSTEMS = "UXI"
+    PLATFORM_INITIATIVES = "PI"
+
+    @property
+    def team_name(self) -> str:
+        """Get human-readable team name."""
+        team_names = {
+            "WES": "Experience Services",
+            "GLB": "Globalizers",
+            "HUBS": "Hubs",
+            "FSGD": "Onboarding",
+            "UISP": "UIF Special Projects",
+            "UIS": "Web Platform",
+            "UXI": "Web Design Systems",
+            "PI": "Platform Initiatives",
+        }
+        return team_names.get(self.value, "Unknown Team")
+
+
+class StrategicLabel(str, Enum):
+    """Strategic initiative labels for filtering."""
+
+    PLATFORM_FOUNDATION = "platform-foundation"
+    DESIGN_SYSTEM = "design-system"
+    QUALITY_MONITORING = "quality-monitoring"
+    MFE_MIGRATION = "mfe-migration"
+    BASELINE_STANDARDS = "baseline-standards"
 
 
 class JiraUser(BaseModel):
@@ -341,4 +379,164 @@ class L2Initiative(Initiative):
             self.initiative_type
             and self.initiative_type.upper() == "L2"
             and self.division == "UI Foundations"
+        )
+
+
+class CurrentInitiative(Initiative):
+    """Current initiative model for active work tracking."""
+
+    issue_type: Optional[str] = Field(None, description="Jira issue type")
+    epic_link: Optional[str] = Field(None, description="Epic link if this is a story")
+    components: List[str] = Field(default_factory=list, description="Project components")
+    fix_versions: List[str] = Field(default_factory=list, description="Fix versions")
+    time_estimate: Optional[int] = Field(None, description="Time estimate in seconds")
+    time_original_estimate: Optional[int] = Field(None, description="Original time estimate")
+    resolution_date: Optional[datetime] = Field(None, description="Resolution date if completed")
+
+    @classmethod
+    def from_jira_issue(cls, jira_data: Dict[str, Any]) -> "CurrentInitiative":
+        """Create CurrentInitiative from Jira API response."""
+        # Start with base initiative
+        base_initiative = super().from_jira_issue(jira_data)
+        fields = jira_data.get("fields", {})
+
+        # Extract additional fields specific to current initiatives
+        issue_type = None
+        if "issuetype" in fields and fields["issuetype"]:
+            issue_type = fields["issuetype"].get("name")
+
+        epic_link = fields.get("customfield_10014")  # Epic Link field
+
+        # Extract components
+        components = []
+        if "components" in fields and fields["components"]:
+            components = [comp.get("name", "") for comp in fields["components"]]
+
+        # Extract fix versions
+        fix_versions = []
+        if "fixVersions" in fields and fields["fixVersions"]:
+            fix_versions = [version.get("name", "") for version in fields["fixVersions"]]
+
+        # Extract time estimates
+        time_estimate = fields.get("timeestimate")
+        time_original_estimate = fields.get("timeoriginalestimate")
+
+        # Extract resolution date
+        resolution_date = None
+        if "resolutiondate" in fields and fields["resolutiondate"]:
+            try:
+                resolution_date = datetime.fromisoformat(
+                    fields["resolutiondate"].replace("Z", "+00:00")
+                )
+            except (ValueError, AttributeError):
+                pass
+
+        return cls(
+            **base_initiative.model_dump(exclude={"raw_data"}),
+            issue_type=issue_type,
+            epic_link=epic_link,
+            components=components,
+            fix_versions=fix_versions,
+            time_estimate=time_estimate,
+            time_original_estimate=time_original_estimate,
+            resolution_date=resolution_date,
+            raw_data=jira_data,
+        )
+
+    @property
+    def ui_foundation_team(self) -> Optional[UIFoundationTeam]:
+        """Get UI Foundation team if this initiative belongs to one."""
+        if self.project:
+            try:
+                return UIFoundationTeam(self.project.key)
+            except ValueError:
+                return None
+        return None
+
+    @property
+    def team_name(self) -> str:
+        """Get human-readable team name."""
+        team = self.ui_foundation_team
+        return (
+            team.team_name
+            if team
+            else f"External ({self.project.key if self.project else 'Unknown'})"
+        )
+
+    def has_strategic_labels(self) -> bool:
+        """Check if initiative has strategic labels."""
+        if not self.labels:
+            return False
+        strategic_label_values = [label.value for label in StrategicLabel]
+        return any(label in strategic_label_values for label in self.labels)
+
+    def is_high_priority(self) -> bool:
+        """Check if initiative is high or highest priority."""
+        return self.priority in [InitiativePriority.HIGH, InitiativePriority.HIGHEST]
+
+    def is_at_risk(self) -> bool:
+        """Check if initiative appears to be at risk or blocked."""
+        if not self.status:
+            return False
+        status_lower = self.status.lower()
+        return any(keyword in status_lower for keyword in ["blocked", "risk", "impediment"])
+
+    def is_recently_completed(self, days: int = 30) -> bool:
+        """Check if initiative was completed recently."""
+        if not self.resolution_date:
+            return False
+        now = datetime.now(self.resolution_date.tzinfo)
+        days_ago = (now - self.resolution_date).days
+        return days_ago <= days
+
+
+class StrategicEpic(CurrentInitiative):
+    """Strategic epic model for high-level platform initiatives."""
+
+    epic_name: Optional[str] = Field(None, description="Epic name")
+    epic_status: Optional[str] = Field(None, description="Epic status")
+    epic_progress: Optional[float] = Field(None, description="Epic completion progress (0-1)")
+
+    @classmethod
+    def from_jira_issue(cls, jira_data: Dict[str, Any]) -> "StrategicEpic":
+        """Create StrategicEpic from Jira API response."""
+        # Start with current initiative
+        base_initiative = super().from_jira_issue(jira_data)
+        fields = jira_data.get("fields", {})
+
+        # Extract epic-specific fields
+        epic_name = fields.get("customfield_10011")  # Epic Name field
+        epic_status = (
+            fields.get("customfield_10010", {}).get("value")
+            if fields.get("customfield_10010")
+            else None
+        )
+
+        # Epic progress calculation (would need additional API call in practice)
+        epic_progress = None
+
+        return cls(
+            **base_initiative.model_dump(exclude={"raw_data"}),
+            epic_name=epic_name,
+            epic_status=epic_status,
+            epic_progress=epic_progress,
+            raw_data=jira_data,
+        )
+
+    def is_platform_related(self) -> bool:
+        """Check if epic is platform/foundation related."""
+        if not self.labels:
+            return False
+        platform_keywords = ["platform", "foundation", "architecture", "mfe", "design-system"]
+        return any(
+            any(keyword in label.lower() for keyword in platform_keywords) for label in self.labels
+        )
+
+    def is_quality_related(self) -> bool:
+        """Check if epic is quality/monitoring related."""
+        if not self.labels:
+            return False
+        quality_keywords = ["quality", "monitoring", "slo", "observability"]
+        return any(
+            any(keyword in label.lower() for keyword in quality_keywords) for label in self.labels
         )
