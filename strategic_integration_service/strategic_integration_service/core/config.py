@@ -70,6 +70,15 @@ class Settings(BaseSettings):
     enable_caching: bool = Field(default=True, description="Enable response caching")
     cache_ttl_seconds: int = Field(default=300, description="Cache TTL in seconds")
     parallel_requests: int = Field(default=5, description="Maximum parallel API requests")
+    batch_size: int = Field(default=100, description="Batch size for paginated requests")
+    enable_memory_cache: bool = Field(default=True, description="Enable in-memory caching")
+    enable_file_cache: bool = Field(default=True, description="Enable file-based caching")
+    enable_redis_cache: bool = Field(default=False, description="Enable Redis caching")
+    redis_host: str = Field(default="localhost", description="Redis host")
+    redis_port: int = Field(default=6379, description="Redis port")
+    redis_db: int = Field(default=0, description="Redis database number")
+    redis_password: Optional[str] = Field(default=None, description="Redis password")
+    performance_monitoring: bool = Field(default=True, description="Enable performance metrics collection")
 
     @field_validator("jira_base_url")
     @classmethod

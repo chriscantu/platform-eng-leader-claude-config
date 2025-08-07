@@ -30,6 +30,11 @@ detect-secrets>=1.5.0   # Secret detection
 # Optional: Enhanced JSON processing
 orjson>=3.9.0           # Fast JSON serialization (optional but recommended)
 
+# Performance optimization (optional)
+redis>=4.5.0             # Redis cache backend (optional)
+hiredis>=2.2.0           # Fast Redis protocol parser (optional)
+psutil>=5.9.0            # System and process monitoring (optional)
+
 # Documentation
 sphinx>=7.2.0           # Documentation generation
 sphinx-rtd-theme>=2.0.0 # Read the Docs theme

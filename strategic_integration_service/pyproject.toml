@@ -45,6 +45,7 @@ sis-extract-l2 = "strategic_integration_service.scripts.extract_l2_initiatives:m
 sis-extract-current = "strategic_integration_service.scripts.extract_current_initiatives:main"
 sis-weekly-report = "strategic_integration_service.scripts.generate_weekly_report:main"
 sis-monthly-report = "strategic_integration_service.scripts.generate_monthly_report:main"
+sis-benchmark = "strategic_integration_service.scripts.performance_benchmark:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

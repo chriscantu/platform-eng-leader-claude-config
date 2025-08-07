@@ -1,8 +1,8 @@
 Metadata-Version: 2.4
 Name: strategic-integration-service
 Version: 1.0.0
-Summary: Strategic integration service for UI Foundation platform leadership
-Author-email: Chris Cantu <chris.cantu@procore.com>
+Summary: Strategic integration service for platform leadership
+Author-email: Platform Engineering <platform@company.com>
 License: MIT
 Requires-Python: >=3.11
 Description-Content-Type: text/markdown
@@ -30,7 +30,7 @@ Requires-Dist: sphinx-rtd-theme>=2.0.0; extra == "docs"
 
 # Strategic Integration Service
 
-Enterprise-grade Python service for UI Foundation platform leadership, replacing bash scripts with reliable strategic data extraction and reporting.
+Enterprise-grade Python service for platform leadership, replacing bash scripts with reliable strategic data extraction and reporting.
 
 ## Overview
 

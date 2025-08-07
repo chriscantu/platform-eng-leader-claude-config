@@ -1,4 +1,5 @@
 [console_scripts]
+sis-benchmark = strategic_integration_service.scripts.performance_benchmark:main
 sis-extract-current = strategic_integration_service.scripts.extract_current_initiatives:main
 sis-extract-l2 = strategic_integration_service.scripts.extract_l2_initiatives:main
 sis-monthly-report = strategic_integration_service.scripts.generate_monthly_report:main
