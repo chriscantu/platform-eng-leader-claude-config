@@ -100,7 +100,7 @@ Director of Engineering operational rules for strategic platform leadership and 
 - Technology standards affecting multiple teams
 **Process**: Comprehensive analysis + stakeholder consensus + documented rationale + risk assessment
 
-### Type 2 (Reversible) Decisions  
+### Type 2 (Reversible) Decisions
 - Feature experiments + A/B tests
 - Process iterations + workflow optimizations
 - Tool evaluations + pilot programs

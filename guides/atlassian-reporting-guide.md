@@ -23,13 +23,13 @@ This guide provides implementation approaches for initiative tracking using Atla
 - Display: Pie Chart
 - Purpose: Status distribution (Green/Yellow/Red equivalent)
 
-📈 Filter Results Gadget  
+📈 Filter Results Gadget
 - Filter: Same as above
 - Columns: Key, Summary, Status, Priority, Assignee, Updated
 - Purpose: Detailed initiative list
 
 📋 Two Dimensional Filter Statistics
-- Filter: Same as above  
+- Filter: Same as above
 - X-Axis: Status
 - Y-Axis: Priority
 - Purpose: Risk matrix visualization
@@ -59,16 +59,16 @@ Create saved filters for consistent reporting:
 
 ```sql
 -- Active UI Foundation Initiatives
-project = PI AND assignee in (user1@company.com, user2@company.com) 
+project = PI AND assignee in (user1@company.com, user2@company.com)
 AND status not in (Done, Closed, Completed, Canceled)
 ORDER BY priority DESC, updated ASC
 
 -- At Risk Initiatives (Red Status)
-project = PI AND assignee in (user1@company.com, user2@company.com) 
+project = PI AND assignee in (user1@company.com, user2@company.com)
 AND (status = "At Risk" OR (priority = Critical AND updated < -7d))
 ORDER BY updated ASC
 
--- Stale Initiatives (Yellow Status)  
+-- Stale Initiatives (Yellow Status)
 project = PI AND assignee in (user1@company.com, user2@company.com)
 AND status in (New, Committed) AND updated < -14d
 ORDER BY updated ASC
@@ -87,14 +87,14 @@ AND status not in (Done, Closed, Completed)
    ```
    Trigger: Issue updated
    Condition: Project = PI AND assignee in UI Foundation team
-   Action: 
+   Action:
      - If priority = Critical AND not updated in 7 days → Transition to "At Risk"
      - Add comment: "Initiative flagged as at-risk due to inactivity"
    ```
 
 2. **Notification Rule**:
    ```
-   Trigger: Status changed to "At Risk"  
+   Trigger: Status changed to "At Risk"
    Condition: Project = PI AND assignee in UI Foundation team
    Action: Send email to user1@company.com, user2@company.com
    ```
@@ -117,7 +117,7 @@ Create a Confluence page template with live Jira data:
 ### 🔴 At Risk Initiatives
 {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status = "At Risk"|columns=key,summary,assignee,priority,updated}}
 
-### 🟡 Attention Needed  
+### 🟡 Attention Needed
 {{jira-issues:url=https://company.atlassian.net|jql=project = PI AND assignee in (user1@company.com, user2@company.com) AND status in (New, Committed) AND updated < -14d|columns=key,summary,assignee,priority,updated}}
 
 ### 🟢 On Track
@@ -146,7 +146,7 @@ Create a Confluence page template with live Jira data:
 
 ```
 L1 Initiative (Parent)
-├── L0 Initiative (Child)  
+├── L0 Initiative (Child)
     ├── Epic (Implementation)
         ├── Story (Detailed Work)
 ```
@@ -156,7 +156,7 @@ L1 Initiative (Parent)
 1. **Create Plan**: "UI Foundation Initiative Roadmap"
 2. **Hierarchy Levels**:
    - Level 1: Strategic Initiatives (L1)
-   - Level 2: Tactical Initiatives (L0) 
+   - Level 2: Tactical Initiatives (L0)
    - Level 3: Epics
    - Level 4: Stories
 
@@ -175,7 +175,7 @@ L1 Initiative (Parent)
 ### Portfolio Setup
 
 1. **Create Portfolio**: "UI Foundation Platform Initiatives"
-2. **Data Sources**: 
+2. **Data Sources**:
    - PI project (Initiatives)
    - WES, UIS, UXI, UISP projects (Implementation)
 
@@ -187,7 +187,7 @@ L1 Initiative (Parent)
 4. **Health Calculation**:
    - Automatic green/yellow/red based on:
      - Timeline adherence
-     - Scope completion  
+     - Scope completion
      - Resource utilization
      - Risk factors
 
@@ -249,11 +249,11 @@ L1 Initiative (Parent)
 ## Recommendation
 
 **Phase 1** (Immediate): Implement **Jira Dashboard** for daily tracking
-**Phase 2** (Next month): Add **Confluence template** for monthly reports  
+**Phase 2** (Next month): Add **Confluence template** for monthly reports
 **Phase 3** (Quarterly): Evaluate **Advanced Roadmaps/Portfolio** for strategic planning
 
 **Keep custom script** for:
-- Specialized executive reporting  
+- Specialized executive reporting
 - Custom business value analysis
 - Integration with other tools
 - Backup reporting capability

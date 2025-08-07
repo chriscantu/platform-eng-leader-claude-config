@@ -14,7 +14,7 @@ Cost-effective model selection system for Director-level strategic leadership wh
 **Use Cases**:
 - Technical analysis and code review
 - Platform health monitoring and metrics
-- Documentation generation and updates  
+- Documentation generation and updates
 - Standard cross-team coordination
 - Routine vendor evaluation tasks
 - Non-executive communications
@@ -96,13 +96,13 @@ Cost-effective model selection system for Director-level strategic leadership wh
 ```yaml
 VP/SLT Contexts → Always Opus:
 - "VP of Product meeting tomorrow"
-- "Board presentation prep" 
+- "Board presentation prep"
 - "Executive team strategy session"
 - "Investment committee review"
 - "Budget planning with SLT"
 ```
 
-### **Platform Operations Pipeline**  
+### **Platform Operations Pipeline**
 ```yaml
 Platform Tasks → Sonnet 4 (Cost-Effective):
 - "Platform health dashboard update"
@@ -165,7 +165,7 @@ High-Stakes Decisions → Opus:
 - Manual confirmation for borderline cases
 - Quality monitoring and feedback collection
 
-### **Phase 2: Intelligent Automation** (Weeks 3-4)  
+### **Phase 2: Intelligent Automation** (Weeks 3-4)
 - Automated routing based on confidence thresholds
 - Auto-escalation rules implementation
 - Cost tracking and optimization analytics
@@ -181,7 +181,7 @@ High-Stakes Decisions → Opus:
 ```yaml
 Executive Personas (Opus Priority):
 - camille: Strategic technology + exec advisory → Opus
-- alvaro: Platform ROI + business value → Opus  
+- alvaro: Platform ROI + business value → Opus
 - david: Investment allocation + financial → Opus
 
 Platform Personas (Cost-Effective):
@@ -198,7 +198,7 @@ Opus Sessions:
 - Premium Strategic Analytics features
 - Advanced Context7 organizational patterns
 
-Sonnet 4 Sessions:  
+Sonnet 4 Sessions:
 - Standard MCP server features
 - Cost-optimized caching strategies
 - Efficient context management

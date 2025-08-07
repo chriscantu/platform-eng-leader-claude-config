@@ -19,14 +19,14 @@ mkdir -p "$REPORT_DIR"
 echo "🔍 Checking Jira API configuration for PI Initiative tracking..."
 if [[ -n "$JIRA_API_TOKEN" ]]; then
     echo "✅ JIRA_API_TOKEN is set (${#JIRA_API_TOKEN} characters)"
-    
+
     # Test authentication
     echo "🔐 Testing Jira API authentication..."
     USER_RESPONSE=$(curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
         -H "Accept: application/json" \
         "https://company.atlassian.net/rest/api/3/myself" | \
         jq -r '.displayName // "Auth failed"')
-    
+
     if [[ "$USER_RESPONSE" != "Auth failed" ]]; then
         echo "✅ Authentication successful as: $USER_RESPONSE"
         LIVE_DATA=true
@@ -48,7 +48,7 @@ determine_initiative_status() {
     local days_since_update=$3
     local progress=$4
     local has_blockers=$5
-    
+
     # Status mapping logic
     case "$status_name" in
         "Done"|"Completed"|"Closed")
@@ -89,7 +89,7 @@ generate_mitigation_strategy() {
     local status_name=$2
     local priority=$3
     local summary=$4
-    
+
     case "$status_name" in
         "At Risk")
             echo "**IMMEDIATE ACTION REQUIRED**: Escalate to VP Engineering, conduct daily standups, identify blockers, reallocate resources"
@@ -121,7 +121,7 @@ generate_mitigation_strategy() {
 generate_next_steps() {
     local summary=$1
     local status_name=$2
-    
+
     case "$summary" in
         *"New Relic"*|*"Migration"*)
             echo "• Complete migration planning and timeline validation"
@@ -160,20 +160,20 @@ generate_next_steps() {
 pull_ui_foundation_initiatives() {
     if [[ "$LIVE_DATA" == "true" ]]; then
         echo "📊 Pulling UI Foundation initiatives from PI project..."
-        
+
         # Query for UI Foundation related L1 initiatives assigned to UI Foundation leadership
         INITIATIVE_QUERY="project = PI AND assignee in (\"user1@company.com\",\"user2@company.com\") AND status not in (Done,Closed,Completed) ORDER BY priority DESC, updated DESC"
-        
+
         echo "🔍 Jira Query: $INITIATIVE_QUERY"
-        
-        # Execute query and process results  
+
+        # Execute query and process results
         curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
             -H "Accept: application/json" \
             -G "https://company.atlassian.net/rest/api/3/search" \
             --data-urlencode "jql=$INITIATIVE_QUERY" \
             --data-urlencode "fields=key,summary,status,progress,aggregateprogress,assignee,updated,priority,duedate,created,parent,issuelinks" \
             --data-urlencode "maxResults=50" > /tmp/ui_foundation_initiatives.json
-        
+
         # Validate response
         if jq -e '.issues' /tmp/ui_foundation_initiatives.json > /dev/null 2>&1; then
             local initiative_count=$(jq '.issues | length' /tmp/ui_foundation_initiatives.json)
@@ -204,8 +204,8 @@ pull_ui_foundation_initiatives
 # Generate report header
 cat > "$OUTPUT_FILE" << EOF
 # Monthly PI Initiative Report - UI Foundation Platform
-**Month**: $MONTH_YEAR  
-**Report Date**: $(date +"%B %d, %Y")  
+**Month**: $MONTH_YEAR
+**Report Date**: $(date +"%B %d, %Y")
 **Director of Engineering**: Chris Cantu
 
 ---
@@ -221,13 +221,13 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
     YELLOW_COUNT=$(jq -r '.issues[] | select(.fields.status.name == "New" or .fields.status.name == "Committed") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
     RED_COUNT=$(jq -r '.issues[] | select(.fields.status.name == "At Risk") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
     TOTAL_COUNT=$(jq '.issues | length' /tmp/ui_foundation_initiatives.json)
-    
+
     cat >> "$OUTPUT_FILE" << EOF
 **Initiative Portfolio Health**: $TOTAL_COUNT active initiatives tracked across UI Foundation platform capabilities.
 
 **Status Distribution**:
 - 🟢 **Green**: $GREEN_COUNT initiatives (On Track)
-- 🟡 **Yellow**: $YELLOW_COUNT initiatives (Attention Needed) 
+- 🟡 **Yellow**: $YELLOW_COUNT initiatives (Attention Needed)
 - 🔴 **Red**: $RED_COUNT initiatives (At Risk)
 
 **Key Focus Areas**: Observability cost optimization, New Relic migration execution, security posture improvements, platform performance enhancements, and deployment reliability initiatives.
@@ -265,7 +265,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
     jq -r '.issues[] | @base64' /tmp/ui_foundation_initiatives.json | while read -r encoded_issue; do
         # Decode the JSON
         issue=$(echo "$encoded_issue" | base64 --decode)
-        
+
         # Extract fields
         key=$(echo "$issue" | jq -r '.key')
         summary=$(echo "$issue" | jq -r '.fields.summary')
@@ -274,21 +274,21 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
         priority=$(echo "$issue" | jq -r '.fields.priority.name // "None"')
         updated=$(echo "$issue" | jq -r '.fields.updated')
         parent_summary=$(echo "$issue" | jq -r '.fields.parent.fields.summary // "No Parent"')
-        
+
         # Calculate risk factors
         days_since_update=$(calculate_days_since_update "$updated")
         status_indicator=$(determine_initiative_status "$status_name" "$priority" "$days_since_update" "0" "false")
-        
+
         # Generate content
         cat >> "$OUTPUT_FILE" << EOF
 
 ### $status_indicator [$key](https://company.atlassian.net/browse/$key)
-**Initiative**: $summary  
-**Parent Initiative**: $parent_summary  
-**Assignee**: $assignee  
-**Priority**: $priority  
-**Status**: $status_name  
-**Last Updated**: $(date -d "${updated:0:10}" +"%B %d, %Y" 2>/dev/null || echo "Unknown")  
+**Initiative**: $summary
+**Parent Initiative**: $parent_summary
+**Assignee**: $assignee
+**Priority**: $priority
+**Status**: $status_name
+**Last Updated**: $(date -d "${updated:0:10}" +"%B %d, %Y" 2>/dev/null || echo "Unknown")
 
 **Next Steps**:
 $(generate_next_steps "$summary" "$status_name")
@@ -303,12 +303,12 @@ else
     cat >> "$OUTPUT_FILE" << EOF
 
 ### 🟢 [PI-XXXXX](https://company.atlassian.net/browse/PI-XXXXX)
-**Initiative**: [Data Source Needed] - Initiative summary  
-**Parent Initiative**: [Data Source Needed] - Parent initiative context  
-**Assignee**: [Data Source Needed]  
-**Priority**: [Data Source Needed]  
-**Status**: [Data Source Needed]  
-**Last Updated**: [Data Source Needed]  
+**Initiative**: [Data Source Needed] - Initiative summary
+**Parent Initiative**: [Data Source Needed] - Parent initiative context
+**Assignee**: [Data Source Needed]
+**Priority**: [Data Source Needed]
+**Status**: [Data Source Needed]
+**Last Updated**: [Data Source Needed]
 
 **Next Steps**:
 • [Data Source Needed] - Specific next steps based on initiative context
@@ -333,7 +333,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
     # Check for high-risk patterns
     CRITICAL_STALLED=$(jq -r '.issues[] | select(.fields.priority.name == "Critical" and .fields.status.name != "In Progress") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
     MIGRATION_INITIATIVES=$(jq -r '.issues[] | select(.fields.summary | contains("Migration") or contains("New Relic")) | .key' /tmp/ui_foundation_initiatives.json | wc -l)
-    
+
     cat >> "$OUTPUT_FILE" << EOF
 **High-Risk Indicators**:
 - **Critical Priority Stalled**: $CRITICAL_STALLED initiatives with Critical priority not in active progress
@@ -342,7 +342,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; the
 
 **Risk Mitigation Actions**:
 - **Immediate**: Daily check-ins for Critical priority initiatives, escalation protocols for blocked items
-- **Short-term**: Resource rebalancing across teams, dependency management for migration initiatives  
+- **Short-term**: Resource rebalancing across teams, dependency management for migration initiatives
 - **Long-term**: Platform capability investments to reduce future initiative complexity
 
 **Escalation Triggers**:
@@ -379,7 +379,7 @@ EOF
 if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_initiatives.json" ]]; then
     CHRIS_INITIATIVES=$(jq -r '.issues[] | select(.fields.assignee.emailAddress == "user1@company.com") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
     ALVARO_INITIATIVES=$(jq -r '.issues[] | select(.fields.assignee.emailAddress == "user2@company.com") | .key' /tmp/ui_foundation_initiatives.json | wc -l)
-    
+
     cat >> "$OUTPUT_FILE" << EOF
 **Current Resource Allocation**:
 - **Chris Cantu**: $CHRIS_INITIATIVES active initiatives (UIF Special Projects, Security, Migration focus)

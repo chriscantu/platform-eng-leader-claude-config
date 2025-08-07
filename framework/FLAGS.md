@@ -83,7 +83,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - 60-70% cost savings while preserving strategic decision quality
 - Integration: MODEL-SELECTION.md routing logic + quality gates
 
-**`--opus-required`**  
+**`--opus-required`**
 - Force Opus model for quality-critical tasks regardless of cost
 - Auto-activates: VP/SLT contexts, investment decisions >$100K, strategic planning
 - Premium quality assurance for high-stakes decisions
@@ -195,7 +195,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 **`--delegate [files|folders|auto]`**
 - Enable Task tool sub-agent delegation for parallel processing
 - **files**: Delegate individual file analysis to sub-agents
-- **folders**: Delegate directory-level analysis to sub-agents  
+- **folders**: Delegate directory-level analysis to sub-agents
 - **auto**: Auto-detect delegation strategy based on scope and complexity
 - Auto-activates: >7 directories or >50 files
 - 40-70% time savings for suitable operations
@@ -266,7 +266,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 
 **Available Strategic Personas** (Enhanced):
 - `--persona-diego`: Engineering leadership, platform strategy, multinational coordination
-- `--persona-camille`: Strategic technology, organizational scaling, executive advisory  
+- `--persona-camille`: Strategic technology, organizational scaling, executive advisory
 - `--persona-rachel`: Design systems strategy, cross-functional alignment, UX leadership
 - `--persona-alvaro`: Platform investment ROI, business value, stakeholder communication
 - `--persona-sofia`: Vendor relationships, tool evaluation, technology partnerships
@@ -275,7 +275,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 - `--persona-david`: Platform investment allocation, cost optimization, financial planning
 - `--persona-martin`: Platform architecture, evolutionary design, technical debt strategy
 - `--persona-legal`: International compliance, regulatory navigation, contract strategy
-- `--persona-security`: Platform security architecture, threat modeling, risk assessment  
+- `--persona-security`: Platform security architecture, threat modeling, risk assessment
 - `--persona-data`: Analytics strategy, metrics frameworks, data-driven decision making
 
 ## Introspection & Transparency Flags
@@ -292,7 +292,7 @@ Flag system for Claude Code SuperClaude framework with auto-activation and confl
 
 **Auto-Activation Logic**:
 - **Context7**: External library imports, framework questions, documentation requests
-- **Sequential**: Complex debugging, system design, any --think flags  
+- **Sequential**: Complex debugging, system design, any --think flags
 - **Magic**: UI component requests, design system queries, frontend persona
 - **Playwright**: Testing workflows, performance monitoring, QA persona
 

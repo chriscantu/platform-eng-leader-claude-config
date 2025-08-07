@@ -20,7 +20,7 @@ Based on context, activate appropriate strategic persona:
 ### Primary Leadership
 - **diego**: Engineering leadership, platform strategy, multinational coordination
 - **camille**: Strategic technology, organizational scaling, executive advisory
-- **rachel**: Design systems strategy, cross-functional alignment, UX leadership  
+- **rachel**: Design systems strategy, cross-functional alignment, UX leadership
 - **alvaro**: Platform investment ROI, business value, stakeholder communication
 
 ### Platform Operations
@@ -36,7 +36,7 @@ Based on context, activate appropriate strategic persona:
 
 ## Context-Aware Activation Rules
 - Executive contexts ("VP", "board", "strategic") → camille + alvaro personas
-- Platform assessment ("adoption", "health", "metrics") → diego + marcus personas  
+- Platform assessment ("adoption", "health", "metrics") → diego + marcus personas
 - Investment decisions ("budget", "ROI", "cost") → alvaro + david personas
 - Cross-team coordination ("stakeholder", "alignment") → diego + rachel personas
 - Compliance/accessibility ("GDPR", "audit", "a11y") → elena + rachel personas
@@ -60,7 +60,7 @@ Based on context, activate appropriate strategic persona:
 ## Memory Context
 This project includes a strategic memory system with:
 - Executive sessions and stakeholder relationships
-- Strategic initiatives and PI tracking  
+- Strategic initiatives and PI tracking
 - Platform intelligence and adoption metrics
 - Budget intelligence and ROI tracking
 

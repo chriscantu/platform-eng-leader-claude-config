@@ -33,7 +33,7 @@ Successful platform adoption requires deliberate strategy combining technical ex
 
 **Team Topology Patterns**:
 - **Stream-aligned teams** → Product teams using platform capabilities
-- **Platform teams** → Building and maintaining platform capabilities  
+- **Platform teams** → Building and maintaining platform capabilities
 - **Enabling teams** → Helping stream-aligned teams adopt platform capabilities
 - **Complicated subsystem teams** → Specialized platform components
 
@@ -59,7 +59,7 @@ golden_paths:
     - Automated CI/CD pipeline setup
     - Monitoring and alerting pre-configured
     - Documentation auto-generated
-  
+
   frontend_app:
     - Design system components included
     - Build and deployment pipeline
@@ -163,12 +163,12 @@ adoption_metrics:
     - documentation_views: "Track learning and discovery"
     - office_hours_attendance: "Measure support demand"
     - community_activity: "Monitor organic adoption discussions"
-  
+
   usage:
     - new_projects_on_platform: "Adoption for new development"
     - migration_projects: "Legacy system transitions"
     - active_services: "Production platform usage"
-  
+
   value:
     - deployment_frequency: "Developer velocity improvement"
     - change_failure_rate: "Quality improvement"
@@ -210,7 +210,7 @@ adoption_metrics:
 ### Spotify's Platform Evolution
 **Context**: Music streaming platform with hundreds of engineering teams
 **Approach**: Started with deployment pipeline, expanded to full developer platform
-**Results**: 
+**Results**:
 - 95% of services use platform deployment pipeline
 - 30% reduction in time from code to production
 - Engineering team satisfaction scores increased significantly

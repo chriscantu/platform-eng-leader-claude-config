@@ -13,7 +13,7 @@ When working in this directory, reference these framework files for context:
 - `FLAGS.md` - Director-level flags and auto-activation logic
 - `PRINCIPLES.md` - Core philosophy and decision frameworks
 
-### Enhanced Capabilities  
+### Enhanced Capabilities
 - `MEMORY.md` - Strategic memory system architecture
 - `ENHANCED-COMMANDS.md` - Tool integration for strategic intelligence
 - `COST-OPTIMIZATION.md` - Cost management and selective activation

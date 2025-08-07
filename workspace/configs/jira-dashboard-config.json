@@ -26,7 +26,7 @@
         "purpose": "Detailed initiative list with clickable links"
       },
       {
-        "id": "two-dimensional-filter-statistics", 
+        "id": "two-dimensional-filter-statistics",
         "title": "Risk Matrix (Priority vs Status)",
         "position": {"column": 0, "row": 1},
         "configuration": {
@@ -59,7 +59,7 @@
         "purpose": "Immediate attention items"
       },
       {
-        "id": "filter-results", 
+        "id": "filter-results",
         "title": "🟡 Stale Initiatives (>14 days)",
         "position": {"column": 1, "row": 2},
         "configuration": {
@@ -110,7 +110,7 @@
         "conditions": [
           "project = PI",
           "assignee in (chris.cantu@procore.com, alvaro.soto@procore.com)",
-          "priority = Critical", 
+          "priority = Critical",
           "status != \"At Risk\"",
           "updated < -7d"
         ],

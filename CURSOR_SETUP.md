@@ -175,12 +175,12 @@ workspace/
 
 ## Tips for Maximum Effectiveness
 
-✅ **Be specific** about the strategic context and persona needed  
-✅ **Reference templates** for structured strategic planning  
-✅ **Use business language** to get executive-level guidance  
-✅ **Ask follow-up questions** to deepen strategic analysis  
-✅ **Combine multiple personas** for comprehensive perspective  
-✅ **Leverage memory system** for cross-session strategic intelligence  
+✅ **Be specific** about the strategic context and persona needed
+✅ **Reference templates** for structured strategic planning
+✅ **Use business language** to get executive-level guidance
+✅ **Ask follow-up questions** to deepen strategic analysis
+✅ **Combine multiple personas** for comprehensive perspective
+✅ **Leverage memory system** for cross-session strategic intelligence
 
 ---
 

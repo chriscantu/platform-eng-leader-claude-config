@@ -33,29 +33,29 @@ init_memory() {
 prep_vp_meeting_memory() {
     local stakeholder_key="$1"
     local meeting_date="$2"
-    
+
     if [ -z "$stakeholder_key" ]; then
         echo "Usage: prep_vp_meeting_memory <stakeholder_key> [meeting_date]"
         echo "Available stakeholders: vp_engineering, vp_product, vp_design"
         return 1
     fi
-    
+
     if [ -z "$meeting_date" ]; then
         meeting_date=$(date +"%Y-%m-%d")
     fi
-    
+
     echo "🎯 Preparing VP meeting with memory context..."
     echo "📋 Stakeholder: $stakeholder_key"
     echo "📅 Meeting Date: $meeting_date"
     echo ""
-    
+
     # Retrieve stakeholder context
     echo "🔍 Retrieving stakeholder context..."
     python3 "$MEMORY_MANAGER" recall --type executive_session --stakeholder "$stakeholder_key" --days 90 > /tmp/stakeholder_context.json
-    
+
     if [ $? -eq 0 ]; then
         echo "✅ Context retrieved successfully"
-        
+
         # Extract key context for meeting prep
         python3 -c "
 import json
@@ -64,21 +64,21 @@ import sys
 try:
     with open('/tmp/stakeholder_context.json', 'r') as f:
         context = json.load(f)
-    
+
     profile = context.get('profile', {})
     sessions = context.get('recent_sessions', [])
-    
+
     print('📊 STAKEHOLDER CONTEXT SUMMARY')
     print('=' * 40)
-    
+
     if profile:
         print(f'Name: {profile.get(\"display_name\", \"Unknown\")}')
-        print(f'Role: {profile.get(\"role_title\", \"Unknown\")}') 
+        print(f'Role: {profile.get(\"role_title\", \"Unknown\")}')
         print(f'Communication Style: {profile.get(\"communication_style\", \"Unknown\")}')
         print(f'Relationship Strength: {profile.get(\"relationship_strength\", \"Unknown\")}/5')
         print(f'Preferred Personas: {profile.get(\"preferred_personas\", [])}')
         print('')
-    
+
     if sessions:
         print('📋 RECENT INTERACTIONS')
         print('-' * 25)
@@ -87,7 +87,7 @@ try:
             print(f'Type: {session.get(\"session_type\", \"Unknown\")}')
             print(f'Outcome Rating: {session.get(\"outcome_rating\", \"Unknown\")}/5')
             print(f'Persona Used: {session.get(\"persona_activated\", \"Unknown\")}')
-            
+
             decisions = session.get('decisions_made', [])
             if decisions:
                 print('Key Decisions:')
@@ -96,7 +96,7 @@ try:
                         print(f'  • {decision.get(\"decision\", decision)}')
                     else:
                         print(f'  • {decision}')
-                        
+
             action_items = session.get('action_items', [])
             if action_items:
                 print('Outstanding Actions:')
@@ -106,12 +106,12 @@ try:
                     else:
                         print(f'  • {action}')
             print('')
-        
+
         print(f'📈 Total Sessions (90 days): {context.get(\"session_count\", 0)}')
     else:
         print('ℹ️  No recent interaction history found')
         print('   This is a fresh stakeholder relationship')
-    
+
 except Exception as e:
     print(f'Error processing context: {str(e)}', file=sys.stderr)
     sys.exit(1)
@@ -120,13 +120,13 @@ except Exception as e:
         echo "❌ Failed to retrieve stakeholder context"
         echo "   Creating new stakeholder profile..."
     fi
-    
+
     # Get active initiatives context
     echo ""
     echo "🚀 ACTIVE INITIATIVES CONTEXT"
     echo "=" * 30
     python3 "$MEMORY_MANAGER" recall --type strategic_initiative --status in_progress > /tmp/initiatives_context.json
-    
+
     python3 -c "
 import json
 import sys
@@ -134,25 +134,25 @@ import sys
 try:
     with open('/tmp/initiatives_context.json', 'r') as f:
         context = json.load(f)
-    
+
     initiatives = context.get('initiatives', [])
-    
+
     if initiatives:
         print(f'Active Initiatives: {len(initiatives)}')
         print('-' * 20)
-        
+
         # Group by risk level
         risk_groups = {'red': [], 'yellow': [], 'green': []}
         for init in initiatives:
             risk = init.get('risk_level', 'unknown')
             if risk in risk_groups:
                 risk_groups[risk].append(init)
-        
+
         for risk_level, risk_initiatives in risk_groups.items():
             if risk_initiatives:
                 emoji = {'red': '🔴', 'yellow': '🟡', 'green': '🟢'}.get(risk_level, '⚫')
                 print(f'{emoji} {risk_level.upper()} RISK ({len(risk_initiatives)})')
-                
+
                 for init in risk_initiatives[:3]:  # Top 3 per risk level
                     print(f'  • {init.get(\"initiative_key\", \"Unknown\")}: {init.get(\"initiative_name\", \"Unknown\")}')
                     print(f'    Status: {init.get(\"status\", \"Unknown\")} | Assignee: {init.get(\"assignee\", \"Unknown\")}')
@@ -162,11 +162,11 @@ try:
                 print('')
     else:
         print('ℹ️  No active initiatives found')
-        
+
 except Exception as e:
     print(f'Error processing initiatives: {str(e)}', file=sys.stderr)
 "
-    
+
     echo ""
     echo "💡 MEETING PREPARATION RECOMMENDATIONS"
     echo "=" * 35
@@ -186,25 +186,25 @@ store_meeting_outcome() {
     local meeting_date="$3"
     local outcome_rating="$4"
     local business_impact="$5"
-    
+
     if [ -z "$stakeholder_key" ] || [ -z "$session_type" ] || [ -z "$outcome_rating" ]; then
         echo "Usage: store_meeting_outcome <stakeholder_key> <session_type> <meeting_date> <outcome_rating> [business_impact]"
         echo "Session types: vp_slt, 1on1, cross_team, strategic_planning"
         echo "Outcome rating: 1-5 (5 = excellent)"
         return 1
     fi
-    
+
     if [ -z "$meeting_date" ]; then
         meeting_date=$(date +"%Y-%m-%d")
     fi
-    
+
     echo "💾 Storing meeting outcome in strategic memory..."
-    
+
     # Create temporary JSON for meeting data
     cat > /tmp/meeting_outcome.json << EOF
 {
     "session_type": "$session_type",
-    "stakeholder_key": "$stakeholder_key", 
+    "stakeholder_key": "$stakeholder_key",
     "meeting_date": "$meeting_date",
     "agenda_topics": ["Strategic discussion", "Platform updates"],
     "decisions_made": [{"decision": "Manual entry - add specific decisions"}],
@@ -232,7 +232,7 @@ memory_stats() {
 # Cleanup old memory data
 memory_cleanup() {
     local retention_days="${1:-365}"
-    
+
     echo "🧹 Cleaning up memory data older than $retention_days days..."
     python3 "$MEMORY_MANAGER" cleanup --days "$retention_days"
 }
@@ -263,7 +263,7 @@ case "${1:-help}" in
         echo "  init                    Initialize memory system"
         echo "  prep-meeting <stakeholder> [date]    Prepare VP meeting with context"
         echo "  store-outcome <stakeholder> <type> <date> <rating> [impact]"
-        echo "  stats                   Show memory statistics" 
+        echo "  stats                   Show memory statistics"
         echo "  cleanup [days]          Clean up old data (default: 365 days)"
         echo "  help                    Show this help"
         echo ""

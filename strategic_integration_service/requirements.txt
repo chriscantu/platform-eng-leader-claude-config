@@ -1,0 +1,34 @@
+# Strategic Integration Service Dependencies
+# Python 3.11+ required for enhanced type hints and performance
+
+# Core dependencies
+requests>=2.31.0          # HTTP client with retry capabilities
+pydantic>=2.5.0           # Data validation and settings management
+pydantic-settings>=2.1.0  # Configuration management
+pyyaml>=6.0.1            # YAML configuration files
+click>=8.1.0             # CLI framework
+structlog>=23.2.0        # Structured logging
+
+# Development and testing
+pytest>=7.4.0           # Testing framework
+pytest-mock>=3.12.0     # Mocking for tests
+pytest-cov>=4.1.0       # Coverage reporting
+responses>=0.24.0       # HTTP request mocking
+black>=23.12.0          # Code formatting
+isort>=5.13.0           # Import sorting
+mypy>=1.8.0             # Type checking
+flake8>=7.0.0           # Linting
+
+# Security and monitoring
+keyring>=24.3.0         # Secure credential storage
+python-dotenv>=1.0.0    # Environment variable management
+pre-commit>=4.2.0       # Git hooks for code quality
+bandit>=1.8.0          # Security vulnerability scanner
+detect-secrets>=1.5.0   # Secret detection
+
+# Optional: Enhanced JSON processing
+orjson>=3.9.0           # Fast JSON serialization (optional but recommended)
+
+# Documentation
+sphinx>=7.2.0           # Documentation generation
+sphinx-rtd-theme>=2.0.0 # Read the Docs theme

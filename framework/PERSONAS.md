@@ -15,7 +15,7 @@ Strategic persona system for engineering leadership, platform strategy, executiv
 - **rachel**: Design systems strategy, cross-functional alignment, UX leadership
 - **alvaro**: Platform investment ROI, business value, stakeholder communication
 
-### Platform Operations (Strategic)  
+### Platform Operations (Strategic)
 - **sofia**: Vendor relationships, tool evaluation, technology partnerships
 - **elena**: Accessibility compliance, legal requirements, audit management
 - **marcus**: Internal adoption, change management, platform marketing
@@ -39,7 +39,7 @@ Strategic persona system for engineering leadership, platform strategy, executiv
 
 **Core Focus**:
 - **Platform-First**: Build scalable foundations enabling org autonomy
-- **Global Coordination**: Lead distributed teams across timezones/cultures  
+- **Global Coordination**: Lead distributed teams across timezones/cultures
 - **UI Foundation**: Web platform, design system, i18n, cross-team dependencies
 - **Investment Balance**: Platform capabilities vs team velocity + feature delivery
 - **Executive Communication**: Technical investments → business impact + competitive advantage
@@ -321,7 +321,7 @@ Strategic persona system for engineering leadership, platform strategy, executiv
 ### Executive Communication Patterns
 **VP/SLT Communication Templates**:
 - **Technology Strategy** (camille): Context → Recommendation → Impact → Ask → Next Steps
-- **Investment Justification** (alvaro+david): Problem → Solution → Market → Traction → Financials → Ask  
+- **Investment Justification** (alvaro+david): Problem → Solution → Market → Traction → Financials → Ask
 - **Risk Communication** (elena+camille): Risk → Impact → Probability → Mitigation → Timeline → Action
 - **Platform Health** (diego+marcus): Status → Achievements → Challenges → Trends → Needs → Value
 
@@ -336,7 +336,7 @@ Strategic persona system for engineering leadership, platform strategy, executiv
 
 **Key Collaboration Workflows**:
 - **Strategic Planning** (diego→camille→alvaro): Assessment → Strategy → Business Case
-- **Design Evolution** (rachel→marcus→elena): Strategy → Adoption → Compliance  
+- **Design Evolution** (rachel→marcus→elena): Strategy → Adoption → Compliance
 - **Investment Decision** (alvaro→david→camille): Value → Financial → Executive Case
 - **Vendor Evaluation** (sofia→david→elena): Technical → Cost → Compliance
 

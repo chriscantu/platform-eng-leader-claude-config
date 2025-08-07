@@ -50,37 +50,37 @@ print_header() {
 # Prerequisites check
 check_prerequisites() {
     log "${BLUE}🔍 Checking prerequisites...${NC}"
-    
+
     # Check if Claude Code is installed
     if ! command -v claude &> /dev/null; then
         error_exit "Claude Code CLI not found. Please install from: https://docs.anthropic.com/en/docs/claude-code"
     fi
-    
+
     # Check Claude Code version
     local claude_version=$(claude --version 2>/dev/null || echo "unknown")
     log "  ✅ Claude Code CLI: ${claude_version}"
-    
+
     # Check bash version
     if [[ ${BASH_VERSION%%.*} -lt 4 ]]; then
         log "  ⚠️  Bash version ${BASH_VERSION} detected. Version 4+ recommended for optimal performance."
     else
         log "  ✅ Bash version: ${BASH_VERSION}"
     fi
-    
+
     # Check operating system
     case "$(uname -s)" in
         Darwin*) log "  ✅ macOS detected" ;;
         Linux*)  log "  ✅ Linux detected" ;;
         *)       log "  ⚠️  Unsupported OS detected. Proceeding with caution." ;;
     esac
-    
+
     # Check for git
     if ! command -v git &> /dev/null; then
         log "  ⚠️  Git not found. Some features may be limited."
     else
         log "  ✅ Git available"
     fi
-    
+
     log "${GREEN}✅ Prerequisites check completed${NC}"
     log ""
 }
@@ -89,16 +89,16 @@ check_prerequisites() {
 backup_existing_config() {
     if [[ -d "${CLAUDE_GLOBAL_DIR}" ]]; then
         log "${BLUE}💾 Backing up existing Claude configuration...${NC}"
-        
+
         local backup_dir="${CLAUDE_GLOBAL_DIR}/backups/pre-supercloud-${DATE_STAMP}"
         mkdir -p "${backup_dir}"
-        
+
         # Backup core files if they exist
         local core_files=(
-            "CLAUDE.md" "PERSONAS.md" "COMMANDS.md" "FLAGS.md" 
+            "CLAUDE.md" "PERSONAS.md" "COMMANDS.md" "FLAGS.md"
             "PRINCIPLES.md" "RULES.md" "MCP.md" "ORCHESTRATOR.md" "MODES.md"
         )
-        
+
         local backed_up_count=0
         for file in "${core_files[@]}"; do
             if [[ -f "${CLAUDE_GLOBAL_DIR}/${file}" ]]; then
@@ -106,7 +106,7 @@ backup_existing_config() {
                 ((backed_up_count++))
             fi
         done
-        
+
         # Backup directories
         for dir in "context" "workflows" "logs"; do
             if [[ -d "${CLAUDE_GLOBAL_DIR}/${dir}" ]]; then
@@ -114,7 +114,7 @@ backup_existing_config() {
                 ((backed_up_count++))
             fi
         done
-        
+
         if [[ ${backed_up_count} -gt 0 ]]; then
             log "  ✅ Backed up ${backed_up_count} items to: ${backup_dir}"
         else
@@ -128,20 +128,20 @@ backup_existing_config() {
 # Install global configuration
 install_global_config() {
     log "${BLUE}📦 Installing SuperClaude global configuration...${NC}"
-    
+
     # Create global directory structure
     mkdir -p "${CLAUDE_GLOBAL_DIR}"
     mkdir -p "${CLAUDE_GLOBAL_DIR}/context"
     mkdir -p "${CLAUDE_GLOBAL_DIR}/workflows"
     mkdir -p "${CLAUDE_GLOBAL_DIR}/logs"
     mkdir -p "${CLAUDE_GLOBAL_DIR}/backups"
-    
+
     # Copy core framework files
     local core_files=(
-        "CLAUDE.md" "PERSONAS.md" "COMMANDS.md" "FLAGS.md" 
+        "CLAUDE.md" "PERSONAS.md" "COMMANDS.md" "FLAGS.md"
         "PRINCIPLES.md" "RULES.md" "MCP.md" "ORCHESTRATOR.md" "MODES.md"
     )
-    
+
     log "  📋 Installing core framework files..."
     for file in "${core_files[@]}"; do
         if [[ -f "${SCRIPT_DIR}/${file}" ]]; then
@@ -151,14 +151,14 @@ install_global_config() {
             log "    ⚠️  Missing: ${file}"
         fi
     done
-    
+
     log "${GREEN}✅ Global configuration installed${NC}"
 }
 
 # Setup context intelligence
 setup_context_intelligence() {
     log "${BLUE}🧠 Setting up context intelligence system...${NC}"
-    
+
     # Create STAKEHOLDERS.yaml template
     cat > "${CLAUDE_GLOBAL_DIR}/context/STAKEHOLDERS.yaml" << 'EOF'
 # Dynamic Stakeholder Intelligence
@@ -169,7 +169,7 @@ stakeholders:
     name: "VP of Engineering"
     role: "Engineering Leadership"
     communication_style: "data-driven, metrics-focused, single-question efficiency"
-    decision_criteria: 
+    decision_criteria:
       - "team productivity metrics"
       - "platform ROI quantification"
       - "technical risk assessment"
@@ -180,7 +180,7 @@ stakeholders:
       - "clear action items and owners"
       - "quantified business impact"
     communication_frequency: "weekly 1-on-1, monthly strategic review"
-    
+
   vp_product:
     name: "VP of Product"
     role: "Product Leadership"
@@ -196,7 +196,7 @@ stakeholders:
       - "competitive positioning insights"
       - "platform capability correlation to product outcomes"
     communication_frequency: "bi-weekly alignment, quarterly strategy review"
-    
+
   vp_design:
     name: "VP of Design"
     role: "Design Leadership"
@@ -229,7 +229,7 @@ platform_health:
     platform_velocity_multiplier: 2.3x
     accessibility_compliance: 94%
     internationalization_coverage: 85%
-    
+
   adoption_trends:
     - component: "Button Library"
       adoption: 95%
@@ -243,7 +243,7 @@ platform_health:
       adoption: 89%
       trend: "stable"
       satisfaction: 8.8/10
-      
+
 technology_evaluation:
   current_evaluations:
     - technology: "Next.js 15"
@@ -256,7 +256,7 @@ technology_evaluation:
       impact: "medium"
       timeline: "Q1 2026"
       owner: "Design System Team"
-      
+
   investment_pipeline:
     - capability: "Component Testing Framework"
       investment: "$150K"
@@ -291,7 +291,7 @@ EOF
 # Setup automated workflows
 setup_workflows() {
     log "${BLUE}🔄 Setting up automated workflows...${NC}"
-    
+
     # Check if sync script exists in the current project
     if [[ -f "${SCRIPT_DIR}/sync-claude-config.sh" ]]; then
         # Copy existing sync script to workflows as sync-context.sh
@@ -299,30 +299,30 @@ setup_workflows() {
         chmod +x "${CLAUDE_GLOBAL_DIR}/workflows/sync-context.sh"
         log "  ✅ Configuration sync script installed"
     fi
-    
+
     # Check if optimization and maintenance scripts exist globally
     if [[ -f "${CLAUDE_GLOBAL_DIR}/workflows/optimize-config.sh" ]]; then
         log "  ✅ Optimization script already available"
     else
         log "  ℹ️  Optimization script will be created during first maintenance run"
     fi
-    
+
     if [[ -f "${CLAUDE_GLOBAL_DIR}/workflows/daily-maintenance.sh" ]]; then
         log "  ✅ Maintenance scripts already available"
     else
         log "  ℹ️  Maintenance scripts will be created during first setup"
     fi
-    
+
     log "${GREEN}✅ Workflow automation configured${NC}"
 }
 
 # Setup local project configuration
 setup_local_config() {
     log "${BLUE}📁 Setting up local project configuration...${NC}"
-    
+
     # Create local .claude directory
     mkdir -p "${PROJECT_CLAUDE_DIR}"
-    
+
     # Create .gitignore for .claude directory
     cat > "${SCRIPT_DIR}/.gitignore" << 'EOF'
 # SuperClaude Configuration
@@ -353,7 +353,7 @@ EOF
         cd "${SCRIPT_DIR}"
         "${CLAUDE_GLOBAL_DIR}/workflows/sync-context.sh" global-to-local || log "  ⚠️  Initial sync encountered issues (this is normal for first setup)"
     fi
-    
+
     log "  ✅ Local project configuration created"
     log "  ✅ .gitignore configured for sensitive data protection"
     log "${GREEN}✅ Local configuration setup completed${NC}"
@@ -362,7 +362,7 @@ EOF
 # Environment setup
 setup_environment() {
     log "${BLUE}🌍 Setting up environment configuration...${NC}"
-    
+
     # Create environment template
     cat > "${SCRIPT_DIR}/.env.template" << 'EOF'
 # SuperClaude Environment Configuration Template
@@ -395,7 +395,7 @@ EOF
     elif [[ -f "${HOME}/.bash_profile" ]]; then
         shell_profile="${HOME}/.bash_profile"
     fi
-    
+
     if [[ -n "${shell_profile}" ]]; then
         if ! grep -q "CLAUDE_GLOBAL_DIR" "${shell_profile}" 2>/dev/null; then
             log "  📝 Adding environment variables to ${shell_profile}"
@@ -407,7 +407,7 @@ EOF
             log "  ✅ Environment variables already configured"
         fi
     fi
-    
+
     log "  ✅ Environment template created (.env.template)"
     log "${GREEN}✅ Environment configuration completed${NC}"
 }
@@ -415,14 +415,14 @@ EOF
 # Run initial tests
 run_initial_tests() {
     log "${BLUE}🧪 Running initial system tests...${NC}"
-    
+
     # Test file structure
     local required_files=(
         "${CLAUDE_GLOBAL_DIR}/CLAUDE.md"
         "${CLAUDE_GLOBAL_DIR}/PERSONAS.md"
         "${CLAUDE_GLOBAL_DIR}/COMMANDS.md"
     )
-    
+
     local missing_files=0
     for file in "${required_files[@]}"; do
         if [[ -f "${file}" ]]; then
@@ -432,7 +432,7 @@ run_initial_tests() {
             ((missing_files++))
         fi
     done
-    
+
     # Test context intelligence
     if [[ -f "${CLAUDE_GLOBAL_DIR}/context/STAKEHOLDERS.yaml" ]]; then
         log "  ✅ Stakeholder intelligence"
@@ -440,26 +440,26 @@ run_initial_tests() {
         log "  ❌ Missing stakeholder intelligence"
         ((missing_files++))
     fi
-    
+
     if [[ -f "${CLAUDE_GLOBAL_DIR}/context/TECHNOLOGY_RADAR.yaml" ]]; then
         log "  ✅ Technology radar"
     else
         log "  ❌ Missing technology radar"
         ((missing_files++))
     fi
-    
+
     # Test workflow scripts
     local workflow_count=0
     if [[ -d "${CLAUDE_GLOBAL_DIR}/workflows" ]]; then
         workflow_count=$(find "${CLAUDE_GLOBAL_DIR}/workflows" -name "*.sh" -type f | wc -l)
     fi
-    
+
     if [[ ${workflow_count} -gt 0 ]]; then
         log "  ✅ Workflow automation (${workflow_count} scripts)"
     else
         log "  ⚠️  No workflow scripts found (will be created on first use)"
     fi
-    
+
     # Test Claude Code integration
     if command -v claude &> /dev/null; then
         log "  ✅ Claude Code CLI integration"
@@ -467,7 +467,7 @@ run_initial_tests() {
         log "  ❌ Claude Code CLI not accessible"
         ((missing_files++))
     fi
-    
+
     if [[ ${missing_files} -gt 0 ]]; then
         log "${YELLOW}⚠️  ${missing_files} issues detected. Please review the setup log.${NC}"
     else
@@ -520,7 +520,7 @@ show_next_steps() {
 # Main installation function
 main() {
     print_header
-    
+
     # Installation steps
     check_prerequisites
     backup_existing_config
@@ -531,7 +531,7 @@ main() {
     setup_environment
     run_initial_tests
     show_next_steps
-    
+
     log ""
     log "${GREEN}✅ SuperClaude Platform Leadership Configuration setup completed successfully!${NC}"
 }

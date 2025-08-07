@@ -14,7 +14,7 @@ OUTPUT_FILE="${REPORT_DIR}/weekly-report-${REPORT_DATE}.md"
 
 # UI Foundation Team Jira Project Mapping
 # Experience Services: WES
-# Globalizers: GLB  
+# Globalizers: GLB
 # Hubs: HUBS
 # Onboarding: FSGD
 # UIF Special Projects: UISP
@@ -31,14 +31,14 @@ mkdir -p "$REPORT_DIR"
 echo "🔍 Checking Jira API configuration..."
 if [[ -n "$JIRA_API_TOKEN" ]]; then
     echo "✅ JIRA_API_TOKEN is set (${#JIRA_API_TOKEN} characters)"
-    
+
     # Test authentication
     echo "🔐 Testing Jira API authentication..."
     USER_RESPONSE=$(curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
         -H "Accept: application/json" \
         "https://company.atlassian.net/rest/api/3/myself" | \
         jq -r '.displayName // "Auth failed"')
-    
+
     if [[ "$USER_RESPONSE" != "Auth failed" ]]; then
         echo "✅ Authentication successful as: $USER_RESPONSE"
         LIVE_DATA=true
@@ -57,18 +57,18 @@ fi
 pull_team_epics() {
     if [[ "$LIVE_DATA" == "true" ]]; then
         echo "📊 Pulling completed epics from all UI Foundation teams..."
-        
+
         # Pull epics from last 7 days across all teams
         JIRA_QUERY="project in ($UI_FOUNDATION_PROJECTS) AND status = Done AND updated >= -7d ORDER BY project, updated DESC"
-        
+
         echo "🔍 Jira Query: $JIRA_QUERY"
-        
+
         # Execute query and save results
         curl -s -u "user1@company.com:$JIRA_API_TOKEN" \
             -H "Accept: application/json" \
             "https://company.atlassian.net/rest/api/3/search?jql=$(echo "$JIRA_QUERY" | sed 's/ /%20/g')&maxResults=100" | \
             jq -r '.issues[] | "\(.fields.project.key): \(.key) - \(.fields.summary) - \(.fields.assignee.displayName // "Unassigned") - \(.fields.updated[0:10])"' > /tmp/ui_foundation_epics.txt
-        
+
         # Validate all teams have data
         echo "✅ Team Coverage Validation:"
         for project in $(echo $UI_FOUNDATION_PROJECTS | tr ',' ' '); do
@@ -78,10 +78,10 @@ pull_team_epics() {
                 echo "   ⚠️  No completed epics found for $project in last 7 days"
             fi
         done
-        
+
         total_epics=$(wc -l < /tmp/ui_foundation_epics.txt)
         echo "📈 Total completed epics across all teams: $total_epics"
-        
+
         return 0
     else
         echo "⚠️  Live data disabled - using template placeholders"
@@ -100,13 +100,13 @@ parse_epic_line() {
     local rest=$(echo "$line" | cut -d':' -f2- | sed 's/^ *//')  # Remove leading spaces
     local epic_key=$(echo "$rest" | cut -d' ' -f1)  # First word after colon
     local remaining=$(echo "$rest" | sed 's/^[^ ]* - //')  # Everything after "EPIC-KEY - "
-    
+
     # Extract summary (everything before " - assignee - date")
     local summary=$(echo "$remaining" | sed 's/ - [^-]*- [0-9-]*$//')
-    
+
     # Extract assignee
     local assignee=$(echo "$remaining" | grep -o ' - [^-]*- [0-9-]*$' | sed 's/ - \(.*\) - [0-9-]*$/\1/' | sed 's/^ *//;s/ *$//')
-    
+
     echo "${project_key}|${epic_key}|${summary}|${assignee}"
 }
 
@@ -114,7 +114,7 @@ parse_epic_line() {
 generate_business_value() {
     local summary=$1
     local team=$2
-    
+
     case "$summary" in
         *"FedRAMP"*|*"Security"*|*"Vulnerability"*)
             echo "Security compliance and risk mitigation enabling government market access and enterprise security standards"
@@ -153,7 +153,7 @@ generate_business_value() {
 generate_team_content() {
     local project_key=$1
     local team_name=$2
-    
+
     if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_epics.txt" ]]; then
         # Get epics for this team (limit to top 3 most recent)
         grep "^$project_key:" /tmp/ui_foundation_epics.txt | head -3 | while read -r line; do
@@ -162,9 +162,9 @@ generate_team_content() {
             local epic_key=$(echo "$parsed" | cut -d'|' -f2)
             local summary=$(echo "$parsed" | cut -d'|' -f3)
             local assignee=$(echo "$parsed" | cut -d'|' -f4)
-            
+
             local business_value=$(generate_business_value "$summary" "$team_name")
-            
+
             echo "- **[$epic_key](https://company.atlassian.net/browse/$epic_key)**: \"$summary\" ✅"
             echo "  - **Business Value**: $business_value"
             echo "  - **Impact**: Enhanced platform capabilities and improved user experience through $team_name team contributions"
@@ -181,7 +181,7 @@ generate_team_content() {
 # Generate report header
 cat > "$OUTPUT_FILE" << EOF
 # Weekly SLT Report - UI Foundation Platform
-**Week of $WEEK_DISPLAY | Sprint $WEEK_NUM**  
+**Week of $WEEK_DISPLAY | Sprint $WEEK_NUM**
 **Director of Engineering**: Chris Cantu
 
 ---
@@ -219,7 +219,7 @@ cat >> "$OUTPUT_FILE" << EOF
 ## Team Deliverables
 
 ### ⚙️ **Experience Services**
-**Team Lead**: Nick Levin, Angela Phillips  
+**Team Lead**: Nick Levin, Angela Phillips
 **Focus**: Service Architecture, API Design, Backend Services, Integration
 
 **Completed Epics**:
@@ -343,7 +343,7 @@ if [[ "$LIVE_DATA" == "true" && -f "/tmp/ui_foundation_epics.txt" ]]; then
 
 **📊 Monitoring**:
 - **Developer Experience Consistency** (**Web Platform** + **Web Design Systems**): Tracking adoption of standardized tooling and design system components to ensure consistent development experience across teams
-- **Platform Scalability** (**UIF Special Projects** + **Experience Services**): Monitoring micro-frontend architecture adoption and observability platform performance for anticipated Q4 scaling requirements  
+- **Platform Scalability** (**UIF Special Projects** + **Experience Services**): Monitoring micro-frontend architecture adoption and observability platform performance for anticipated Q4 scaling requirements
 - **Cross-Team Integration Quality** (**Hubs** + **Onboarding**): Assessing user experience consistency and workflow integration effectiveness across platform touchpoints
 EOF
 else
@@ -491,7 +491,7 @@ else
     cat >> "$OUTPUT_FILE" << EOF
 **Strategic Priorities**:
 1. [Data Source Needed] - Top strategic priority
-2. [Data Source Needed] - Second priority  
+2. [Data Source Needed] - Second priority
 3. [Data Source Needed] - Third priority
 
 **Key Deliverables**:
@@ -524,7 +524,7 @@ cat >> "$OUTPUT_FILE" << EOF
 
 ---
 
-*Report generated: $REPORT_DATE*  
+*Report generated: $REPORT_DATE*
 EOF
 
 # Add data source footer with actual epic count
@@ -547,7 +547,7 @@ echo "   4. Review and finalize before sending to leadership"
 echo ""
 echo "💡 Template follows approved format from weekly-report-2025-08-03.md"
 echo "   - Executive summary with business impact focus"
-echo "   - Team-specific epic completion analysis" 
+echo "   - Team-specific epic completion analysis"
 echo "   - Strategic risk assessment and resource planning"
 echo "   - Single focused question for leadership efficiency"
 EOF

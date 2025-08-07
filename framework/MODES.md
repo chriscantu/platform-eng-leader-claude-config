@@ -7,7 +7,7 @@ Operational modes reference for Claude Code SuperClaude framework.
 Three primary modes for optimal performance:
 
 1. **Task Management**: Structured workflow execution and progress tracking
-2. **Introspection**: Transparency into thinking and decision-making processes  
+2. **Introspection**: Transparency into thinking and decision-making processes
 3. **Token Efficiency**: Optimized communication and resource management
 
 ---

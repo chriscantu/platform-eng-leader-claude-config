@@ -29,7 +29,7 @@ Tier 1 - Always Activate (Executive Priority):
     - Investment decisions >$100K with board impact
     - Crisis management and incident response coordination
     - Strategic planning with organizational impact >20 people
-  
+
   tools_activated: ["performance_report", "trend_analysis", "cost_analysis"]
   cost_justification: "Executive context overrides cost considerations"
   expected_roi: "20:1+ through improved decision quality and stakeholder satisfaction"
@@ -40,7 +40,7 @@ Tier 2 - Context Dependent Activation (Strategic Value Threshold):
     - Cross-team coordination with >3 dependency conflicts
     - Budget planning with >10% variance or complex ROI modeling
     - Compliance/audit with elevated risk levels (Yellow/Red)
-    
+
   activation_threshold: strategic_value_score > 0.7 AND cost_benefit_ratio > 3:1
   tools_activated: Context-specific subset based on value analysis
   cost_justification: "Strategic value exceeds cost with measurable ROI"
@@ -51,7 +51,7 @@ Tier 3 - Selective Activation (Cost-Benefit Analysis):
     - Standard stakeholder coordination without major conflicts
     - Regular budget review without variance concerns
     - Operational meetings without strategic implications
-    
+
   activation_threshold: strategic_value_score > 0.8 AND cost_benefit_ratio > 5:1
   tools_activated: Single highest-value tool only
   cost_justification: "High value threshold ensures positive ROI"
@@ -62,25 +62,25 @@ Tier 3 - Selective Activation (Cost-Benefit Analysis):
 Strategic Value Scoring (0.0 - 1.0):
   executive_context: 0.4 weight
     - VP/SLT preparation: 1.0
-    - Board presentation: 1.0  
+    - Board presentation: 1.0
     - Strategic planning: 0.9
     - Cross-functional coordination: 0.7
     - Routine assessment: 0.3
-    
+
   business_impact: 0.3 weight
     - >$1M decisions: 1.0
     - >$500K decisions: 0.8
     - >$100K decisions: 0.6
     - Organizational change >50 people: 0.8
     - Platform adoption issues: 0.7
-    
+
   urgency_factor: 0.2 weight
     - Crisis/incident response: 1.0
     - Weekly SLT reporting: 0.8
     - Monthly planning: 0.6
     - Quarterly review: 0.5
     - Ad hoc analysis: 0.3
-    
+
   complexity_requirement: 0.1 weight
     - Multi-stakeholder coordination: 0.9
     - Cross-team dependency resolution: 0.8
@@ -104,13 +104,13 @@ Cache Categories:
     - Recent organizational health metrics and trends
     - Platform adoption patterns and resistance points
     - Budget performance and variance analysis
-    
+
   Strategic Analysis Cache (48-hour TTL):
     - Market trend analysis and competitive intelligence
     - ROI models and financial projections for similar investments
     - Cross-team coordination patterns and success strategies
     - Risk assessment frameworks and mitigation strategies
-    
+
   Organizational Intelligence Cache (72-hour TTL):
     - Team performance baselines and benchmarks
     - Platform health metrics and correlation patterns
@@ -132,13 +132,13 @@ Tool Combination Strategies:
     - Shared data processing reduces token usage by 15-20%
     - Enhanced insights through correlation analysis
     - Single tool activation cost with dual value delivery
-    
+
   Cost + Trend Analysis:
     - Combine for investment decisions requiring market intelligence
     - Financial modeling enhanced with competitive positioning
     - Reduced redundant market data processing
     - Comprehensive business case generation efficiency
-    
+
   Task Orchestration + Bottleneck Analysis:
     - Combine for complex cross-team coordination initiatives
     - Workflow optimization with constraint identification
@@ -200,12 +200,12 @@ Tool-Enhanced Model Selection:
     - Always use Opus for VP/SLT preparation with tool enhancement
     - Premium quality justification: Executive satisfaction + strategic outcome quality
     - Cost justification: High-stakes decision quality > incremental cost
-    
+
   Strategic Analysis + Tools:
     - Use Opus for >$500K investment decisions with financial modeling
     - Use Sonnet 4 for routine organizational assessment with performance analytics
     - Dynamic routing based on strategic value score and complexity
-    
+
   Cross-Team Coordination + Tools:
     - Use Sonnet 4 for standard coordination with task orchestration
     - Escalate to Opus for >20 stakeholder initiatives with bottleneck analysis
@@ -221,7 +221,7 @@ Cost-Optimized Tool Activation:
 ```yaml
 Tool Enhancement Quality Gates:
   executive_satisfaction_threshold: 4.5/5.0 minimum rating
-  strategic_insight_relevance: 0.8 minimum relevance score  
+  strategic_insight_relevance: 0.8 minimum relevance score
   business_impact_correlation: Measurable outcomes within 30-90 days
   cost_efficiency_maintenance: <25% increase in session costs
 
@@ -256,12 +256,12 @@ Cost Escalation Responses:
     - Enhanced cost tracking and analysis
     - Daily usage reports and trend identification
     - Selective tool deactivation for non-executive contexts
-    
+
   Level 2 - Optimization (150% of baseline):
     - Enforce aggressive caching strategies
     - Limit tool activation to Tier 1 contexts only
     - Implement batch processing requirements
-    
+
   Level 3 - Emergency Controls (200% of baseline):
     - Executive context only tool activation
     - Maximum cache utilization enforcement

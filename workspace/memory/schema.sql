@@ -138,7 +138,7 @@ CREATE INDEX idx_executive_sessions_stakeholder ON executive_sessions(stakeholde
 CREATE INDEX idx_executive_sessions_date ON executive_sessions(meeting_date);
 CREATE INDEX idx_executive_sessions_type ON executive_sessions(session_type);
 
--- Strategic initiatives indexes  
+-- Strategic initiatives indexes
 CREATE INDEX idx_initiatives_status ON strategic_initiatives(status);
 CREATE INDEX idx_initiatives_assignee ON strategic_initiatives(assignee);
 CREATE INDEX idx_initiatives_risk ON strategic_initiatives(risk_level);
@@ -169,7 +169,7 @@ CREATE INDEX idx_decisions_date ON strategic_decisions(decision_date);
 
 -- Active initiatives requiring attention
 CREATE VIEW active_initiatives_dashboard AS
-SELECT 
+SELECT
     initiative_key,
     initiative_name,
     assignee,
@@ -178,38 +178,38 @@ SELECT
     completion_probability,
     business_value,
     updated_at
-FROM strategic_initiatives 
+FROM strategic_initiatives
 WHERE status IN ('in_progress', 'at_risk', 'committed')
-ORDER BY 
-    CASE risk_level 
-        WHEN 'red' THEN 1 
-        WHEN 'yellow' THEN 2 
-        WHEN 'green' THEN 3 
-        ELSE 4 
+ORDER BY
+    CASE risk_level
+        WHEN 'red' THEN 1
+        WHEN 'yellow' THEN 2
+        WHEN 'green' THEN 3
+        ELSE 4
     END,
-    CASE priority 
-        WHEN 'critical' THEN 1 
-        WHEN 'high' THEN 2 
-        WHEN 'medium' THEN 3 
-        WHEN 'low' THEN 4 
+    CASE priority
+        WHEN 'critical' THEN 1
+        WHEN 'high' THEN 2
+        WHEN 'medium' THEN 3
+        WHEN 'low' THEN 4
     END;
 
 -- Recent executive session summary
 CREATE VIEW recent_executive_sessions AS
-SELECT 
+SELECT
     session_type,
     stakeholder_key,
     meeting_date,
     outcome_rating,
     follow_up_required,
     persona_activated
-FROM executive_sessions 
+FROM executive_sessions
 WHERE meeting_date >= date('now', '-30 days')
 ORDER BY meeting_date DESC;
 
 -- Platform metrics trending
 CREATE VIEW platform_metrics_trending AS
-SELECT 
+SELECT
     category,
     metric_name,
     value_numeric,
@@ -217,13 +217,13 @@ SELECT
     measurement_date,
     trend_direction,
     data_source
-FROM platform_intelligence 
+FROM platform_intelligence
 WHERE measurement_date >= date('now', '-90 days')
 ORDER BY category, metric_name, measurement_date DESC;
 
 -- Budget variance analysis
 CREATE VIEW budget_variance_current AS
-SELECT 
+SELECT
     category,
     subcategory,
     allocated_budget,
@@ -231,7 +231,7 @@ SELECT
     (actual_spend - allocated_budget) as variance,
     ROUND((actual_spend - allocated_budget) / allocated_budget * 100, 2) as variance_percent,
     roi_measurement
-FROM budget_intelligence 
+FROM budget_intelligence
 WHERE budget_cycle LIKE '%2025%'
 ORDER BY variance_percent DESC;
 
@@ -240,42 +240,42 @@ ORDER BY variance_percent DESC;
 -- ===========================================
 
 -- Update timestamp trigger for executive_sessions
-CREATE TRIGGER update_executive_sessions_timestamp 
+CREATE TRIGGER update_executive_sessions_timestamp
     AFTER UPDATE ON executive_sessions
 BEGIN
     UPDATE executive_sessions SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
 -- Update timestamp trigger for strategic_initiatives
-CREATE TRIGGER update_strategic_initiatives_timestamp 
+CREATE TRIGGER update_strategic_initiatives_timestamp
     AFTER UPDATE ON strategic_initiatives
 BEGIN
     UPDATE strategic_initiatives SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
 -- Update timestamp trigger for stakeholder_profiles
-CREATE TRIGGER update_stakeholder_profiles_timestamp 
+CREATE TRIGGER update_stakeholder_profiles_timestamp
     AFTER UPDATE ON stakeholder_profiles
 BEGIN
     UPDATE stakeholder_profiles SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
 -- Update timestamp trigger for platform_intelligence
-CREATE TRIGGER update_platform_intelligence_timestamp 
+CREATE TRIGGER update_platform_intelligence_timestamp
     AFTER UPDATE ON platform_intelligence
 BEGIN
     UPDATE platform_intelligence SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
 -- Update timestamp trigger for budget_intelligence
-CREATE TRIGGER update_budget_intelligence_timestamp 
+CREATE TRIGGER update_budget_intelligence_timestamp
     AFTER UPDATE ON budget_intelligence
 BEGIN
     UPDATE budget_intelligence SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
 -- Update timestamp trigger for strategic_decisions
-CREATE TRIGGER update_strategic_decisions_timestamp 
+CREATE TRIGGER update_strategic_decisions_timestamp
     AFTER UPDATE ON strategic_decisions
 BEGIN
     UPDATE strategic_decisions SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
@@ -351,7 +351,7 @@ CREATE INDEX idx_intelligence_patterns_type ON tool_intelligence_patterns(patter
 
 -- Enhanced views for strategic tool analytics
 CREATE VIEW tool_effectiveness_dashboard AS
-SELECT 
+SELECT
     tool_name,
     command_context,
     AVG(effectiveness_rating) as avg_effectiveness,
@@ -359,12 +359,12 @@ SELECT
     AVG(cost_token_usage) as avg_cost,
     AVG(execution_time_ms) as avg_execution_time,
     MAX(created_at) as last_used
-FROM strategic_tool_outputs 
+FROM strategic_tool_outputs
 GROUP BY tool_name, command_context
 ORDER BY avg_effectiveness DESC, usage_count DESC;
 
 CREATE VIEW cost_optimization_summary AS
-SELECT 
+SELECT
     command_name,
     COUNT(*) as total_executions,
     SUM(CASE WHEN activation_decision = 'activated' THEN 1 ELSE 0 END) as activations,
@@ -373,18 +373,18 @@ SELECT
     SUM(token_usage_actual) as total_tokens_used,
     SUM(token_usage_saved) as total_tokens_saved,
     AVG(user_satisfaction) as avg_satisfaction
-FROM tool_activation_log 
+FROM tool_activation_log
 GROUP BY command_name
 ORDER BY avg_cost_benefit DESC;
 
 -- Update timestamp triggers for new tables
-CREATE TRIGGER update_tool_outputs_timestamp 
+CREATE TRIGGER update_tool_outputs_timestamp
     AFTER UPDATE ON strategic_tool_outputs
 BEGIN
     UPDATE strategic_tool_outputs SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
-CREATE TRIGGER update_intelligence_patterns_timestamp 
+CREATE TRIGGER update_intelligence_patterns_timestamp
     AFTER UPDATE ON tool_intelligence_patterns
 BEGIN
     UPDATE tool_intelligence_patterns SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
@@ -406,7 +406,7 @@ INSERT INTO schema_metadata (version, description) VALUES
 -- ===========================================
 
 -- Total tables: 6 core + 1 metadata
--- Views: 4 strategic dashboards  
+-- Views: 4 strategic dashboards
 -- Indexes: 15 performance optimizations
 -- Triggers: 6 automatic timestamp updates
 -- Constraints: Comprehensive data validation

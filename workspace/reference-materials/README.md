@@ -6,7 +6,7 @@ This directory contains reference materials and knowledge resources for the Supe
 
 ### 📚 `/books/`
 **Purpose**: Full books and major publications related to platform engineering leadership
-**Contents**: 
+**Contents**:
 - Leadership and management books (PDF, EPUB, text summaries)
 - Technical architecture and platform engineering literature
 - Business strategy and organizational design resources
@@ -197,7 +197,7 @@ All materials in this directory are accessible via SuperClaude's semantic search
 # Search across all reference materials
 /codebase-search "platform engineering best practices" workspace/reference-materials/
 
-# Search specific knowledge areas  
+# Search specific knowledge areas
 /codebase-search "vendor evaluation criteria" workspace/reference-materials/knowledge-base/vendor-intelligence/
 
 # Find relevant templates
@@ -248,7 +248,7 @@ strategic_context: "Guides platform team structure and interaction patterns"
 
 ### Adding New Materials
 1. **Categorize** content into appropriate directory
-2. **Add metadata** headers for markdown files  
+2. **Add metadata** headers for markdown files
 3. **Create summaries** for lengthy materials (>20 pages)
 4. **Update this README** if adding new categories
 5. **Test AI access** with semantic search queries

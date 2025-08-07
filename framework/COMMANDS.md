@@ -33,7 +33,7 @@ performance-profile: "optimization|standard|complex"
 **Wave Orchestration Engine**: Multi-stage command execution with compound intelligence. Auto-activates on complexity ≥0.7 + files >20 + operation_types >2.
 
 **Wave-Enabled Commands (Director-Level)**:
-- **Tier 1**: `/analyze`, `/improve`, `/assess-org`, `/justify-investment`  
+- **Tier 1**: `/analyze`, `/improve`, `/assess-org`, `/justify-investment`
 - **Tier 2**: `/design`, `/task`, `/align-stakeholders`, `/prepare-slt`
 
 ### Strategic Development Commands
@@ -42,7 +42,7 @@ performance-profile: "optimization|standard|complex"
 ```yaml
 ---
 command: "/design"
-category: "Strategic Architecture"  
+category: "Strategic Architecture"
 purpose: "Platform architecture and system design strategy"
 wave-enabled: true
 performance-profile: "complex"
@@ -91,7 +91,7 @@ performance-profile: "optimization"
 
 **`/estimate [target] [flags]`** - Strategic resource estimation and capacity planning
 - **Auto-Persona**: Diego (engineering leadership), David (resource planning), Camille (strategic assessment)
-- **MCP Integration**: Sequential (analysis), Context7 (industry benchmarks)  
+- **MCP Integration**: Sequential (analysis), Context7 (industry benchmarks)
 - **Focus**: Team capacity, budget allocation, timeline planning, cross-team dependencies
 
 **`/task [operation] [flags]`** - Strategic project orchestration and long-term initiative management
@@ -140,7 +140,7 @@ performance-profile: "optimization"
 - **Business Focus**: Platform ROI, user experience impact, product roadmap alignment, competitive differentiation
 - **Output Optimization**: Product-focused metrics, user journey impact, business value correlation
 
-**`/prep-vp-engineering [topic] [flags]`** - VP of Engineering meeting preparation  
+**`/prep-vp-engineering [topic] [flags]`** - VP of Engineering meeting preparation
 - **Enhanced Auto-Activation**: --vp-engineering-prep + --executive-brief always active
 - **Auto-Persona**: Diego (engineering leadership), Martin (technical architecture), David (resource planning)
 - **MCP Integration**: Sequential (technical analysis) + Context7 (engineering leadership patterns)
@@ -148,7 +148,7 @@ performance-profile: "optimization"
 - **Output Optimization**: Engineering metrics, team performance, technical strategy alignment, resource justification
 
 **`/prep-vp-design [topic] [flags]`** - VP of Design meeting preparation
-- **Enhanced Auto-Activation**: --vp-design-prep + --executive-brief always active  
+- **Enhanced Auto-Activation**: --vp-design-prep + --executive-brief always active
 - **Auto-Persona**: Rachel (design leadership), Camille (strategic alignment), Marcus (adoption metrics)
 - **MCP Integration**: Magic (design system analysis) + Sequential (strategic alignment) + Context7 (design patterns)
 - **Design Focus**: Design system adoption, accessibility compliance, user experience consistency, cross-team design coordination
@@ -203,7 +203,7 @@ execution: "bash ./generate-weekly-report-claude.sh"
 ```
 /assess-org [scope] --platform-health
   ↓ Auto-triggers
-/analyze platform --adoption-metrics  
+/analyze platform --adoption-metrics
   ↓ Feeds into
 /justify-investment platform --executive-brief
   ↓ Prepares for
@@ -213,7 +213,7 @@ execution: "bash ./generate-weekly-report-claude.sh"
 **Compliance & Risk Pipeline**:
 ```
 /analyze compliance --compliance-scan
-  ↓ Auto-triggers  
+  ↓ Auto-triggers
 /improve accessibility --validation-framework
   ↓ Feeds into
 /prepare-slt "Compliance Status" --executive-brief
@@ -226,7 +226,7 @@ execution: "bash ./generate-weekly-report-claude.sh"
 /analyze vendor [tool] --vendor-eval
   ↓ Auto-triggers
 /estimate --vendor-roi --tco-analysis
-  ↓ Feeds into  
+  ↓ Feeds into
 /justify-investment vendor --executive-brief
   ↓ Prepares for
 /align-stakeholders procurement --stakeholder-align
@@ -271,10 +271,10 @@ weekly-report-{date}.md with executive summary
 
 **Development Tasks**:
 - **Build/Deploy**: `/task "Build and deploy [component]" --persona-devops --delegate auto`
-- **Feature Implementation**: `/task "Implement [feature]" --persona-frontend --delegate files`  
+- **Feature Implementation**: `/task "Implement [feature]" --persona-frontend --delegate files`
 - **Code Cleanup**: `/task "Refactor and cleanup [module]" --persona-refactorer --delegate auto`
 
-**Analysis Tasks**:  
+**Analysis Tasks**:
 - **Troubleshooting**: `/task "Debug [issue]" --persona-analyzer --focus root-cause --delegate auto`
 - **Documentation**: `/task "Document [system]" --persona-scribe=en --c7 --delegate auto`
 - **Testing**: `/task "Test [functionality]" --persona-qa --play --delegate auto`
@@ -285,7 +285,7 @@ weekly-report-{date}.md with executive summary
 
 ### Director Oversight Pattern
 1. **Strategic Direction**: Director defines objectives and success criteria
-2. **Task Delegation**: Sub-agents handle implementation details  
+2. **Task Delegation**: Sub-agents handle implementation details
 3. **Progress Review**: Director receives executive summaries and key insights
 4. **Strategic Adjustment**: Director makes course corrections based on sub-agent findings
 
@@ -302,7 +302,7 @@ complex: "Resource-intensive with comprehensive analysis"
 - **Strategic Leadership**: assess-org, prepare-slt, align-stakeholders, justify-investment
 - **Executive Communication**: generate-weekly-report, prep-vp-product, prep-vp-engineering, prep-vp-design
 - **Platform Strategy**: analyze, design, improve
-- **Resource Planning**: estimate, task  
+- **Resource Planning**: estimate, task
 - **Sub-Agent Coordination**: spawn, load, index
 - **IC-Level Delegation**: Via `/task` with specialized sub-agents for implementation work
 

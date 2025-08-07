@@ -1,0 +1,42 @@
+# Development Configuration for Strategic Integration Service
+
+# Application settings
+app_name: "Strategic Integration Service (Development)"
+debug: true
+log_level: "DEBUG"
+
+# Jira API configuration
+jira_base_url: "https://procoretech.atlassian.net"
+jira_email: "chris.cantu@procore.com"
+jira_timeout: 30
+jira_max_retries: 3
+jira_retry_backoff: 1.0
+
+# UI Foundation team configuration
+ui_foundation_projects:
+  - "WES"
+  - "GLB"
+  - "HUBS"
+  - "FSGD"
+  - "UISP"
+  - "UIS"
+  - "UXI"
+  - "PI"
+
+# L2 Strategic initiative configuration
+l2_division_filter: "UI Foundations"
+l2_custom_field_priority: "cf[18272]"
+
+# Output configuration
+output_base_dir: "workspace/current-initiatives"
+report_output_dir: "executive/reports"
+
+# Security and data protection
+mask_pii: true
+encrypt_sensitive_data: false  # Disabled for development
+audit_log_enabled: true
+
+# Performance settings
+enable_caching: true
+cache_ttl_seconds: 300
+parallel_requests: 3  # Lower for development to avoid rate limiting

@@ -1,14 +1,14 @@
 # VP 1-on-1 Preparation Template
 
-**Date**: [Meeting Date]  
-**Attendee**: [VP Name and Title]  
-**Duration**: [Expected Duration]  
+**Date**: [Meeting Date]
+**Attendee**: [VP Name and Title]
+**Duration**: [Expected Duration]
 **SuperClaude Personas**: camille, david, diego
 
 ## Pre-Meeting Context
 
-**Last Meeting**: [Date and key outcomes]  
-**Strategic Priorities**: [Current VP priorities relevant to platform]  
+**Last Meeting**: [Date and key outcomes]
+**Strategic Priorities**: [Current VP priorities relevant to platform]
 **Recent Platform Wins**: [Key achievements since last meeting]
 
 ## Agenda Items

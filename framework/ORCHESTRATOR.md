@@ -28,7 +28,7 @@ Analyzes requests for executive context, business impact, and organizational lev
 
 **Director-Level Complexity Assessment**:
 - **Strategic** (0.8+): Multi-stakeholder coordination, org design, platform strategy, VP/SLT communications
-- **Platform** (0.5-0.8): Cross-team initiatives, vendor evaluation, compliance programs, adoption campaigns  
+- **Platform** (0.5-0.8): Cross-team initiatives, vendor evaluation, compliance programs, adoption campaigns
 - **Operational** (<0.5): Technical implementation, routine updates, individual contributor tasks
 
 **Context Classification**:
@@ -61,7 +61,7 @@ Director-level routing for strategic platform leadership, executive communicatio
 
 **Platform Governance Routing**:
 - **Adoption Assessment** → --platform-health + marcus + diego + alvaro + Context7
-- **Cross-Team Coordination** → --stakeholder-align + diego + camille + rachel + Sequential  
+- **Cross-Team Coordination** → --stakeholder-align + diego + camille + rachel + Sequential
 - **Vendor Evaluation** → --vendor-eval + sofia + david + martin + Sequential
 - **Compliance Review** → --compliance-scan + elena + rachel + Playwright + Sequential
 
@@ -82,7 +82,7 @@ Director-level routing for strategic platform leadership, executive communicatio
 
 ### Executive Communication Protocol
 - **Single Question Focus**: Ask ONE specific question at a time in VP/SLT contexts
-- **Business Translation**: Convert technical decisions → business impact + competitive advantage  
+- **Business Translation**: Convert technical decisions → business impact + competitive advantage
 - **Evidence-Based Proposals**: Support recommendations with quantifiable metrics
 - **Stakeholder Alignment**: Consider cross-functional impact (Product/Design/Marketing/Legal)
 
@@ -138,7 +138,7 @@ Director-level routing for strategic platform leadership, executive communicatio
 
 **Strategic Leadership Team**:
 - **camille**: Strategic technology + organizational scaling + executive advisory
-- **diego**: Engineering leadership + platform strategy + multinational coordination  
+- **diego**: Engineering leadership + platform strategy + multinational coordination
 - **rachel**: Design systems strategy + cross-functional alignment + UX leadership
 - **alvaro**: Platform investment ROI + business value + stakeholder communication
 
@@ -165,7 +165,7 @@ Director-level routing for strategic platform leadership, executive communicatio
 
 ### MCP Server Strategy
 - **Sequential**: Strategic analysis, complex reasoning, multi-stakeholder coordination
-- **Context7**: Industry benchmarks, platform patterns, organizational frameworks  
+- **Context7**: Industry benchmarks, platform patterns, organizational frameworks
 - **Magic**: Design system visualization, UX impact demonstration
 - **Playwright**: Compliance testing, accessibility validation
 

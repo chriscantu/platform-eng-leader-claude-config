@@ -69,7 +69,7 @@
 **Auto-Activation**: Calendar events with VP/SVP Engineering, Senior Leadership Team members
 **Prep Workflow**:
 1. **Platform Health Summary**: Current adoption metrics, key wins, emerging risks
-2. **Resource Needs Assessment**: Budget requests, headcount needs, tool/vendor requirements  
+2. **Resource Needs Assessment**: Budget requests, headcount needs, tool/vendor requirements
 3. **Strategic Alignment Check**: How platform initiatives support business objectives
 4. **Cross-Functional Issues**: Escalations needed, stakeholder relationship management
 5. **Executive Communication**: Key messages, asks, and success stories to highlight
@@ -98,7 +98,7 @@
 
 **Personas Activated**: diego (cross-team coordination), marcus (adoption strategy), martin (technical architecture)
 
-### Vendor Negotiation/Evaluation Prep  
+### Vendor Negotiation/Evaluation Prep
 **Auto-Activation**: Meetings with vendors, procurement, contract discussions
 **Prep Workflow**:
 1. **TCO Analysis**: Total cost of ownership including implementation, maintenance, opportunity costs
@@ -136,7 +136,7 @@
 **Prep Workflow**:
 1. **Current Spend Analysis**: Actual vs. budgeted across categories (headcount, tools, vendors, infrastructure)
 2. **ROI Demonstration**: Platform investment returns through productivity, quality, cost avoidance
-3. **Resource Justification**: Headcount requests, tool needs, infrastructure scaling, vendor renewals  
+3. **Resource Justification**: Headcount requests, tool needs, infrastructure scaling, vendor renewals
 4. **Strategic Alignment**: How budget requests support business objectives and platform strategy
 5. **Scenario Planning**: Budget scenarios for different business conditions and growth assumptions
 
