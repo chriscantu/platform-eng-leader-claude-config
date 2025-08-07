@@ -4,7 +4,9 @@
 # Director of Engineering: Strategic context persistence integration
 
 # Memory system configuration
-MEMORY_MANAGER="/Users/chris.cantu/repos/platform-eng-leader-claude-config/memory/memory_manager.py"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+MEMORY_MANAGER="${MEMORY_MANAGER:-$PROJECT_ROOT/memory/memory_manager.py}"
 MEMORY_DB_PATH="$HOME/.superclaude/memory/strategic_memory.db"
 
 # Ensure Python requirements are available
