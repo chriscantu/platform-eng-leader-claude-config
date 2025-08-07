@@ -3,8 +3,8 @@
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any, Dict
 from unittest.mock import Mock, patch
-from typing import Dict, Any
 
 import pytest
 import responses
@@ -15,7 +15,7 @@ from strategic_integration_service.extractors.current_initiatives import Current
 from strategic_integration_service.models.initiative import (
     CurrentInitiative,
     StrategicEpic,
-    UIFoundationTeam,
+    TeamProject,
 )
 
 
@@ -42,7 +42,7 @@ class TestCurrentInitiativesExtractor:
     def sample_jira_issue(self) -> Dict[str, Any]:
         """Create sample Jira issue data."""
         return {
-            "key": "UIS-123",
+            "key": "PROJ6-123",
             "fields": {
                 "summary": "Test Initiative",
                 "status": {"name": "In Progress"},
@@ -52,7 +52,7 @@ class TestCurrentInitiativesExtractor:
                     "displayName": "Test User",
                     "emailAddress": "test@test.com",
                 },
-                "project": {"key": "UIS", "name": "Web Platform"},
+                "project": {"key": "PROJ6", "name": "Team 6"},
                 "labels": ["platform-foundation", "test-label"],
                 "components": [{"name": "Frontend"}, {"name": "API"}],
                 "fixVersions": [{"name": "v2.1.0"}],
@@ -133,7 +133,7 @@ class TestCurrentInitiativesExtractor:
                 jira_email="test@test.com",
                 jira_api_token="test-token",
             )
-            extractor.ui_foundation_projects = ["UIS", "PI"]
+            extractor.team_projects = ["PROJ6", "PI"]
 
             # Mock JiraClient
             with patch(
@@ -147,11 +147,11 @@ class TestCurrentInitiativesExtractor:
 
                 assert len(initiatives) == 1
                 assert isinstance(initiatives[0], CurrentInitiative)
-                assert initiatives[0].key == "UIS-123"
+                assert initiatives[0].key == "PROJ6-123"
                 assert initiatives[0].summary == "Test Initiative"
                 assert initiatives[0].issue_type == "Story"
                 assert initiatives[0].components == ["Frontend", "API"]
-                assert initiatives[0].ui_foundation_team == UIFoundationTeam.WEB_PLATFORM
+                assert initiatives[0].ui_foundation_team == TeamProject.TEAM_6
 
     @pytest.mark.asyncio
     async def test_extract_strategic_epics_success(
@@ -165,7 +165,7 @@ class TestCurrentInitiativesExtractor:
                 jira_email="test@test.com",
                 jira_api_token="test-token",
             )
-            extractor.ui_foundation_projects = ["PI"]
+            extractor.team_projects = ["PI"]
             extractor.strategic_labels = ["platform-foundation"]
 
             # Mock JiraClient
@@ -276,7 +276,7 @@ class TestCurrentInitiativesExtractor:
                 jira_email="test@test.com",
                 jira_api_token="test-token",
             )
-            extractor.ui_foundation_projects = ["UIS", "PI"]
+            extractor.team_projects = ["PROJ6", "PI"]
             extractor.strategic_labels = ["platform-foundation"]
 
             with patch.object(extractor, "extract_active_initiatives") as mock_active, patch.object(
@@ -329,10 +329,10 @@ class TestCurrentInitiativesExtractor:
     def test_ui_foundation_team_mapping(self):
         """Test UI Foundation team enum mappings."""
 
-        assert UIFoundationTeam.WEB_PLATFORM.value == "UIS"
-        assert UIFoundationTeam.WEB_PLATFORM.team_name == "Web Platform"
-        assert UIFoundationTeam.PLATFORM_INITIATIVES.value == "PI"
-        assert UIFoundationTeam.PLATFORM_INITIATIVES.team_name == "Platform Initiatives"
+        assert TeamProject.TEAM_6.value == "PROJ6"
+        assert TeamProject.TEAM_6.team_name == "Team 6"
+        assert TeamProject.PLATFORM_INITIATIVES.value == "PI"
+        assert TeamProject.PLATFORM_INITIATIVES.team_name == "Platform Initiatives"
 
     def test_current_initiative_methods(self, sample_jira_issue: Dict[str, Any]):
         """Test CurrentInitiative helper methods."""
@@ -346,8 +346,8 @@ class TestCurrentInitiativesExtractor:
         assert initiative.has_strategic_labels() is True
 
         # Test team mapping
-        assert initiative.ui_foundation_team == UIFoundationTeam.WEB_PLATFORM
-        assert initiative.team_name == "Web Platform"
+        assert initiative.ui_foundation_team == TeamProject.TEAM_6
+        assert initiative.team_name == "Team 6"
 
     def test_strategic_epic_methods(self, sample_epic_issue: Dict[str, Any]):
         """Test StrategicEpic helper methods."""

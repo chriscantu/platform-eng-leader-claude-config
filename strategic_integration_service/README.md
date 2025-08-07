@@ -1,6 +1,6 @@
 # Strategic Integration Service
 
-Enterprise-grade Python service for UI Foundation platform leadership, replacing bash scripts with reliable strategic data extraction and reporting.
+Enterprise-grade Python service for platform leadership, replacing bash scripts with reliable strategic data extraction and reporting.
 
 ## Overview
 

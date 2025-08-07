@@ -6,25 +6,25 @@ debug: true
 log_level: "DEBUG"
 
 # Jira API configuration
-jira_base_url: "https://procoretech.atlassian.net"
-jira_email: "chris.cantu@procore.com"
+jira_base_url: "https://your-domain.atlassian.net"
+jira_email: "user@company.com"
 jira_timeout: 30
 jira_max_retries: 3
 jira_retry_backoff: 1.0
 
-# UI Foundation team configuration
-ui_foundation_projects:
-  - "WES"
-  - "GLB"
-  - "HUBS"
-  - "FSGD"
-  - "UISP"
-  - "UIS"
-  - "UXI"
+# Team configuration
+team_projects:
+  - "PROJ1"
+  - "PROJ2"
+  - "PROJ3"
+  - "PROJ4"
+  - "PROJ5"
+  - "PROJ6"
+  - "PROJ7"
   - "PI"
 
 # L2 Strategic initiative configuration
-l2_division_filter: "UI Foundations"
+l2_division_filter: "Engineering Division"
 l2_custom_field_priority: "cf[18272]"
 
 # Output configuration

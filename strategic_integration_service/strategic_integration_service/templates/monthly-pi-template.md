@@ -179,6 +179,6 @@
 
 ---
 
-*This report was generated automatically by the Strategic Integration Service. For detailed analysis or follow-up questions, contact the UI Foundation Platform Engineering team.*
+*This report was generated automatically by the Strategic Integration Service. For detailed analysis or follow-up questions, contact the Platform Engineering team.*
 
 **Next Monthly Report**: {{ (metadata.report_period_end.replace(day=1) + timedelta(days=32)).replace(day=1) | format_date('%B %Y') }}

@@ -19,6 +19,9 @@ class InitiativeStatus(str, Enum):
     CLOSED = "Closed"
     CANCELED = "Canceled"
     RELEASED = "Released"
+    PAUSED = "Paused"
+    REFINEMENT = "Refinement"
+    READY_TO_COMMIT = "Ready to Commit"
 
 
 class InitiativePriority(str, Enum):
@@ -32,29 +35,29 @@ class InitiativePriority(str, Enum):
     CRITICAL = "Critical"
 
 
-class UIFoundationTeam(str, Enum):
-    """UI Foundation team project mappings."""
+class TeamProject(str, Enum):
+    """Team project mappings."""
 
-    EXPERIENCE_SERVICES = "WES"
-    GLOBALIZERS = "GLB"
-    HUBS = "HUBS"
-    ONBOARDING = "FSGD"
-    UIF_SPECIAL_PROJECTS = "UISP"
-    WEB_PLATFORM = "UIS"
-    WEB_DESIGN_SYSTEMS = "UXI"
+    TEAM_1 = "PROJ1"
+    TEAM_2 = "PROJ2"
+    TEAM_3 = "PROJ3"
+    TEAM_4 = "PROJ4"
+    TEAM_5 = "PROJ5"
+    TEAM_6 = "PROJ6"
+    TEAM_7 = "PROJ7"
     PLATFORM_INITIATIVES = "PI"
 
     @property
     def team_name(self) -> str:
         """Get human-readable team name."""
         team_names = {
-            "WES": "Experience Services",
-            "GLB": "Globalizers",
-            "HUBS": "Hubs",
-            "FSGD": "Onboarding",
-            "UISP": "UIF Special Projects",
-            "UIS": "Web Platform",
-            "UXI": "Web Design Systems",
+            "PROJ1": "Team 1",
+            "PROJ2": "Team 2",
+            "PROJ3": "Team 3",
+            "PROJ4": "Team 4",
+            "PROJ5": "Team 5",
+            "PROJ6": "Team 6",
+            "PROJ7": "Team 7",
             "PI": "Platform Initiatives",
         }
         return team_names.get(self.value, "Unknown Team")
@@ -352,6 +355,11 @@ class L2Initiative(Initiative):
                     initiative_type = str(fields[field])
                 break
 
+        # If no initiative_type found but we're processing this as an L2Initiative,
+        # it means it came from the L2 JQL query, so default it to "L2"
+        if not initiative_type:
+            initiative_type = "L2"
+
         # Extract strategic priority rank
         strategic_priority_rank = None
         priority_fields = ["customfield_18272", "cf[18272]"]
@@ -444,11 +452,11 @@ class CurrentInitiative(Initiative):
         )
 
     @property
-    def ui_foundation_team(self) -> Optional[UIFoundationTeam]:
+    def ui_foundation_team(self) -> Optional[TeamProject]:
         """Get UI Foundation team if this initiative belongs to one."""
         if self.project:
             try:
-                return UIFoundationTeam(self.project.key)
+                return TeamProject(self.project.key)
             except ValueError:
                 return None
         return None

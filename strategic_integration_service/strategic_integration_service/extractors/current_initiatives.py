@@ -9,12 +9,7 @@ from typing import Dict, List, Optional, Tuple
 import structlog
 
 from ..core.config import Settings
-from ..models.initiative import (
-    CurrentInitiative,
-    StrategicEpic,
-    StrategicLabel,
-    UIFoundationTeam,
-)
+from ..models.initiative import CurrentInitiative, StrategicEpic, StrategicLabel, TeamProject
 from ..utils.jira_client import JiraClient
 from ..utils.markdown_utils import MarkdownGenerator
 from .base_extractor import BaseExtractor
@@ -28,7 +23,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
     def __init__(self, settings: Settings):
         """Initialize the current initiatives extractor."""
         super().__init__(settings)
-        self.ui_foundation_projects = [team.value for team in UIFoundationTeam]
+        self.team_projects = list(settings.team_projects)
         self.strategic_labels = [label.value for label in StrategicLabel]
 
     def extract(self) -> List[CurrentInitiative]:
@@ -44,7 +39,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
 
     def get_active_initiatives_jql(self) -> str:
         """Generate JQL for active initiatives."""
-        projects = ",".join(self.ui_foundation_projects)
+        projects = ",".join(self.team_projects)
         return (
             f"project in ({projects}) AND "
             f"status not in (Done, Closed, Resolved) "
@@ -53,7 +48,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
 
     def get_strategic_epics_jql(self) -> str:
         """Generate JQL for strategic epics."""
-        projects = ",".join(self.ui_foundation_projects)
+        projects = ",".join(self.team_projects)
         labels = ",".join(self.strategic_labels)
         return (
             f"(project in ({projects}) OR labels in ({labels})) AND "
@@ -64,7 +59,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
 
     def get_recent_completed_jql(self, days: int = 30) -> str:
         """Generate JQL for recently completed work."""
-        projects = ",".join(self.ui_foundation_projects)
+        projects = ",".join(self.team_projects)
         return (
             f"project in ({projects}) AND "
             f"status in (Done, Closed, Resolved) AND "
@@ -74,7 +69,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
 
     async def extract_active_initiatives(self) -> List[CurrentInitiative]:
         """Extract active initiatives from all UI Foundation teams."""
-        logger.info("Extracting active initiatives", projects=self.ui_foundation_projects)
+        logger.info("Extracting active initiatives", projects=self.team_projects)
 
         jql = self.get_active_initiatives_jql()
         logger.info("Active initiatives query", jql=jql)
@@ -460,7 +455,7 @@ class CurrentInitiativesExtractor(BaseExtractor):
                 "---",
                 "",
                 "## Data Sources",
-                f"- **Company Jira API**: All UI Foundation teams ({', '.join(self.ui_foundation_projects)})",
+                f"- **Company Jira API**: All team projects ({', '.join(self.team_projects)})",
                 f"- **Strategic Labels**: {', '.join(self.strategic_labels)}",
                 f"- **Query Date**: {extract_date}",
                 f"- **Raw Data**: Available in output directory",

@@ -39,7 +39,9 @@ class ReportMetadata(BaseModel):
     """Metadata for generated reports."""
 
     report_type: ReportType = Field(..., description="Type of report")
-    generation_date: datetime = Field(default_factory=datetime.now, description="When report was generated")
+    generation_date: datetime = Field(
+        default_factory=datetime.now, description="When report was generated"
+    )
     report_period_start: datetime = Field(..., description="Start of reporting period")
     report_period_end: datetime = Field(..., description="End of reporting period")
     author: str = Field(default="Strategic Integration Service", description="Report author")
@@ -118,10 +120,14 @@ class ReportOutput(BaseModel):
 
     metadata: ReportMetadata = Field(..., description="Report metadata")
     sections: List[ReportSection] = Field(..., description="Report sections")
-    data: Union[WeeklyReportData, MonthlyReportData] = Field(..., description="Report-specific data")
+    data: Union[WeeklyReportData, MonthlyReportData] = Field(
+        ..., description="Report-specific data"
+    )
     raw_markdown: str = Field(..., description="Generated markdown content")
     executive_summary: str = Field(..., description="Executive summary")
-    recommendations: List[str] = Field(default_factory=list, description="Strategic recommendations")
+    recommendations: List[str] = Field(
+        default_factory=list, description="Strategic recommendations"
+    )
 
     def get_filename(self, extension: str = "md") -> str:
         """Generate appropriate filename for the report."""
@@ -135,13 +141,13 @@ class ReportOutput(BaseModel):
         period_end = self.metadata.report_period_end.strftime("%B %d, %Y")
 
         title_map = {
-            ReportType.WEEKLY_SLT: f"UI Foundation Weekly SLT Report - {period_start} to {period_end}",
-            ReportType.MONTHLY_PI: f"UI Foundation Monthly PI Initiative Report - {period_end}",
-            ReportType.QUARTERLY_REVIEW: f"UI Foundation Quarterly Review - {period_end}",
-            ReportType.STRATEGIC_ANALYSIS: f"UI Foundation Strategic Analysis - {period_end}",
+            ReportType.WEEKLY_SLT: f"Engineering Weekly SLT Report - {period_start} to {period_end}",
+            ReportType.MONTHLY_PI: f"Engineering Monthly PI Initiative Report - {period_end}",
+            ReportType.QUARTERLY_REVIEW: f"Engineering Quarterly Review - {period_end}",
+            ReportType.STRATEGIC_ANALYSIS: f"Engineering Strategic Analysis - {period_end}",
         }
 
-        return title_map.get(self.metadata.report_type, f"UI Foundation Report - {period_end}")
+        return title_map.get(self.metadata.report_type, f"Engineering Report - {period_end}")
 
 
 class TemplateContext(BaseModel):
@@ -149,8 +155,12 @@ class TemplateContext(BaseModel):
 
     report: ReportOutput = Field(..., description="Report data")
     metadata: ReportMetadata = Field(..., description="Report metadata")
-    data: Union[WeeklyReportData, MonthlyReportData] = Field(..., description="Report-specific data")
-    format_helpers: Dict[str, Any] = Field(default_factory=dict, description="Helper functions for formatting")
+    data: Union[WeeklyReportData, MonthlyReportData] = Field(
+        ..., description="Report-specific data"
+    )
+    format_helpers: Dict[str, Any] = Field(
+        default_factory=dict, description="Helper functions for formatting"
+    )
 
     class Config:
         arbitrary_types_allowed = True
@@ -163,14 +173,18 @@ class ReportTemplate(BaseModel):
     description: str = Field(..., description="Template description")
     report_type: ReportType = Field(..., description="Compatible report type")
     template_content: str = Field(..., description="Template content (Jinja2 format)")
-    required_data_fields: List[str] = Field(default_factory=list, description="Required data fields")
-    optional_data_fields: List[str] = Field(default_factory=list, description="Optional data fields")
+    required_data_fields: List[str] = Field(
+        default_factory=list, description="Required data fields"
+    )
+    optional_data_fields: List[str] = Field(
+        default_factory=list, description="Optional data fields"
+    )
     output_format: str = Field(default="markdown", description="Output format")
 
     def validate_context(self, context: TemplateContext) -> List[str]:
         """Validate that context has required data fields."""
         missing_fields = []
-        data_dict = context.data.model_dump() if hasattr(context.data, 'model_dump') else {}
+        data_dict = context.data.model_dump() if hasattr(context.data, "model_dump") else {}
 
         for field in self.required_data_fields:
             if field not in data_dict or data_dict[field] is None:

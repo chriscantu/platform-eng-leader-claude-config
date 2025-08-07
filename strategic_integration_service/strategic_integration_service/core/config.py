@@ -28,28 +28,26 @@ class Settings(BaseSettings):
 
     # Jira API configuration
     jira_base_url: str = Field(
-        default="https://procoretech.atlassian.net", description="Jira base URL"
+        default="https://your-domain.atlassian.net", description="Jira base URL"
     )
     jira_api_token: Optional[str] = Field(
         default=None, description="Jira API token for authentication"
     )
-    jira_email: str = Field(
-        default="chris.cantu@procore.com", description="Email for Jira authentication"
-    )
+    jira_email: str = Field(default="user@company.com", description="Email for Jira authentication")
     jira_timeout: int = Field(default=30, description="Jira API timeout in seconds")
     jira_max_retries: int = Field(default=3, description="Maximum number of API retries")
     jira_retry_backoff: float = Field(default=1.0, description="Retry backoff factor")
     jira_max_results: int = Field(default=200, description="Maximum results per Jira query")
 
-    # UI Foundation team configuration
-    ui_foundation_projects: Set[str] = Field(
-        default={"WES", "GLB", "HUBS", "FSGD", "UISP", "UIS", "UXI", "PI"},
-        description="UI Foundation Jira project keys",
+    # Team configuration
+    team_projects: Set[str] = Field(
+        default={"PROJ1", "PROJ2", "PROJ3", "PROJ4", "PROJ5", "PROJ6", "PROJ7", "PI"},
+        description="Team Jira project keys",
     )
 
     # L2 Strategic initiative configuration
     l2_division_filter: str = Field(
-        default="UI Foundations", description="Division filter for L2 strategic initiatives"
+        default="Engineering Division", description="Division filter for L2 strategic initiatives"
     )
     l2_custom_field_priority: str = Field(
         default="cf[18272]", description="Custom field for L2 initiative priority ordering"

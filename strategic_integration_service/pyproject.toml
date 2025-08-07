@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "strategic-integration-service"
 version = "1.0.0"
-description = "Strategic integration service for UI Foundation platform leadership"
+description = "Strategic integration service for platform leadership"
 authors = [
-    {name = "Chris Cantu", email = "chris.cantu@procore.com"}
+    {name = "Platform Engineering", email = "platform@company.com"}
 ]
 readme = "README.md"
 license = {text = "MIT"}

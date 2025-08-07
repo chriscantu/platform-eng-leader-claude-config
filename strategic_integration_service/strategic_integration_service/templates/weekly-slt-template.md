@@ -140,6 +140,6 @@
 
 ---
 
-*This report was generated automatically by the Strategic Integration Service. For questions or additional analysis, contact the UI Foundation Platform Engineering team.*
+*This report was generated automatically by the Strategic Integration Service. For questions or additional analysis, contact the Platform Engineering team.*
 
 **Next Weekly Report**: {{ (metadata.report_period_end.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=7)) | format_date }}
