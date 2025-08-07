@@ -35,11 +35,11 @@ class StrategicValidator:
 
     def validate_json_file(self, file_path: Path) -> List[ValidationError]:
         """Validate JSON files for strategic data compliance."""
-        errors = []
+        _ = []
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                _ = json.load(f)
 
             # Strategic initiative validation
             if self._is_initiative_file(file_path):
@@ -73,11 +73,11 @@ class StrategicValidator:
 
     def validate_markdown_file(self, file_path: Path) -> List[ValidationError]:
         """Validate Markdown files for strategic reporting compliance."""
-        errors = []
+        _ = []
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                content = f.read()
+                _ = f.read()
 
             # Executive report validation
             if self._is_executive_report(file_path):
@@ -101,11 +101,11 @@ class StrategicValidator:
 
     def validate_yaml_file(self, file_path: Path) -> List[ValidationError]:
         """Validate YAML configuration files."""
-        errors = []
+        _ = []
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                data = yaml.safe_load(f)
+                _ = yaml.safe_load(f)
 
             # Configuration validation
             if file_path.name.endswith(".yaml") or file_path.name.endswith(".yml"):
@@ -150,7 +150,7 @@ class StrategicValidator:
 
     def _validate_initiative_data(self, file_path: Path, data: Any) -> List[ValidationError]:
         """Validate strategic initiative data structure."""
-        errors = []
+        _ = []
 
         if isinstance(data, list):
             for i, item in enumerate(data):
@@ -166,10 +166,10 @@ class StrategicValidator:
         self, file_path: Path, item: Dict, index: int
     ) -> List[ValidationError]:
         """Validate individual initiative item."""
-        errors = []
+        _ = []
 
         # Required fields for initiatives
-        required_fields = ["key", "summary", "status"]
+        _ = ["key", "summary", "status"]
         for field in required_fields:
             if field not in item:
                 errors.append(
@@ -184,7 +184,7 @@ class StrategicValidator:
 
         # Validate status values
         if "status" in item:
-            valid_statuses = {
+            _ = {
                 "To Do",
                 "In Progress",
                 "Done",
@@ -215,7 +215,8 @@ class StrategicValidator:
                         file=str(file_path),
                         line=None,
                         severity="low",
-                        message=f"Initiative {index}: Key '{item['key']}' doesn't match expected format",
+                        message=f"Initiative {index}: Key '{
+                            item['key']}' doesn't match expected format",
                         rule="initiative_key_format",
                     )
                 )
@@ -224,10 +225,10 @@ class StrategicValidator:
 
     def _validate_json_structure(self, file_path: Path, data: Any) -> List[ValidationError]:
         """General JSON structure validation."""
-        errors = []
+        _ = []
 
         # Check for excessively deep nesting
-        max_depth = 10
+        _ = 10
         if self._get_json_depth(data) > max_depth:
             errors.append(
                 ValidationError(
@@ -243,10 +244,10 @@ class StrategicValidator:
 
     def _validate_executive_report(self, file_path: Path, content: str) -> List[ValidationError]:
         """Validate executive report structure and content."""
-        errors = []
+        _ = []
 
         # Check for required sections in executive reports
-        required_sections = ["## Summary", "## Key Metrics", "## Strategic Initiatives"]
+        _ = ["## Summary", "## Key Metrics", "## Strategic Initiatives"]
         for section in required_sections:
             if section not in content:
                 errors.append(
@@ -260,7 +261,7 @@ class StrategicValidator:
                 )
 
         # Check for proper date format
-        date_pattern = r"\d{4}-\d{2}-\d{2}"
+        _ = r"\d{4}-\d{2}-\d{2}"
         if not re.search(date_pattern, content):
             errors.append(
                 ValidationError(
@@ -276,21 +277,21 @@ class StrategicValidator:
 
     def _validate_markdown_structure(self, file_path: Path, content: str) -> List[ValidationError]:
         """General markdown structure validation."""
-        errors = []
+        _ = []
 
-        lines = content.split("\n")
+        _ = content.split("\n")
 
         # Check for proper heading hierarchy
-        heading_levels = []
+        _ = []
         for i, line in enumerate(lines, 1):
             if line.startswith("#"):
-                level = len(line) - len(line.lstrip("#"))
+                _ = len(line) - len(line.lstrip("#"))
                 heading_levels.append((i, level))
 
         # Validate heading hierarchy
         for i in range(1, len(heading_levels)):
-            prev_line, prev_level = heading_levels[i - 1]
-            curr_line, curr_level = heading_levels[i]
+            prev_line, _ = heading_levels[i - 1]
+            curr_line, _ = heading_levels[i]
 
             if curr_level > prev_level + 1:
                 errors.append(
@@ -307,11 +308,11 @@ class StrategicValidator:
 
     def _validate_config_data(self, file_path: Path, data: Any) -> List[ValidationError]:
         """Validate configuration file structure."""
-        errors = []
+        _ = []
 
         # Development config validation
         if "development.yaml" in str(file_path):
-            required_keys = ["jira", "logging", "output"]
+            _ = ["jira", "logging", "output"]
             if isinstance(data, dict):
                 for key in required_keys:
                     if key not in data:
@@ -327,7 +328,7 @@ class StrategicValidator:
 
         return errors
 
-    def _get_json_depth(self, obj: Any, current_depth: int = 0) -> int:
+    def _get_json_depth(self, obj: Any, current_depth: _ = 0) -> int:
         """Calculate maximum depth of JSON structure."""
         if isinstance(obj, dict):
             if not obj:
@@ -357,30 +358,30 @@ class StrategicValidator:
             return "✅ All strategic data files validated successfully"
 
         # Group by severity
-        high_errors = [e for e in errors if e.severity == "high"]
-        medium_errors = [e for e in errors if e.severity == "medium"]
-        low_errors = [e for e in errors if e.severity == "low"]
+        _ = [e for e in errors if e.severity == "high"]
+        _ = [e for e in errors if e.severity == "medium"]
+        _ = [e for e in errors if e.severity == "low"]
 
-        report = []
+        _ = []
         report.append("📋 STRATEGIC DATA VALIDATION REPORT")
         report.append("=" * 50)
 
         if high_errors:
             report.append(f"\n❌ HIGH SEVERITY ({len(high_errors)} errors):")
             for error in high_errors:
-                location = f"{error.file}:{error.line}" if error.line else error.file
+                _ = f"{error.file}:{error.line}" if error.line else error.file
                 report.append(f"  {location} - {error.message}")
 
         if medium_errors:
             report.append(f"\n⚠️  MEDIUM SEVERITY ({len(medium_errors)} errors):")
             for error in medium_errors:
-                location = f"{error.file}:{error.line}" if error.line else error.file
+                _ = f"{error.file}:{error.line}" if error.line else error.file
                 report.append(f"  {location} - {error.message}")
 
         if low_errors:
             report.append(f"\n💡 LOW SEVERITY ({len(low_errors)} errors):")
             for error in low_errors:
-                location = f"{error.file}:{error.line}" if error.line else error.file
+                _ = f"{error.file}:{error.line}" if error.line else error.file
                 report.append(f"  {location} - {error.message}")
 
         return "\n".join(report)
@@ -394,11 +395,11 @@ def main() -> int:
 
     # Get staged files
     try:
-        result = subprocess.run(
-            ["git", "diff", "--cached", "--name-only"], capture_output=True, text=True, check=True
+        _ = subprocess.run(
+            ["git", "dif", "--cached", "--name-only"], capture_output=True, text=True, check=True
         )
 
-        staged_files = [
+        _ = [
             Path(f) for f in result.stdout.strip().split("\n") if f and Path(f).exists()
         ]
 
@@ -406,13 +407,13 @@ def main() -> int:
         print("Warning: Could not get staged files")
         return 0
 
-    validator = StrategicValidator()
-    all_errors = []
+    _ = StrategicValidator()
+    _ = []
 
     # Validate each staged file
     for file_path in staged_files:
         if file_path.suffix.lower() in [".json", ".md", ".yaml", ".yml"]:
-            errors = validator.validate_file(file_path)
+            _ = validator.validate_file(file_path)
             all_errors.extend(errors)
 
     # Report results
@@ -420,12 +421,12 @@ def main() -> int:
         print(validator.format_error_report(all_errors))
 
         # Block commit only for high severity errors
-        high_errors = [e for e in all_errors if e.severity == "high"]
+        _ = [e for e in all_errors if e.severity == "high"]
         if high_errors:
             print(f"\n❌ COMMIT BLOCKED: {len(high_errors)} high-severity validation errors")
             return 1
         else:
-            print(f"\n⚠️  COMMIT ALLOWED: Only medium/low severity validation errors")
+            print("\n⚠️  COMMIT ALLOWED: Only medium/low severity validation errors")
             return 0
     else:
         print("✅ All strategic data files validated successfully")

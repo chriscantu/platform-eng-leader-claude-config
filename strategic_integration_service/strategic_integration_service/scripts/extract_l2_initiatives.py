@@ -5,6 +5,13 @@ This script provides enterprise-grade reliability for extracting L2 strategic in
 from Jira with comprehensive error handling and validation.
 """
 
+from strategic_integration_service.extractors.l2_initiatives import L2InitiativeExtractor
+from strategic_integration_service.core.exceptions import (
+    AuthenticationError,
+    ConfigurationError,
+    StrategicIntegrationError,
+)
+from strategic_integration_service.core.config import Settings
 import sys
 from pathlib import Path
 from typing import Optional
@@ -15,13 +22,6 @@ import structlog
 # Add src to path for development
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from strategic_integration_service.core.config import Settings
-from strategic_integration_service.core.exceptions import (
-    AuthenticationError,
-    ConfigurationError,
-    StrategicIntegrationError,
-)
-from strategic_integration_service.extractors.l2_initiatives import L2InitiativeExtractor
 
 # Configure structured logging
 structlog.configure(
@@ -224,7 +224,7 @@ def main(
         try:
             if "extractor" in locals():
                 extractor.close()
-        except:
+        except BaseException:
             pass
 
 

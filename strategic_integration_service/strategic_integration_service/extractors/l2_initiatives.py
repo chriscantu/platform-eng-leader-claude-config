@@ -334,7 +334,12 @@ This analysis focuses on L2 business-level initiatives that represent our true s
         if l1_initiatives:
             for initiative in l1_initiatives:
                 priority_text = initiative.priority.value if initiative.priority else "No Priority"
-                content += f"- [{initiative.key}]({initiative.get_jira_url(self.settings.jira_base_url)}): {initiative.summary} - {initiative.status.value} - {priority_text}\n"
+                content += f"- [{
+                    initiative.key}]({
+                    initiative.get_jira_url(
+                        self.settings.jira_base_url)}): {
+                    initiative.summary} - {
+                    initiative.status.value} - {priority_text}\n"
         else:
             content += "*No L1 initiatives found*\n"
 

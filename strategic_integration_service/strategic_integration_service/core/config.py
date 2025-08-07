@@ -1,13 +1,12 @@
 """Configuration management for the Strategic Integration Service."""
 
-import os
 from pathlib import Path
 from typing import Optional, Set
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .exceptions import ConfigurationError
+from .exceptions import AuthenticationError, ConfigurationError
 
 
 class Settings(BaseSettings):
@@ -78,7 +77,9 @@ class Settings(BaseSettings):
     redis_port: int = Field(default=6379, description="Redis port")
     redis_db: int = Field(default=0, description="Redis database number")
     redis_password: Optional[str] = Field(default=None, description="Redis password")
-    performance_monitoring: bool = Field(default=True, description="Enable performance metrics collection")
+    performance_monitoring: bool = Field(
+        default=True, description="Enable performance metrics collection"
+    )
 
     @field_validator("jira_base_url")
     @classmethod

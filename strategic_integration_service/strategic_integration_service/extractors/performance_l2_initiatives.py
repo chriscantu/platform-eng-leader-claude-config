@@ -32,7 +32,7 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
         warm_cache: bool = False,
     ) -> Tuple[List[L2Initiative], Optional[List[Dict]], Dict[str, any]]:
         """Extract L2 initiatives using parallel processing and caching.
-        
+
         Returns:
             Tuple of (L2 initiatives, L1 context if requested, performance metrics)
         """
@@ -49,12 +49,14 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
         ]
 
         if include_context:
-            queries.append((
-                "l1_context",
-                self._get_l1_context_query(),
-                self.get_required_fields(),
-                100,  # Smaller limit for context
-            ))
+            queries.append(
+                (
+                    "l1_context",
+                    self._get_l1_context_query(),
+                    self.get_required_fields(),
+                    100,  # Smaller limit for context
+                )
+            )
 
         # Execute parallel queries
         results = self.extract_with_performance(queries, warm_cache=warm_cache)
@@ -62,7 +64,7 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
         # Process L2 initiatives
         l2_initiatives = []
         raw_l2_issues = results.get("l2_initiatives", [])
-        
+
         for issue_data in raw_l2_issues:
             try:
                 initiative = L2Initiative.from_jira_issue(issue_data)
@@ -176,14 +178,18 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
     def get_performance_report(self) -> Dict[str, any]:
         """Generate detailed performance report."""
         metrics = self.get_extraction_metrics()
-        
-        cache_efficiency = "Excellent" if metrics.get("cache_hit_rate", 0) > 0.8 else \
-                          "Good" if metrics.get("cache_hit_rate", 0) > 0.5 else \
-                          "Needs Improvement"
 
-        api_efficiency = "Excellent" if metrics.get("average_api_time", 1) < 0.5 else \
-                        "Good" if metrics.get("average_api_time", 1) < 1.0 else \
-                        "Needs Improvement"
+        cache_efficiency = (
+            "Excellent"
+            if metrics.get("cache_hit_rate", 0) > 0.8
+            else "Good" if metrics.get("cache_hit_rate", 0) > 0.5 else "Needs Improvement"
+        )
+
+        api_efficiency = (
+            "Excellent"
+            if metrics.get("average_api_time", 1) < 0.5
+            else "Good" if metrics.get("average_api_time", 1) < 1.0 else "Needs Improvement"
+        )
 
         return {
             "extraction_metrics": metrics,
@@ -222,7 +228,7 @@ class PerformanceL2InitiativeExtractor(PerformanceExtractorMixin, L2InitiativeEx
 
     def close(self) -> None:
         """Close extractor and log performance summary."""
-        if hasattr(self, 'perf_client'):
+        if hasattr(self, "perf_client"):
             report = self.get_performance_report()
             logger.info("L2 Extractor Performance Summary", **report)
             self.perf_client.close()

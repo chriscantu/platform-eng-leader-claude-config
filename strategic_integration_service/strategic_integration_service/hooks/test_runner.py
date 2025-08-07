@@ -29,7 +29,7 @@ class StrategicTestRunner:
             os.chdir(self.project_root)
 
             # Run pytest with specific unit test focus
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
@@ -46,8 +46,8 @@ class StrategicTestRunner:
                 timeout=120,
             )
 
-            success = result.returncode == 0
-            output = result.stdout + result.stderr
+            _ = result.returncode == 0
+            _ = result.stdout + result.stderr
 
             return success, output
 
@@ -67,15 +67,15 @@ class StrategicTestRunner:
         try:
             os.chdir(self.project_root)
 
-            result = subprocess.run(
+            _ = subprocess.run(
                 ["python", "-m", "pytest", "tests/integration/", "-v", "--tb=short"],
                 capture_output=True,
                 text=True,
                 timeout=180,
             )
 
-            success = result.returncode == 0
-            output = result.stdout + result.stderr
+            _ = result.returncode == 0
+            _ = result.stdout + result.stderr
 
             return success, output
 
@@ -88,13 +88,13 @@ class StrategicTestRunner:
         """Run code linting and formatting checks."""
         print("🎨 Running code quality checks...")
 
-        checks = []
+        _ = []
 
         try:
             os.chdir(self.project_root)
 
             # Black formatting check
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
@@ -112,7 +112,7 @@ class StrategicTestRunner:
             )
 
             # isort import sorting check
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
@@ -129,7 +129,7 @@ class StrategicTestRunner:
             checks.append(("Import sorting", result.returncode == 0, result.stdout + result.stderr))
 
             # Flake8 linting
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
@@ -145,11 +145,11 @@ class StrategicTestRunner:
             checks.append(("Flake8 linting", result.returncode == 0, result.stdout + result.stderr))
 
             # Compile success status and output
-            all_passed = all(check[1] for check in checks)
-            output_lines = []
+            _ = all(check[1] for check in checks)
+            _ = []
 
             for name, passed, output in checks:
-                status = "✅" if passed else "❌"
+                _ = "✅" if passed else "❌"
                 output_lines.append(f"{status} {name}")
                 if not passed and output:
                     output_lines.append(f"   Error: {output.strip()}")
@@ -166,7 +166,7 @@ class StrategicTestRunner:
         try:
             os.chdir(self.project_root)
 
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
@@ -180,8 +180,8 @@ class StrategicTestRunner:
             )
 
             # MyPy warnings are acceptable, only fail on errors
-            output = result.stdout + result.stderr
-            has_errors = "error:" in output.lower()
+            _ = result.stdout + result.stderr
+            _ = "error:" in output.lower()
 
             return not has_errors, output
 
@@ -195,14 +195,14 @@ class StrategicTestRunner:
         try:
             os.chdir(self.project_root)
 
-            result = subprocess.run(
+            _ = subprocess.run(
                 [
                     "python",
                     "-m",
                     "bandit",
                     "-r",
                     "strategic_integration_service/",
-                    "-f",
+                    "-",
                     "txt",
                     "-ll",  # Only report medium and high severity
                 ],
@@ -211,10 +211,10 @@ class StrategicTestRunner:
             )
 
             # Bandit exit code 1 means issues found, but not necessarily blocking
-            output = result.stdout + result.stderr
+            _ = result.stdout + result.stderr
 
             # Check for high severity issues
-            has_high_severity = "[HIGH]" in output or "SEVERITY: HIGH" in output
+            _ = "[HIGH]" in output or "SEVERITY: HIGH" in output
 
             return not has_high_severity, output
 
@@ -226,7 +226,7 @@ class StrategicTestRunner:
         print("📝 Checking git status...")
 
         try:
-            result = subprocess.run(
+            _ = subprocess.run(
                 ["git", "status", "--porcelain"],
                 capture_output=True,
                 text=True,
@@ -234,14 +234,14 @@ class StrategicTestRunner:
             )
 
             # Check for unstaged changes to critical files
-            unstaged_lines = [
+            _ = [
                 line
                 for line in result.stdout.strip().split("\n")
                 if line and not line.startswith("?")
             ]
 
             if unstaged_lines:
-                return False, f"Unstaged changes detected:\n" + "\n".join(unstaged_lines)
+                return False, "Unstaged changes detected:\n" + "\n".join(unstaged_lines)
 
             return True, "Working tree is clean"
 
@@ -250,7 +250,7 @@ class StrategicTestRunner:
 
     def run_all_tests(self) -> Dict[str, Tuple[bool, str]]:
         """Run all test suites and quality checks."""
-        test_suites = [
+        _ = [
             ("Git Status", self.check_git_status),
             ("Code Quality", self.run_linting),
             ("Type Checking", self.run_type_checking),
@@ -259,15 +259,15 @@ class StrategicTestRunner:
             ("Integration Tests", self.run_integration_tests),
         ]
 
-        results = {}
+        _ = {}
 
         for name, test_func in test_suites:
             try:
-                success, output = test_func()
+                success, _ = test_func()
                 results[name] = (success, output)
 
                 # Print immediate feedback
-                status = "✅" if success else "❌"
+                _ = "✅" if success else "❌"
                 print(f"{status} {name}")
 
                 # Stop on critical failures
@@ -283,12 +283,12 @@ class StrategicTestRunner:
 
     def format_test_report(self, results: Dict[str, Tuple[bool, str]]) -> str:
         """Format test results into a comprehensive report."""
-        report = []
+        _ = []
         report.append("🧪 STRATEGIC INTEGRATION SERVICE - TEST REPORT")
         report.append("=" * 60)
 
-        passed_tests = []
-        failed_tests = []
+        _ = []
+        _ = []
 
         for name, (success, output) in results.items():
             if success:
@@ -297,9 +297,9 @@ class StrategicTestRunner:
                 failed_tests.append((name, output))
 
         # Summary
-        total_tests = len(results)
-        passed_count = len(passed_tests)
-        failed_count = len(failed_tests)
+        _ = len(results)
+        _ = len(passed_tests)
+        _ = len(failed_tests)
 
         report.append(f"\n📊 SUMMARY: {passed_count}/{total_tests} test suites passed")
 
@@ -316,7 +316,7 @@ class StrategicTestRunner:
                 report.append(f"\n   • {test_name}:")
                 # Truncate very long output
                 if len(output) > 500:
-                    output = output[:500] + "\n   ... (output truncated)"
+                    _ = output[:500] + "\n   ... (output truncated)"
                 for line in output.split("\n"):
                     if line.strip():
                         report.append(f"     {line}")
@@ -325,7 +325,7 @@ class StrategicTestRunner:
         if failed_count == 0:
             report.append("\n🎉 All tests passed! Ready for commit.")
         else:
-            critical_failures = [
+            _ = [
                 name
                 for name, _ in failed_tests
                 if name in ["Git Status", "Unit Tests", "Code Quality"]
@@ -333,7 +333,7 @@ class StrategicTestRunner:
             if critical_failures:
                 report.append(f"\n🚫 COMMIT BLOCKED: Critical test failures in {critical_failures}")
             else:
-                report.append(f"\n⚠️  COMMIT ALLOWED: Non-critical test failures only")
+                report.append("\n⚠️  COMMIT ALLOWED: Non-critical test failures only")
 
         return "\n".join(report)
 
@@ -343,16 +343,16 @@ def main() -> int:
     print("🧪 Strategic Integration Service - Pre-commit Test Runner")
     print("=" * 60)
 
-    runner = StrategicTestRunner()
-    results = runner.run_all_tests()
+    _ = StrategicTestRunner()
+    _ = runner.run_all_tests()
 
     # Generate and print report
-    report = runner.format_test_report(results)
+    _ = runner.format_test_report(results)
     print("\n" + report)
 
     # Determine exit code
-    failed_tests = [name for name, (success, _) in results.items() if not success]
-    critical_failures = [
+    _ = [name for name, (success, _) in results.items() if not success]
+    _ = [
         name for name in failed_tests if name in ["Git Status", "Unit Tests", "Code Quality"]
     ]
 
@@ -360,7 +360,7 @@ def main() -> int:
         print(f"\n❌ COMMIT BLOCKED: Critical failures in {critical_failures}")
         return 1
     elif failed_tests:
-        print(f"\n⚠️  COMMIT ALLOWED: Non-critical failures only")
+        print("\n⚠️  COMMIT ALLOWED: Non-critical failures only")
         return 0
     else:
         print("\n✅ ALL TESTS PASSED: Ready for commit!")

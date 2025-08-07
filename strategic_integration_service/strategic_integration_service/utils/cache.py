@@ -119,14 +119,14 @@ class FileCache(CacheBackend):
     def get(self, key: str) -> Optional[Any]:
         """Get value from file cache."""
         cache_path = self._get_cache_path(key)
-        
+
         if not cache_path.exists():
             return None
 
         try:
             with cache_path.open("rb") as f:
                 data = pickle.load(f)
-            
+
             if self._is_expired(data["metadata"]):
                 cache_path.unlink(missing_ok=True)
                 return None
@@ -142,14 +142,14 @@ class FileCache(CacheBackend):
     def set(self, key: str, value: Any, ttl: int = 300) -> None:
         """Set value in file cache."""
         cache_path = self._get_cache_path(key)
-        
+
         data = {
             "value": value,
             "metadata": {
                 "expires_at": time.time() + ttl,
                 "created_at": time.time(),
                 "key": key,
-            }
+            },
         }
 
         try:
@@ -191,10 +191,15 @@ class FileCache(CacheBackend):
 class RedisCache(CacheBackend):
     """Redis cache backend (optional, requires redis-py)."""
 
-    def __init__(self, host: str = "localhost", port: int = 6379, db: int = 0, password: Optional[str] = None):
+    def __init__(
+        self, host: str = "localhost", port: int = 6379, db: int = 0, password: Optional[str] = None
+    ):
         try:
             import redis
-            self.redis = redis.Redis(host=host, port=port, db=db, password=password, decode_responses=False)
+
+            self.redis = redis.Redis(
+                host=host, port=port, db=db, password=password, decode_responses=False
+            )
             # Test connection
             self.redis.ping()
             self.available = True
@@ -299,7 +304,9 @@ class MultiTierCache:
             self.file_cache = FileCache(cache_dir)
             self.backends.append(self.file_cache)
 
-        logger.info("Multi-tier cache initialized", backends=[type(b).__name__ for b in self.backends])
+        logger.info(
+            "Multi-tier cache initialized", backends=[type(b).__name__ for b in self.backends]
+        )
 
     def _generate_key(self, prefix: str, **kwargs) -> str:
         """Generate cache key from prefix and parameters."""
@@ -347,7 +354,7 @@ class MultiTierCache:
     def _populate_faster_caches(self, key: str, value: Any, found_backend: CacheBackend) -> None:
         """Populate faster cache tiers when value found in slower tier."""
         found_index = self.backends.index(found_backend)
-        
+
         # Populate all faster backends (lower indices)
         for i in range(found_index):
             self.backends[i].set(key, value)

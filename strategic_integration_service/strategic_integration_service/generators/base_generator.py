@@ -9,7 +9,13 @@ import structlog
 
 from ..core.config import Settings
 from ..models.initiative import CurrentInitiative
-from ..models.report import ReportOutput, ReportMetadata, ReportType, TemplateContext, InitiativeHealthStatus
+from ..models.report import (
+    InitiativeHealthStatus,
+    ReportMetadata,
+    ReportOutput,
+    ReportType,
+    TemplateContext,
+)
 from ..utils.template_engine import ReportTemplateEngine
 
 logger = structlog.get_logger(__name__)
@@ -53,7 +59,9 @@ class BaseReportGenerator(ABC):
         # Check priority and age
         if initiative.is_high_priority():
             if initiative.updated:
-                days_since_update = (datetime.now(initiative.updated.tzinfo) - initiative.updated).days
+                days_since_update = (
+                    datetime.now(initiative.updated.tzinfo) - initiative.updated
+                ).days
                 if days_since_update > 7:  # High priority not updated in a week
                     return InitiativeHealthStatus.YELLOW
                 else:
@@ -71,7 +79,9 @@ class BaseReportGenerator(ABC):
 
         return InitiativeHealthStatus.UNKNOWN
 
-    def calculate_team_health(self, team_initiatives: List[CurrentInitiative]) -> InitiativeHealthStatus:
+    def calculate_team_health(
+        self, team_initiatives: List[CurrentInitiative]
+    ) -> InitiativeHealthStatus:
         """Calculate overall health for a team based on their initiatives."""
         if not team_initiatives:
             return InitiativeHealthStatus.UNKNOWN
@@ -94,7 +104,9 @@ class BaseReportGenerator(ABC):
         else:
             return InitiativeHealthStatus.GREEN
 
-    def group_initiatives_by_team(self, initiatives: List[CurrentInitiative]) -> Dict[str, List[CurrentInitiative]]:
+    def group_initiatives_by_team(
+        self, initiatives: List[CurrentInitiative]
+    ) -> Dict[str, List[CurrentInitiative]]:
         """Group initiatives by team."""
         teams = {}
         for initiative in initiatives:
@@ -109,7 +121,7 @@ class BaseReportGenerator(ABC):
         initiatives: List[CurrentInitiative],
         start_date: datetime,
         end_date: datetime,
-        date_field: str = 'updated'
+        date_field: str = "updated",
     ) -> List[CurrentInitiative]:
         """Filter initiatives by date range."""
         filtered = []
@@ -122,14 +134,14 @@ class BaseReportGenerator(ABC):
     def generate_executive_summary(self, report_data: Dict[str, Any]) -> str:
         """Generate executive summary text."""
         # This is a base implementation - subclasses should override for specific insights
-        total_initiatives = report_data.get('total_initiatives', 0)
-        teams_count = len(report_data.get('teams_included', []))
+        total_initiatives = report_data.get("total_initiatives", 0)
+        teams_count = len(report_data.get("teams_included", []))
 
         summary = f"Analysis of {total_initiatives} initiatives across {teams_count} UI Foundation teams. "
 
         # Add health assessment if available
-        if 'health_distribution' in report_data:
-            health_dist = report_data['health_distribution']
+        if "health_distribution" in report_data:
+            health_dist = report_data["health_distribution"]
             red_count = health_dist.get(InitiativeHealthStatus.RED, 0)
             if red_count > 0:
                 summary += f"{red_count} initiatives require immediate attention. "
@@ -141,17 +153,18 @@ class BaseReportGenerator(ABC):
         recommendations = []
 
         # Analyze at-risk initiatives
-        at_risk_count = analyzed_data.get('at_risk_count', 0)
+        at_risk_count = analyzed_data.get("at_risk_count", 0)
         if at_risk_count > 0:
             recommendations.append(
                 f"Address {at_risk_count} at-risk initiatives through resource reallocation or scope adjustment"
             )
 
         # Analyze team capacity
-        team_summaries = analyzed_data.get('team_summaries', {})
+        team_summaries = analyzed_data.get("team_summaries", {})
         overloaded_teams = [
-            team for team, data in team_summaries.items()
-            if data.get('active_count', 0) > 10  # More than 10 active initiatives
+            team
+            for team, data in team_summaries.items()
+            if data.get("active_count", 0) > 10  # More than 10 active initiatives
         ]
         if overloaded_teams:
             recommendations.append(
@@ -159,7 +172,7 @@ class BaseReportGenerator(ABC):
             )
 
         # Analyze completion velocity
-        completed_count = analyzed_data.get('completed_this_week', 0)
+        completed_count = analyzed_data.get("completed_this_week", 0)
         if completed_count == 0:
             recommendations.append(
                 "Review initiative progress - no completions detected this period"
@@ -173,7 +186,7 @@ class BaseReportGenerator(ABC):
         period_end: datetime,
         data_sources: List[str],
         total_initiatives: int,
-        teams_included: List[str]
+        teams_included: List[str],
     ) -> ReportMetadata:
         """Create report metadata."""
         return ReportMetadata(
@@ -183,7 +196,7 @@ class BaseReportGenerator(ABC):
             report_period_end=period_end,
             data_sources=data_sources,
             total_initiatives=total_initiatives,
-            teams_included=teams_included
+            teams_included=teams_included,
         )
 
     def render_report(self, report_data: Dict[str, Any], template_name: str) -> str:
@@ -191,10 +204,10 @@ class BaseReportGenerator(ABC):
         try:
             # Create template context
             context = TemplateContext(
-                report=report_data.get('report'),
-                metadata=report_data.get('metadata'),
-                data=report_data.get('data'),
-                format_helpers={}
+                report=report_data.get("report"),
+                metadata=report_data.get("metadata"),
+                data=report_data.get("data"),
+                format_helpers={},
             )
 
             # Render using template engine
@@ -216,7 +229,7 @@ class BaseReportGenerator(ABC):
         output_path = output_dir / filename
 
         # Write report content
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(report.raw_markdown)
 
         self.logger.info("Report saved", output_path=output_path)
@@ -226,7 +239,7 @@ class BaseReportGenerator(ABC):
         self,
         period_start: Optional[datetime] = None,
         period_end: Optional[datetime] = None,
-        output_dir: Optional[Path] = None
+        output_dir: Optional[Path] = None,
     ) -> ReportOutput:
         """Generate complete report for the specified period."""
         # Set default dates if not provided
@@ -243,7 +256,7 @@ class BaseReportGenerator(ABC):
             "Starting report generation",
             report_type=self.get_report_type().value,
             period_start=period_start,
-            period_end=period_end
+            period_end=period_end,
         )
 
         try:
@@ -256,9 +269,9 @@ class BaseReportGenerator(ABC):
             metadata = self.create_report_metadata(
                 period_start=period_start,
                 period_end=period_end,
-                data_sources=raw_data.get('data_sources', []),
-                total_initiatives=analyzed_data.get('total_initiatives', 0),
-                teams_included=list(analyzed_data.get('team_summaries', {}).keys())
+                data_sources=raw_data.get("data_sources", []),
+                total_initiatives=analyzed_data.get("total_initiatives", 0),
+                teams_included=list(analyzed_data.get("team_summaries", {}).keys()),
             )
 
             # Generate content
@@ -272,16 +285,14 @@ class BaseReportGenerator(ABC):
                 data=report_data,
                 raw_markdown="",  # Will be set after rendering
                 executive_summary=executive_summary,
-                recommendations=recommendations
+                recommendations=recommendations,
             )
 
             # Render template
             template_name = f"{self.get_report_type().value.replace('_', '-')}-template.md"
-            rendered_content = self.render_report({
-                'report': report,
-                'metadata': metadata,
-                'data': report_data
-            }, template_name)
+            rendered_content = self.render_report(
+                {"report": report, "metadata": metadata, "data": report_data}, template_name
+            )
 
             # Update report with rendered content
             report.raw_markdown = rendered_content
@@ -290,7 +301,9 @@ class BaseReportGenerator(ABC):
             if output_dir:
                 self.save_report(report, output_dir)
 
-            self.logger.info("Report generation completed", report_type=self.get_report_type().value)
+            self.logger.info(
+                "Report generation completed", report_type=self.get_report_type().value
+            )
             return report
 
         except Exception as e:

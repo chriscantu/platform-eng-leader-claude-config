@@ -32,7 +32,7 @@ structlog.configure(
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
         structlog.processors.UnicodeDecoder(),
-        structlog.processors.JSONRenderer()
+        structlog.processors.JSONRenderer(),
     ],
     context_class=dict,
     logger_factory=structlog.stdlib.LoggerFactory(),
@@ -40,45 +40,40 @@ structlog.configure(
     cache_logger_on_first_use=True,
 )
 
-logger = structlog.get_logger(__name__)
+_ = structlog.get_logger(__name__)
 
 
 @click.command()
 @click.option(
-    "-c", "--config",
-    type=click.Path(exists=True, path_type=Path),
-    help="Configuration file path"
+    "-c", "--config", type=click.Path(exists=True, path_type=Path), help="Configuration file path"
 )
 @click.option(
-    "-o", "--output-dir",
+    "-o",
+    "--output-dir",
     type=click.Path(path_type=Path),
-    help="Output directory for generated reports"
+    help="Output directory for generated reports",
 )
 @click.option(
     "--month",
     type=click.DateTime(formats=["%Y-%m"]),
-    help="Month for reporting (YYYY-MM). Defaults to current month."
+    help="Month for reporting (YYYY-MM). Defaults to current month.",
 )
 @click.option(
     "--month-start",
     type=click.DateTime(formats=["%Y-%m-%d"]),
-    help="Start date for reporting month (YYYY-MM-DD). Defaults to first day of month."
+    help="Start date for reporting month (YYYY-MM-DD). Defaults to first day of month.",
 )
 @click.option(
     "--month-end",
     type=click.DateTime(formats=["%Y-%m-%d"]),
-    help="End date for reporting month (YYYY-MM-DD). Defaults to last day of month."
+    help="End date for reporting month (YYYY-MM-DD). Defaults to last day of month.",
 )
 @click.option(
     "--validate-only",
     is_flag=True,
-    help="Only validate configuration and authentication, don't generate report"
+    help="Only validate configuration and authentication, don't generate report",
 )
-@click.option(
-    "--debug",
-    is_flag=True,
-    help="Enable debug logging"
-)
+@click.option("--debug", is_flag=True, help="Enable debug logging")
 def main(
     config: Optional[Path],
     output_dir: Optional[Path],
@@ -86,7 +81,7 @@ def main(
     month_start: Optional[datetime],
     month_end: Optional[datetime],
     validate_only: bool,
-    debug: bool
+    debug: bool,
 ):
     """Generate monthly PI initiative report for UI Foundation platform.
 
@@ -110,7 +105,7 @@ def main(
                 structlog.stdlib.add_logger_name,
                 structlog.stdlib.add_log_level,
                 structlog.processors.TimeStamper(fmt="iso"),
-                structlog.dev.ConsoleRenderer()
+                structlog.dev.ConsoleRenderer(),
             ]
         )
         logger.info("Debug logging enabled")
@@ -118,40 +113,40 @@ def main(
     try:
         # Load configuration
         if config:
-            settings = Settings.from_yaml(config)
+            _ = Settings.from_yaml(config)
         else:
-            settings = Settings()
+            _ = Settings()
 
         # Set default month range if not provided
         if month_end is None:
             if month:
                 # Use provided month
-                month_start = month.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+                _ = month.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
                 # Calculate last day of month
                 if month.month == 12:
-                    next_month = month.replace(year=month.year + 1, month=1)
+                    _ = month.replace(year=month.year + 1, month=1)
                 else:
-                    next_month = month.replace(month=month.month + 1)
-                month_end = next_month - timedelta(days=1)
+                    _ = month.replace(month=month.month + 1)
+                _ = next_month - timedelta(days=1)
             else:
                 # Use current month
-                now = datetime.now()
-                month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+                _ = datetime.now()
+                _ = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
                 # Calculate last day of current month
                 if now.month == 12:
-                    next_month = now.replace(year=now.year + 1, month=1)
+                    _ = now.replace(year=now.year + 1, month=1)
                 else:
-                    next_month = now.replace(month=now.month + 1)
-                month_end = next_month - timedelta(days=1)
+                    _ = now.replace(month=now.month + 1)
+                _ = next_month - timedelta(days=1)
 
         if month_start is None:
-            month_start = month_end.replace(day=1)
+            _ = month_end.replace(day=1)
 
         print("📊 UI Foundation Monthly PI Initiative Report Generator")
         print("=" * 65)
         print(f"Report Period: {month_start.strftime('%B %Y')}")
         print(f"Date Range: {month_start.strftime('%B %d')} - {month_end.strftime('%B %d, %Y')}")
-        print(f"Focus: L1 & L2 Strategic Initiative Tracking")
+        print("Focus: L1 & L2 Strategic Initiative Tracking")
         print()
 
         asyncio.run(_run_generation(settings, output_dir, month_start, month_end, validate_only))
@@ -170,7 +165,7 @@ async def _run_generation(
     output_dir: Optional[Path],
     month_start: datetime,
     month_end: datetime,
-    validate_only: bool
+    validate_only: bool,
 ):
     """Run the monthly report generation process."""
 
@@ -185,9 +180,9 @@ async def _run_generation(
     # Test authentication
     print("🔐 Testing Jira authentication...")
     try:
-        authenticator = JiraAuthenticator(settings)
+        _ = JiraAuthenticator(settings)
         if authenticator.validate_credentials():
-            user_info = authenticator.get_user_info()
+            _ = authenticator.get_user_info()
             if user_info:
                 print(f"✅ Authenticated as: {user_info['displayName']}")
             else:
@@ -203,74 +198,86 @@ async def _run_generation(
 
     # Create report generator
     print("📈 Initializing monthly PI initiative report generator...")
-    generator = MonthlyReportGenerator(settings)
+    _ = MonthlyReportGenerator(settings)
 
     # Set output directory
     if output_dir is None:
-        output_dir = settings.report_output_dir / "monthly"
+        _ = settings.report_output_dir / "monthly"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Generate report
-    print(f"\n📊 Generating monthly PI initiative report...")
+    print("\n📊 Generating monthly PI initiative report...")
     print(f"   Period: {month_start.strftime('%B %Y')}")
-    print(f"   Scope: L1 & L2 Strategic Initiatives")
+    print("   Scope: L1 & L2 Strategic Initiatives")
 
     try:
-        report = await generator.generate(
-            period_start=month_start,
-            period_end=month_end,
-            output_dir=output_dir
+        _ = await generator.generate(
+            period_start=month_start, period_end=month_end, output_dir=output_dir
         )
 
         print("\n✅ Monthly PI initiative report generated successfully!")
         print("=" * 65)
 
         # Display report summary
-        print(f"📈 Report Summary:")
-        if hasattr(report.data, 'total_pi_initiatives'):
+        print("📈 Report Summary:")
+        if hasattr(report.data, "total_pi_initiatives"):
             print(f"  • Total PI Initiatives: {report.data.total_pi_initiatives}")
             print(f"  • L1 Initiatives: {report.data.l1_initiatives}")
             print(f"  • L2 Strategic Initiatives: {report.data.l2_initiatives}")
 
             # Health distribution
-            if hasattr(report.data, 'health_distribution'):
-                health_dist = report.data.health_distribution
-                print(f"  • Health Status:")
+            if hasattr(report.data, "health_distribution"):
+                _ = report.data.health_distribution
+                print("  • Health Status:")
                 for status, count in health_dist.items():
-                    emoji = "🟢" if status.value == "green" else "🟡" if status.value == "yellow" else "🔴" if status.value == "red" else "⚪"
+                    _ = (
+                        "🟢"
+                        if status.value == "green"
+                        else (
+                            "🟡"
+                            if status.value == "yellow"
+                            else "🔴" if status.value == "red" else "⚪"
+                        )
+                    )
                     print(f"    - {emoji} {status.value.title()}: {count}")
 
-        print(f"\n📁 Report Details:")
+        print("\n📁 Report Details:")
         print(f"  • Report File: {report.get_filename()}")
         print(f"  • Output Directory: {output_dir}")
         print(f"  • Generation Date: {report.metadata.generation_date.strftime('%Y-%m-%d %H:%M')}")
-        print(f"  • Strategic Themes: {len(report.data.strategic_themes) if hasattr(report.data, 'strategic_themes') else 0}")
+        print(
+            f"  • Strategic Themes: {
+                len(
+                    report.data.strategic_themes) if hasattr(
+                    report.data,
+                    'strategic_themes') else 0}"
+        )
 
         # Display executive summary
-        print(f"\n💼 Executive Summary:")
+        print("\n💼 Executive Summary:")
         print(f"  {report.executive_summary}")
 
         # Display recommendations
         if report.recommendations:
-            print(f"\n🎯 Strategic Recommendations:")
+            print("\n🎯 Strategic Recommendations:")
             for i, rec in enumerate(report.recommendations, 1):
                 print(f"  {i}. {rec}")
 
         # Display risk assessment if available
-        if hasattr(report.data, 'risk_assessment') and report.data.risk_assessment:
-            risk_data = report.data.risk_assessment
-            total_risks = risk_data.get('total_at_risk', 0)
+        if hasattr(report.data, "risk_assessment") and report.data.risk_assessment:
+            _ = report.data.risk_assessment
+            _ = risk_data.get("total_at_risk", 0)
             if total_risks > 0:
-                print(f"\n⚠️  Risk Assessment:")
+                print("\n⚠️  Risk Assessment:")
                 print(f"  • Total At-Risk Initiatives: {total_risks}")
                 print(f"  • Risk Summary: {risk_data.get('summary', 'See detailed report')}")
 
-        print(f"\n🔧 Next Steps:")
-        print(f"  1. Review strategic themes and resource allocation")
-        print(f"  2. Address high-risk initiatives and implement mitigations")
-        print(f"  3. Share with VP/SLT for PI planning discussions")
-        print(f"  4. Track progress on L2 strategic initiatives")
-        print(f"  5. Adjust priorities based on health assessment")
+        print("\n🔧 Next Steps:")
+        print("  1. Review strategic themes and resource allocation")
+        print("  2. Address high-risk initiatives and implement mitigations")
+        print("  3. Share with VP/SLT for PI planning discussions")
+        print("  4. Track progress on L2 strategic initiatives")
+        print("  5. Adjust priorities based on health assessment")
 
     except Exception as e:
         logger.error("Report generation failed", error=str(e))

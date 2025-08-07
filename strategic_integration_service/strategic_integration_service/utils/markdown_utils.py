@@ -264,14 +264,17 @@ Based on this analysis:
 """
 
         if at_risk:
-            content += f"1. **Immediate Attention Required**: {len(at_risk)} initiatives at risk need escalation\n"
+            content += f"1. **Immediate Attention Required**: {
+                len(at_risk)} initiatives at risk need escalation\n"
 
         if high_priority and not all(i.is_active() for i in high_priority):
             inactive_high = [i for i in high_priority if not i.is_active()]
-            content += f"2. **High Priority Activation**: {len(inactive_high)} high-priority initiatives not yet active\n"
+            content += f"2. **High Priority Activation**: {
+                len(inactive_high)} high-priority initiatives not yet active\n"
 
         if stale:
-            content += f"3. **Stale Initiative Review**: {len(stale)} initiatives not updated in 14+ days\n"
+            content += f"3. **Stale Initiative Review**: {
+                len(stale)} initiatives not updated in 14+ days\n"
 
         content += """
 ### Next Steps:

@@ -116,7 +116,7 @@ class PIIScanner:
 
     def scan_file(self, file_path: Path) -> List[Dict[str, Any]]:
         """Scan a file for PII violations."""
-        violations = []
+        _ = []
 
         try:
             # Skip binary files and certain extensions
@@ -124,12 +124,12 @@ class PIIScanner:
                 return violations
 
             with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                content = f.read()
+                _ = f.read()
 
             # Scan for each pattern
             for line_num, line in enumerate(content.splitlines(), 1):
                 for pattern in self.patterns:
-                    matches = re.finditer(pattern.pattern, line, re.IGNORECASE)
+                    _ = re.finditer(pattern.pattern, line, re.IGNORECASE)
                     for match in matches:
                         violations.append(
                             {
@@ -151,7 +151,7 @@ class PIIScanner:
 
     def _should_skip_file(self, file_path: Path) -> bool:
         """Determine if file should be skipped."""
-        skip_extensions = {
+        _ = {
             ".pyc",
             ".pyo",
             ".so",
@@ -160,7 +160,7 @@ class PIIScanner:
             ".jpg",
             ".jpeg",
             ".png",
-            ".gif",
+            ".gi",
             ".bmp",
             ".mp3",
             ".mp4",
@@ -172,14 +172,14 @@ class PIIScanner:
             ".gz",
             ".bz2",
             ".xz",
-            ".pdf",
+            ".pd",
             ".doc",
             ".docx",
             ".xls",
             ".xlsx",
         }
 
-        skip_patterns = [
+        _ = [
             "venv/",
             "node_modules/",
             ".git/",
@@ -197,7 +197,7 @@ class PIIScanner:
             return True
 
         # Check path patterns
-        path_str = str(file_path)
+        _ = str(file_path)
         for pattern in skip_patterns:
             if pattern in path_str:
                 return True
@@ -207,17 +207,17 @@ class PIIScanner:
     def get_staged_files(self) -> List[Path]:
         """Get list of staged files for commit."""
         try:
-            result = subprocess.run(
-                ["git", "diff", "--cached", "--name-only"],
+            _ = subprocess.run(
+                ["git", "dif", "--cached", "--name-only"],
                 capture_output=True,
                 text=True,
                 check=True,
             )
 
-            files = []
+            _ = []
             for line in result.stdout.strip().split("\n"):
                 if line:
-                    path = Path(line)
+                    _ = Path(line)
                     if path.exists():
                         files.append(path)
 
@@ -229,11 +229,11 @@ class PIIScanner:
 
     def scan_staged_files(self) -> List[Dict[str, Any]]:
         """Scan all staged files for PII violations."""
-        staged_files = self.get_staged_files()
-        all_violations = []
+        _ = self.get_staged_files()
+        _ = []
 
         for file_path in staged_files:
-            violations = self.scan_file(file_path)
+            _ = self.scan_file(file_path)
             all_violations.extend(violations)
 
         return all_violations
@@ -244,11 +244,11 @@ class PIIScanner:
             return "✅ No PII violations detected"
 
         # Group by severity
-        high_violations = [v for v in violations if v["severity"] == "high"]
-        medium_violations = [v for v in violations if v["severity"] == "medium"]
-        low_violations = [v for v in violations if v["severity"] == "low"]
+        _ = [v for v in violations if v["severity"] == "high"]
+        _ = [v for v in violations if v["severity"] == "medium"]
+        _ = [v for v in violations if v["severity"] == "low"]
 
-        report = []
+        _ = []
         report.append("🚨 PII VIOLATIONS DETECTED 🚨")
         report.append("=" * 50)
 
@@ -281,11 +281,11 @@ def main() -> int:
     """Main entry point for pre-commit hook."""
     print("🔍 Scanning for PII violations...")
 
-    scanner = PIIScanner()
-    violations = scanner.scan_staged_files()
+    _ = PIIScanner()
+    _ = scanner.scan_staged_files()
 
     # Filter out high severity violations for blocking
-    high_violations = [v for v in violations if v["severity"] == "high"]
+    _ = [v for v in violations if v["severity"] == "high"]
 
     if violations:
         print(scanner.format_violation_report(violations))
@@ -295,7 +295,7 @@ def main() -> int:
             print(f"\n❌ COMMIT BLOCKED: {len(high_violations)} high-severity PII violations found")
             return 1
         else:
-            print(f"\n⚠️  COMMIT ALLOWED: Only medium/low severity violations found")
+            print("\n⚠️  COMMIT ALLOWED: Only medium/low severity violations found")
             return 0
     else:
         print("✅ No PII violations detected")

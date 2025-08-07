@@ -11,15 +11,15 @@ Usage:
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
 
 import click
 import structlog
 
 from ..core.config import Settings
 from ..extractors.l2_initiatives import L2InitiativeExtractor
-from ..extractors.performance_l2_initiatives import PerformanceL2InitiativeExtractor
 from ..extractors.memory_optimized_extractor import compare_memory_strategies
+from ..extractors.performance_l2_initiatives import PerformanceL2InitiativeExtractor
 from ..utils.performance_benchmark import ExtractionBenchmark, benchmark_jira_queries
 from ..utils.performance_jira_client import PerformanceJiraClient
 
@@ -87,7 +87,7 @@ def main(
     memory_strategies: bool,
 ):
     """Run performance benchmarks for Strategic Integration Service."""
-    
+
     # Configure logging
     if verbose:
         structlog.configure(
@@ -102,14 +102,16 @@ def main(
     try:
         settings = Settings()
         click.echo(f"📊 Configuration loaded - Cache: {settings.enable_caching}")
-        
+
         benchmark_results = {}
 
         if queries:
             benchmark_results["query_benchmarks"] = run_query_benchmarks(settings)
 
         if memory_strategies:
-            benchmark_results["memory_strategies"] = run_memory_strategy_comparison(settings, max_results)
+            benchmark_results["memory_strategies"] = run_memory_strategy_comparison(
+                settings, max_results
+            )
 
         if comparison:
             benchmark_results["extractor_comparison"] = run_extractor_comparison(
@@ -141,9 +143,9 @@ def main(
 def run_query_benchmarks(settings: Settings) -> Dict[str, Any]:
     """Run Jira query performance benchmarks."""
     click.echo("\n🔍 Running Jira Query Benchmarks...")
-    
+
     client = PerformanceJiraClient(settings)
-    
+
     # Define test queries
     test_queries = [
         {
@@ -152,7 +154,7 @@ def run_query_benchmarks(settings: Settings) -> Dict[str, Any]:
             "max_results": 50,
         },
         {
-            "name": "l2_medium", 
+            "name": "l2_medium",
             "jql": f'project = PI AND division in ("{settings.l2_division_filter}") AND type = L2',
             "max_results": 100,
         },
@@ -162,9 +164,9 @@ def run_query_benchmarks(settings: Settings) -> Dict[str, Any]:
             "max_results": 200,
         },
     ]
-    
+
     results = benchmark_jira_queries(client, test_queries, warmup_runs=1, test_runs=3)
-    
+
     click.echo("✅ Query benchmarks completed")
     return results
 
@@ -174,25 +176,25 @@ def run_extractor_comparison(
 ) -> Dict[str, Any]:
     """Compare standard vs performance extractors."""
     click.echo(f"\n⚖️  Running Extractor Comparison ({runs} runs)...")
-    
+
     benchmark = ExtractionBenchmark()
-    
+
     # Create extractors
     standard_extractor = L2InitiativeExtractor(settings)
     performance_extractor = PerformanceL2InitiativeExtractor(settings)
-    
+
     # Warm cache if requested
     if cache_warmup:
         click.echo("🔥 Warming cache...")
         performance_extractor.warm_extraction_cache()
-    
+
     extractors = [standard_extractor, performance_extractor]
-    
+
     results = benchmark.compare_extractors(
         extractors,
         extraction_method="extract",
     )
-    
+
     click.echo("✅ Extractor comparison completed")
     return results
 
@@ -202,27 +204,27 @@ def run_single_extractor_benchmark(
 ) -> Dict[str, Any]:
     """Run benchmark on a single extractor type."""
     click.echo(f"\n🎯 Benchmarking {extractor_type} extractor ({runs} runs)...")
-    
+
     benchmark = ExtractionBenchmark()
-    
+
     if extractor_type == "l2":
         extractor = PerformanceL2InitiativeExtractor(settings)
-        
+
         if cache_warmup:
             click.echo("🔥 Warming cache...")
             extractor.warm_extraction_cache()
-            
+
         results = []
         for i in range(runs):
-            click.echo(f"🏃 Run {i+1}/{runs}")
+            click.echo(f"🏃 Run {i + 1}/{runs}")
             result = benchmark.benchmark_extraction(extractor, "extract")
             results.append(result)
-            
+
     else:
         raise ValueError(f"Unsupported extractor type: {extractor_type}")
-    
+
     summary = benchmark.get_summary()
-    
+
     click.echo("✅ Single extractor benchmark completed")
     return {
         "extractor_type": extractor_type,
@@ -236,11 +238,11 @@ def display_results(results: Dict[str, Any]) -> None:
     """Display benchmark results in a user-friendly format."""
     click.echo("\n📊 BENCHMARK RESULTS")
     click.echo("=" * 50)
-    
+
     for category, data in results.items():
         click.echo(f"\n📋 {category.replace('_', ' ').title()}")
         click.echo("-" * 30)
-        
+
         if category == "extractor_comparison":
             display_comparison_results(data)
         elif category == "extractor_benchmark":
@@ -254,16 +256,16 @@ def display_results(results: Dict[str, Any]) -> None:
 def display_comparison_results(data: Dict[str, Any]) -> None:
     """Display extractor comparison results."""
     summary = data.get("summary", {})
-    
+
     if "fastest" in summary:
         fastest = summary["fastest"]
         slowest = summary["slowest"]
         improvement = summary.get("performance_improvement", 1)
-        
+
         click.echo(f"🏆 Fastest: {fastest['extractor']} ({fastest['duration']:.3f}s)")
         click.echo(f"🐌 Slowest: {slowest['extractor']} ({slowest['duration']:.3f}s)")
         click.echo(f"⚡ Performance Improvement: {improvement:.2f}x")
-        
+
     for extractor, result in data.get("results", {}).items():
         if result["success"]:
             benchmark = result["benchmark"]
@@ -276,34 +278,39 @@ def display_comparison_results(data: Dict[str, Any]) -> None:
 def display_single_benchmark_results(data: Dict[str, Any]) -> None:
     """Display single extractor benchmark results."""
     summary = data.get("summary", {})
-    
+
     click.echo(f"🎯 Extractor: {data.get('extractor_type', 'unknown')}")
     click.echo(f"🏃 Runs: {data.get('runs', 0)}")
-    
+
     if summary:
         click.echo(f"⏱️  Average Time: {summary.get('average_time_seconds', 0):.3f}s")
         click.echo(f"⚡ Min Time: {summary.get('min_time_seconds', 0):.3f}s")
         click.echo(f"🐌 Max Time: {summary.get('max_time_seconds', 0):.3f}s")
-        click.echo(f"✅ Success Rate: {summary.get('success_rate', 0)*100:.1f}%")
+        click.echo(f"✅ Success Rate: {summary.get('success_rate', 0) * 100:.1f}%")
 
 
 def display_query_results(data: Dict[str, Any]) -> None:
     """Display query benchmark results."""
     query_results = data.get("query_results", {})
-    
+
     for query_name, stats in query_results.items():
         click.echo(f"\n🔍 {query_name}:")
         click.echo(f"  ⏱️  Avg Time: {stats.get('average_duration', 0):.3f}s")
-        click.echo(f"  📊 Results: {stats.get('result_counts', [0])[0] if stats.get('result_counts') else 0}")
+        click.echo(
+            f"  📊 Results: {
+                stats.get(
+                    'result_counts',
+                    [0])[0] if stats.get('result_counts') else 0}"
+        )
         click.echo(f"  ✅ Success: {stats.get('successful_runs', 0)}/{stats.get('runs', 0)}")
 
 
 def run_memory_strategy_comparison(settings: Settings, max_results: int) -> Dict[str, Any]:
     """Run memory optimization strategy comparison."""
     click.echo(f"\n🧠 Running Memory Strategy Comparison (max {max_results} results)...")
-    
+
     results = compare_memory_strategies(settings, max_results)
-    
+
     click.echo("✅ Memory strategy comparison completed")
     return results
 
@@ -312,7 +319,7 @@ def display_memory_results(data: Dict[str, Any]) -> None:
     """Display memory optimization results."""
     strategy_results = data.get("strategy_results", {})
     summary = data.get("comparison_summary", {})
-    
+
     for strategy, result in strategy_results.items():
         if result["success"]:
             memory_report = result["memory_report"]
@@ -321,8 +328,10 @@ def display_memory_results(data: Dict[str, Any]) -> None:
             click.echo(f"  🏔️  Peak Memory: {memory_report['peak_mb']:.1f}MB")
             click.echo(f"  📈 Memory Growth: {memory_report.get('peak_growth_mb', 0):.1f}MB")
         else:
-            click.echo(f"\n❌ {strategy.title()} Strategy: Failed - {result.get('error', 'Unknown error')}")
-    
+            click.echo(
+                f"\n❌ {strategy.title()} Strategy: Failed - {result.get('error', 'Unknown error')}"
+            )
+
     if "most_memory_efficient" in summary:
         efficient = summary["most_memory_efficient"]
         click.echo(f"\n🏆 Most Memory Efficient: {efficient['strategy'].title()}")

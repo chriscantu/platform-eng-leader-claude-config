@@ -19,18 +19,22 @@ class PerformanceJiraClient(JiraClient):
 
     def __init__(self, settings: Settings):
         super().__init__(settings)
-        
+
         # Initialize cache system
-        self.cache = MultiTierCache(
-            enable_memory=True,
-            enable_file=settings.enable_caching,
-            enable_redis=False,  # Can be enabled with Redis configuration
-            cache_dir=settings.output_base_dir / ".cache",
-        ) if settings.enable_caching else None
-        
+        self.cache = (
+            MultiTierCache(
+                enable_memory=True,
+                enable_file=settings.enable_caching,
+                enable_redis=False,  # Can be enabled with Redis configuration
+                cache_dir=settings.output_base_dir / ".cache",
+            )
+            if settings.enable_caching
+            else None
+        )
+
         self.cache_ttl = settings.cache_ttl_seconds
         self.max_parallel_requests = settings.parallel_requests
-        
+
         # Performance metrics
         self.metrics = {
             "cache_hits": 0,
@@ -63,17 +67,17 @@ class PerformanceJiraClient(JiraClient):
         # Cache miss - fetch and store
         self.metrics["cache_misses"] += 1
         logger.debug("Cache miss - fetching", prefix=cache_prefix, params=cache_key_params)
-        
+
         start_time = time.time()
         result = fetch_func()
         fetch_time = time.time() - start_time
-        
+
         self.metrics["api_calls"] += 1
         self.metrics["total_time"] += fetch_time
 
         # Store in cache
         self.cache.set(cache_prefix, result, ttl, **cache_key_params)
-        
+
         return result
 
     def search_issues_cached(
@@ -84,7 +88,7 @@ class PerformanceJiraClient(JiraClient):
         ttl: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         """Search issues with caching support."""
-        
+
         def fetch_func():
             return self.search_all_issues(jql, fields, max_results)
 
@@ -98,12 +102,14 @@ class PerformanceJiraClient(JiraClient):
 
     def parallel_search_issues(
         self,
-        queries: List[Tuple[str, str, Optional[List[str]], int]],  # (cache_key, jql, fields, max_results)
+        queries: List[
+            Tuple[str, str, Optional[List[str]], int]
+        ],  # (cache_key, jql, fields, max_results)
         max_workers: Optional[int] = None,
     ) -> Dict[str, List[Dict[str, Any]]]:
         """Execute multiple Jira searches in parallel."""
         max_workers = max_workers or min(self.max_parallel_requests, len(queries))
-        
+
         logger.info(
             "Starting parallel Jira queries",
             query_count=len(queries),
@@ -138,7 +144,7 @@ class PerformanceJiraClient(JiraClient):
 
         total_time = time.time() - start_time
         self.metrics["parallel_requests"] += len(queries)
-        
+
         logger.info(
             "Parallel queries completed",
             total_time=total_time,
@@ -156,7 +162,7 @@ class PerformanceJiraClient(JiraClient):
     ) -> List[Dict[str, Any]]:
         """Async wrapper for search_issues_cached."""
         loop = asyncio.get_event_loop()
-        
+
         return await loop.run_in_executor(
             None,
             self.search_issues_cached,
@@ -171,7 +177,7 @@ class PerformanceJiraClient(JiraClient):
     ) -> Dict[str, List[Dict[str, Any]]]:
         """Async version of parallel search for better integration."""
         loop = asyncio.get_event_loop()
-        
+
         return await loop.run_in_executor(
             None,
             self.parallel_search_issues,
@@ -188,7 +194,7 @@ class PerformanceJiraClient(JiraClient):
         """Search large datasets with efficient pagination and caching."""
         all_results = []
         start_at = 0
-        
+
         logger.info(
             "Starting batch search with pagination",
             base_jql=base_jql,
@@ -199,7 +205,7 @@ class PerformanceJiraClient(JiraClient):
         while len(all_results) < max_total:
             remaining = max_total - len(all_results)
             current_batch_size = min(batch_size, remaining)
-            
+
             # Create cache key that includes pagination
             cache_params = {
                 "jql": base_jql,
@@ -216,9 +222,7 @@ class PerformanceJiraClient(JiraClient):
                     fields=fields,
                 )
 
-            batch_results = self.get_cached_or_fetch(
-                "jira_batch", fetch_batch, cache_params
-            )
+            batch_results = self.get_cached_or_fetch("jira_batch", fetch_batch, cache_params)
 
             if not batch_results:
                 logger.info("No more results found", start_at=start_at)
@@ -249,11 +253,11 @@ class PerformanceJiraClient(JiraClient):
     def warm_cache(self, queries: List[Tuple[str, str, Optional[List[str]], int]]) -> None:
         """Pre-warm cache with commonly used queries."""
         logger.info("Warming cache", query_count=len(queries))
-        
+
         start_time = time.time()
         results = self.parallel_search_issues(queries)
         warm_time = time.time() - start_time
-        
+
         total_results = sum(len(result) for result in results.values())
         logger.info(
             "Cache warming completed",
@@ -305,7 +309,7 @@ class PerformanceExtractorMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Replace standard Jira client with performance client
-        if hasattr(self, 'settings'):
+        if hasattr(self, "settings"):
             self.perf_client = PerformanceJiraClient(self.settings)
 
     def extract_with_performance(
@@ -314,7 +318,7 @@ class PerformanceExtractorMixin:
         warm_cache: bool = False,
     ) -> Dict[str, List[Dict[str, Any]]]:
         """Extract data using performance-optimized parallel queries."""
-        
+
         if warm_cache:
             # Pre-warm cache with common queries
             self.perf_client.warm_cache(queries)
@@ -324,6 +328,6 @@ class PerformanceExtractorMixin:
 
     def get_extraction_metrics(self) -> Dict[str, Any]:
         """Get performance metrics from the current extraction."""
-        if hasattr(self, 'perf_client'):
+        if hasattr(self, "perf_client"):
             return self.perf_client.get_performance_metrics()
         return {}

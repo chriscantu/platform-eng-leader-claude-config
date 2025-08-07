@@ -38,7 +38,7 @@ structlog.configure(
     cache_logger_on_first_use=True,
 )
 
-logger = structlog.get_logger(__name__)
+_ = structlog.get_logger(__name__)
 
 
 @click.command()
@@ -103,9 +103,9 @@ def main(
     try:
         # Load configuration
         if config:
-            settings = Settings.from_yaml(config)
+            _ = Settings.from_yaml(config)
         else:
-            settings = Settings()
+            _ = Settings()
 
         # Override settings with command line options
         if max_results:
@@ -113,7 +113,7 @@ def main(
 
         print("🎯 UI Foundation Current Initiatives Extractor")
         print("=" * 50)
-        print(f"Teams: WES, GLB, HUBS, FSGD, UISP, UIS, UXI, PI")
+        print("Teams: WES, GLB, HUBS, FSGD, UISP, UIS, UXI, PI")
         print(f"Max Results: {settings.jira_max_results}")
         print(f"Recent Days: {recent_days}")
         print()
@@ -145,9 +145,9 @@ async def _run_extraction(
     # Test authentication
     print("🔐 Testing Jira authentication...")
     try:
-        authenticator = JiraAuthenticator(settings)
+        _ = JiraAuthenticator(settings)
         if authenticator.validate_credentials():
-            user_info = authenticator.get_user_info()
+            _ = authenticator.get_user_info()
             if user_info:
                 print(f"✅ Authenticated as: {user_info['displayName']}")
             else:
@@ -163,11 +163,11 @@ async def _run_extraction(
 
     # Create extractor
     print("🚀 Initializing current initiatives extractor...")
-    extractor = CurrentInitiativesExtractor(settings)
+    _ = CurrentInitiativesExtractor(settings)
 
     # Validate JQL queries
     print("🔍 Validating JQL queries...")
-    queries = {
+    _ = {
         "Active Initiatives": extractor.get_active_initiatives_jql(),
         "Strategic Epics": extractor.get_strategic_epics_jql(),
         "Recent Completed": extractor.get_recent_completed_jql(recent_days),
@@ -179,23 +179,23 @@ async def _run_extraction(
     # Run extraction
     print("\n📊 Starting data extraction...")
     try:
-        result = await extractor.run(output_dir)
+        _ = await extractor.run(output_dir)
 
         print("\n✅ Extraction completed successfully!")
         print("=" * 50)
-        print(f"📈 Results:")
+        print("📈 Results:")
         print(f"  • Active Initiatives: {result['active_initiatives']}")
         print(f"  • Strategic Epics: {result['strategic_epics']}")
         print(f"  • Recent Completed: {result['recent_completed']}")
-        print(f"\n📁 Output Files:")
+        print("\n📁 Output Files:")
         for file_type, file_path in result["output_files"].items():
             print(f"  • {file_type.replace('_', ' ').title()}: {file_path}")
 
-        print(f"\n🔧 Next Steps:")
-        print(f"  1. Review the analysis report for current initiative landscape")
-        print(f"  2. Compare against strategic priority ranking")
-        print(f"  3. Identify gaps or conflicts between current work and strategic priorities")
-        print(f"  4. Use data for VP/SLT priority alignment discussions")
+        print("\n🔧 Next Steps:")
+        print("  1. Review the analysis report for current initiative landscape")
+        print("  2. Compare against strategic priority ranking")
+        print("  3. Identify gaps or conflicts between current work and strategic priorities")
+        print("  4. Use data for VP/SLT priority alignment discussions")
 
     except Exception as e:
         logger.error("Extraction failed", error=str(e))

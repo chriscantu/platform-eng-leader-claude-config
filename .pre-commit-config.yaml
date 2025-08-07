@@ -1,0 +1,126 @@
+# Pre-commit hooks for Strategic Integration Service
+# Ensures code quality, security, and prevents PII leakage
+repos:
+  # Code formatting and linting
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: debug-statements
+      - id: name-tests-test
+        args: ['--pytest-test-first']
+
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+        args: ['--line-length=100']
+
+  # Import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ['--profile=black', '--line-length=100']
+
+  # Python linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+
+  # Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-PyYAML, types-requests]
+        args: ['--ignore-missing-imports']
+
+  # Security scanning
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ['-r', 'strategic_integration_service/', '-f', 'json', '-o', '/tmp/bandit-report.json']
+        verbose: true
+
+  # Secrets detection
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .*\.lock$|
+            .*\.min\.js$|
+            .*\.min\.css$|
+            .*/venv/.*|
+            .*/node_modules/.*|
+            .*\.egg-info/.*
+          )$
+
+  # Strategic data PII protection
+  - repo: local
+    hooks:
+      - id: pii-scanner
+        name: Strategic PII Scanner
+        entry: python
+        args: [strategic_integration_service/strategic_integration_service/hooks/pii_scanner.py]
+        language: system
+        stages: [pre-commit]
+        verbose: true
+        always_run: true
+        pass_filenames: false
+
+      - id: strategic-data-validator
+        name: Strategic Data Validator
+        entry: python
+        args: [strategic_integration_service/strategic_integration_service/hooks/strategic_validator.py]
+        language: system
+        files: '\.(json|md|yaml|yml)$'
+        stages: [pre-commit]
+        verbose: true
+
+      - id: test-runner
+        name: Strategic Test Runner
+        entry: python
+        args: [strategic_integration_service/strategic_integration_service/hooks/test_runner.py]
+        language: system
+        stages: [pre-commit]
+        always_run: true
+        pass_filenames: false
+        verbose: true
+
+      - id: critical-linting-validator
+        name: Critical Linting Validator
+        entry: python
+        args: [strategic_integration_service/strategic_integration_service/hooks/critical_linting.py]
+        language: system
+        stages: [pre-commit]
+        files: '\.py$'
+        verbose: true
+
+  # Documentation
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        args: ['--convention=google']
+
+# Global configuration
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+fail_fast: true
