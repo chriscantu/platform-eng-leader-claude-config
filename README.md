@@ -1,6 +1,8 @@
-# SuperClaude Platform Engineering Leader Configuration
+# ClaudeDirector: Strategic Leadership AI Framework
 
-Strategic AI framework for Director of Engineering with **enterprise-grade Python integration service** and enhanced memory system.
+**Claude specialized for engineering directors** with **enterprise-grade Python integration service** and enhanced memory system.
+
+*Built on SuperClaude's strategic persona foundation + ClaudeFlow's Hivemind intelligence + custom leadership workflows*
 
 ## 🚀 New: Strategic Integration Service + Meeting Intelligence
 
@@ -58,7 +60,7 @@ mkdir workspace/meeting-prep/team-strategic-planning
 
 ## Overview
 
-SuperClaude combines strategic AI leadership with enterprise Python infrastructure:
+ClaudeDirector combines strategic AI leadership with enterprise Python infrastructure:
 - **🎯 12 Strategic Personas** for executive communication and technical leadership
 - **🗄️ Memory-Enhanced Context** with SQLite persistence across sessions
 - **💰 Cost-Optimized Model Routing** maintaining 45-55% savings vs baseline AI usage
@@ -100,7 +102,7 @@ Choose between **Directory-Based** (recommended) or **Global Configuration** set
 
 3. **Use Claude Code from This Directory**
    ```bash
-   # All SuperClaude functionality works from this directory
+   # All ClaudeDirector functionality works from this directory
    # The framework files (CLAUDE.md, PERSONAS.md, etc.) are automatically loaded
 
    # Test the framework
@@ -176,7 +178,7 @@ Claude Code automatically loads configuration files from the current directory i
 1. **Current Directory**: `./CLAUDE.md` (highest priority)
 2. **Global Configuration**: `~/.claude/CLAUDE.md` (fallback)
 
-When you run Claude Code from the SuperClaude directory, it automatically:
+When you run Claude Code from the ClaudeDirector directory, it automatically:
 - Loads all 12 strategic personas from `PERSONAS.md`
 - Activates the strategic command system from `COMMANDS.md`
 - Applies Director-level flags and optimization from `FLAGS.md`
@@ -186,7 +188,7 @@ When you run Claude Code from the SuperClaude directory, it automatically:
 
 ### Usage
 
-#### Core SuperClaude Commands
+#### Core ClaudeDirector Commands
 
 Strategic commands with auto-persona activation:
 
@@ -490,7 +492,7 @@ sqlite3 memory/strategic_memory.db "SELECT * FROM recent_executive_sessions;"
 
 ## Strategic ROI
 
-This enhanced SuperClaude system with Strategic Integration Service delivers:
+This ClaudeDirector system with Strategic Integration Service delivers:
 
 ### **AI + Python Platform Integration**
 - **560% Year 1 ROI** through improved executive effectiveness and automated strategic reporting
@@ -516,7 +518,7 @@ This enhanced SuperClaude system with Strategic Integration Service delivers:
 
 ### Cursor IDE Integration
 
-This framework includes Cursor IDE integration files for seamless strategic context.
+ClaudeDirector includes Cursor IDE integration files for seamless strategic context.
 
 **🚀 Quick Start**: See [`CURSOR_SETUP.md`](CURSOR_SETUP.md) for a 5-minute setup guide.
 
@@ -553,7 +555,7 @@ This framework includes Cursor IDE integration files for seamless strategic cont
 
 ### Directory Structure for Your Projects
 
-When using this SuperClaude framework, organize your workspace to maximize efficiency:
+When using ClaudeDirector, organize your workspace to maximize efficiency:
 
 #### Recommended Project Structure
 
@@ -564,7 +566,7 @@ your-main-project/                  # Your actual work project
 ├── package.json                   # Project dependencies
 └── ...                           # Other project files
 
-platform-eng-leader-claude-config/ # SuperClaude framework (this repo)
+claudedirector/                    # ClaudeDirector framework (this repo)
 ├── framework/                     # Core framework files
 ├── workspace/                     # Your working files go here
 │   ├── current-initiatives/       # Active platform initiatives
@@ -635,9 +637,9 @@ The `local/` directory is gitignored and perfect for:
 
 #### Cursor IDE Setup for This Structure
 
-1. **Open the SuperClaude directory in Cursor**
+1. **Open the ClaudeDirector directory in Cursor**
    ```bash
-   cd platform-eng-leader-claude-config
+   cd claudedirector
    cursor .
    ```
 
@@ -664,14 +666,14 @@ If you work on multiple projects:
 ~/work/
 ├── project-alpha/                 # Your main development project
 ├── project-beta/                  # Another development project
-├── platform-eng-leader-claude-config/  # SuperClaude framework
+├── claudedirector/                # ClaudeDirector framework
 └── strategic-planning/            # Optional: additional strategic workspace
 ```
 
 **Workflow**:
 1. **Development work**: Use your project directories with regular Cursor/IDE setup
-2. **Strategic work**: Switch to the SuperClaude directory for strategic planning, meeting prep, etc.
-3. **Strategic context**: All SuperClaude personas and memory system available when you need them
+2. **Strategic work**: Switch to the ClaudeDirector directory for strategic planning, meeting prep, etc.
+3. **Strategic context**: All ClaudeDirector personas and memory system available when you need them
 
 #### Benefits of This Organization
 
@@ -708,4 +710,4 @@ If you work on multiple projects:
 
 ---
 
-*SuperClaude has evolved from an AI configuration framework into a comprehensive strategic platform engineering solution, combining AI-powered leadership guidance with enterprise-grade Python infrastructure for strategic data management and executive reporting.*
+*ClaudeDirector represents the evolution of strategic AI leadership - combining SuperClaude's proven personas foundation, ClaudeFlow's Hivemind intelligence, and custom enterprise-grade Python infrastructure into a comprehensive platform engineering solution for strategic data management and executive reporting.*
