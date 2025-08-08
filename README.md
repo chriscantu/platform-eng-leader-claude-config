@@ -15,8 +15,8 @@ cd claudedirector
 # Set up meeting intelligence and memory system
 python setup_meeting_intelligence.py
 
-# Set up faster git commits (optional but recommended)
-python setup_smart_git.py
+# Optional: Set up smart git hooks (only if you plan to contribute/customize)
+# python setup_smart_git.py
 ```
 
 ### 3. Start Using ClaudeDirector
@@ -44,11 +44,6 @@ mkdir workspace/meeting-prep/team-sync-jan-2025
 - Extracts strategic intelligence from meeting notes
 - Builds persistent memory across leadership sessions
 - Suggests optimal AI personas for different meeting types
-
-### ⚡ **Development Optimization**
-- Smart git hooks that save 10-45 seconds per commit
-- File-type-aware: skips Python tests for documentation changes
-- Quality maintained with security scanning where critical
 
 ### 🗄️ **Persistent Strategic Memory**
 - SQLite database stores organizational intelligence
@@ -92,13 +87,13 @@ python memory/meeting_intelligence.py --summary
 python memory/meeting_intelligence.py --scan
 ```
 
-### Fast Development Workflow
+### Use Strategic AI Personas
 ```bash
-# Smart commit that skips irrelevant checks
-git sc -m "Update meeting notes"  # Saves ~45s for documentation
-
-# Traditional commit for code changes (full validation)
-git commit -m "Fix critical bug"  # Full security + quality checks
+# In your Claude conversations, reference specific personas:
+# @diego: How should we structure our platform team for Q2?
+# @camille: What's the strategic value of this technical investment?
+# @rachel: How do we align design system adoption across teams?
+# @alvaro: How do we communicate this platform ROI to leadership?
 ```
 
 ## 🏗️ Architecture
@@ -107,7 +102,7 @@ ClaudeDirector is built on three pillars:
 
 1. **Strategic AI Foundation**: 12 personas + VP/SLT communication protocols
 2. **Meeting Intelligence Engine**: Automated tracking + strategic memory
-3. **Development Optimization**: Intelligent git hooks + Python-first tooling
+3. **Persistent Memory System**: SQLite-based organizational intelligence
 
 ## 📚 Advanced Features (Optional)
 
@@ -169,6 +164,38 @@ personas:
 
 </details>
 
+### Development Workflow Optimization
+
+<details>
+<summary>⚡ Smart Git Hooks for Contributors (Click to expand)</summary>
+
+If you're contributing to ClaudeDirector or customizing the codebase:
+
+```bash
+# Smart commit that skips irrelevant checks
+git sc -m "Update meeting notes"  # Saves ~45s for documentation
+
+# Traditional commit for code changes (full validation)
+git commit -m "Fix critical bug"  # Full security + quality checks
+
+# Analyze what would be optimized
+git analyze-commit  # Preview optimization strategy
+```
+
+**Features:**
+- File-type-aware git hooks that save 10-45 seconds per commit
+- Skips Python tests for documentation changes
+- Maintains quality with security scanning where critical
+- Intelligent hook filtering based on changed file types
+
+**When useful:**
+- Contributing to the ClaudeDirector codebase
+- Customizing strategic integration scripts
+- Frequent documentation updates
+- Development workflow optimization
+
+</details>
+
 ### Performance Monitoring
 
 <details>
@@ -193,23 +220,23 @@ git sc --analyze-only  # See what would be optimized
 
 ### Immediate Value (Day 1)
 1. ✅ **Set up meeting tracking** - Let ClaudeDirector learn your meeting patterns
-2. ✅ **Use smart git commits** - Save time on documentation updates
-3. ✅ **Try strategic personas** - Use `@diego` for platform decisions
+2. ✅ **Try strategic personas** - Use `@diego` for platform decisions, `@camille` for scaling
+3. ✅ **Create first meeting prep** - `mkdir workspace/meeting-prep/weekly-1on1`
 
 ### Strategic Value (Week 1)
 1. **Build meeting intelligence** - Create 3-5 meeting prep directories
-2. **Leverage persistent memory** - Reference past strategic decisions
-3. **Optimize workflows** - Use appropriate personas for different contexts
+2. **Leverage persistent memory** - Reference past strategic decisions in Claude conversations
+3. **Optimize persona usage** - Use appropriate personas for different meeting contexts
 
 ### Enterprise Value (Month 1)
 1. **Consider Jira integration** - Automate strategic reporting
 2. **Customize personas** - Add org-specific strategic contexts
-3. **Scale team adoption** - Share meeting intelligence patterns
+3. **Scale team adoption** - Share meeting intelligence patterns across leadership team
 
 ## 🆘 Getting Help
 
 ### Quick Troubleshooting
-```bash
+   ```bash
 # Check system health
 python setup_meeting_intelligence.py --verify-only
 
@@ -220,7 +247,7 @@ python setup_meeting_intelligence.py --scan-only
 ### Common Issues
 - **Import errors**: Run from project root directory
 - **Database issues**: Re-run `python setup_meeting_intelligence.py`
-- **Git hooks slow**: Use `git sc` instead of `git commit` for docs
+- **Meeting tracking not working**: Check that `workspace/meeting-prep/` directory exists
 
 ---
 
