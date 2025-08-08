@@ -18,13 +18,13 @@ from datetime import datetime
 
 class ClaudeDirectorCLI:
     """Unified CLI interface for ClaudeDirector framework"""
-    
+
     def __init__(self):
         self.project_root = Path(__file__).parent
-    
+
     def create_parser(self):
         """Create unified argument parser with subcommands"""
-        
+
         parser = argparse.ArgumentParser(
             prog='claudedirector',
             description='ClaudeDirector: Strategic Leadership AI Framework',
@@ -34,24 +34,24 @@ class ClaudeDirectorCLI:
   claudedirector setup                    # One-time framework setup
   claudedirector status                   # System health and overview
   claudedirector alerts                   # Daily executive alerts
-  
+
 🧠 Meeting Intelligence:
   claudedirector meetings scan            # Process meeting files
   claudedirector meetings demo            # Demo meeting intelligence
-  
+
 👥 Stakeholder Management:
   claudedirector stakeholders scan        # AI stakeholder detection
   claudedirector stakeholders profile     # Complete stakeholder profiling
   claudedirector stakeholders list        # View all stakeholders
   claudedirector stakeholders alerts      # Daily stakeholder alerts
-  
+
 🎯 Task Management:
   claudedirector tasks scan               # AI task detection
   claudedirector tasks list               # View my tasks
   claudedirector tasks overdue            # Show overdue tasks
   claudedirector tasks followups          # Show follow-ups due
   claudedirector tasks assigned           # Tasks I've assigned
-  
+
 ⚡ Smart Git (Development):
   claudedirector git setup                # Setup intelligent git hooks
   claudedirector git commit               # Smart commit with optimized hooks
@@ -63,70 +63,80 @@ Examples:
   claudedirector tasks scan               # Find new tasks in workspace
             """
         )
-        
+
         subparsers = parser.add_subparsers(dest='command', help='Available commands')
-        
+
         # Setup command
         setup_parser = subparsers.add_parser('setup', help='Framework setup and initialization')
-        setup_parser.add_argument('--component', choices=['all', 'meeting', 'stakeholder', 'task', 'git'], 
+        setup_parser.add_argument('--component', choices=['all', 'meeting', 'stakeholder', 'task', 'git'],
                                  default='all', help='Setup specific component')
         setup_parser.add_argument('--verify', action='store_true', help='Verify installation only')
-        
+
         # Status command
         status_parser = subparsers.add_parser('status', help='System status and health check')
         status_parser.add_argument('--detailed', action='store_true', help='Detailed system information')
-        
+
         # Alerts command
         alerts_parser = subparsers.add_parser('alerts', help='Daily executive alerts dashboard')
         alerts_parser.add_argument('--quiet', action='store_true', help='Quiet summary output')
-        alerts_parser.add_argument('--type', choices=['all', 'stakeholder', 'task'], 
+        alerts_parser.add_argument('--type', choices=['all', 'stakeholder', 'task'],
                                   default='all', help='Alert type filter')
-        
+
         # Meeting intelligence subcommands
         meetings_parser = subparsers.add_parser('meetings', help='Meeting intelligence management')
         meetings_sub = meetings_parser.add_subparsers(dest='meetings_action', help='Meeting actions')
-        
+
         meetings_sub.add_parser('scan', help='Scan and process meeting files')
         meetings_sub.add_parser('demo', help='Demo meeting intelligence capabilities')
-        
+
         # Stakeholder management subcommands
         stakeholders_parser = subparsers.add_parser('stakeholders', help='Stakeholder management')
         stakeholders_sub = stakeholders_parser.add_subparsers(dest='stakeholders_action', help='Stakeholder actions')
-        
+
         stakeholders_sub.add_parser('scan', help='AI-powered stakeholder detection')
         stakeholders_sub.add_parser('profile', help='Complete stakeholder profiling')
         stakeholders_sub.add_parser('list', help='List all stakeholders')
         stakeholders_sub.add_parser('alerts', help='Daily stakeholder alerts')
-        
+
         # Task management subcommands
         tasks_parser = subparsers.add_parser('tasks', help='Strategic task management')
         tasks_sub = tasks_parser.add_subparsers(dest='tasks_action', help='Task actions')
-        
+
         tasks_sub.add_parser('scan', help='AI-powered task detection')
         tasks_sub.add_parser('list', help='List my tasks')
         tasks_sub.add_parser('overdue', help='Show overdue tasks')
         tasks_sub.add_parser('followups', help='Show follow-ups due')
         tasks_sub.add_parser('assigned', help='Show tasks I\'ve assigned')
         tasks_sub.add_parser('review', help='Review AI-detected tasks')
-        
+
         # Git management subcommands
         git_parser = subparsers.add_parser('git', help='Smart git operations')
         git_sub = git_parser.add_subparsers(dest='git_action', help='Git actions')
-        
+
         git_sub.add_parser('setup', help='Setup intelligent git hooks')
         git_commit_parser = git_sub.add_parser('commit', help='Smart commit with optimized hooks')
         git_commit_parser.add_argument('-m', '--message', required=True, help='Commit message')
-        
+
+        # Demo commands
+        demo_parser = subparsers.add_parser('demo', help='Strategic workflow demonstrations')
+        demo_subparsers = demo_parser.add_subparsers(dest='demo_action')
+
+        # Strategic scenario demo
+        demo_scenario_parser = demo_subparsers.add_parser('scenario', help='Run strategic scenario demo')
+
+        # Validation demo
+        demo_validate_parser = demo_subparsers.add_parser('validate', help='Validate strategic usage patterns')
+
         return parser
-    
+
     def handle_setup(self, args):
         """Handle setup command"""
         print("🚀 ClaudeDirector Framework Setup")
         print("=" * 35)
-        
+
         if args.verify:
             return self._verify_installation()
-        
+
         if args.component == 'all':
             return self._setup_all_components()
         elif args.component == 'meeting':
@@ -137,247 +147,267 @@ Examples:
             return self._setup_task_tracking()
         elif args.component == 'git':
             return self._setup_smart_git()
-    
+
     def handle_status(self, args):
         """Handle status command"""
         print("📊 ClaudeDirector System Status")
         print("=" * 30)
-        
+
         try:
             # Import status checking modules
             from memory.strategic_memory import get_system_status
-            
+
             status = get_system_status()
-            
+
             # Basic status
             print(f"🗄️  Database: {'✅ Connected' if status.get('database_ok') else '❌ Issues'}")
             print(f"🧠 Meeting Intelligence: {'✅ Active' if status.get('meeting_intelligence_ok') else '❌ Inactive'}")
             print(f"👥 Stakeholder Management: {'✅ Active' if status.get('stakeholder_management_ok') else '❌ Inactive'}")
             print(f"🎯 Task Tracking: {'✅ Active' if status.get('task_tracking_ok') else '❌ Inactive'}")
-            
+
             if args.detailed:
                 print(f"\n📊 Detailed Information:")
                 print(f"   Meetings tracked: {status.get('meeting_count', 0)}")
                 print(f"   Stakeholders: {status.get('stakeholder_count', 0)}")
                 print(f"   Active tasks: {status.get('task_count', 0)}")
                 print(f"   Last update: {status.get('last_update', 'Unknown')}")
-            
+
         except ImportError:
             print("⚠️  Status checking not available - run setup first")
             return False
         except Exception as e:
             print(f"❌ Error checking status: {e}")
             return False
-        
+
         return True
-    
+
     def handle_alerts(self, args):
         """Handle alerts command"""
         if args.type in ['all', 'stakeholder']:
             try:
-                sys.path.insert(0, str(self.project_root / "scripts" / "daily"))
+                sys.path.insert(0, str(self.project_root / "bin" / "daily"))
                 from daily_stakeholder_alerts import DailyStakeholderAlerts
-                
+
                 stakeholder_alerts = DailyStakeholderAlerts()
                 if args.quiet:
                     alerts = stakeholder_alerts.generate_daily_alerts()
                     print(f"Stakeholder alerts: {alerts['summary']['total_alerts']}")
                 else:
                     stakeholder_alerts.display_daily_alerts()
-                    
+
             except ImportError:
                 print("⚠️  Stakeholder alerts not available - run setup first")
-        
+
         if args.type in ['all', 'task']:
             try:
-                sys.path.insert(0, str(self.project_root / "scripts" / "daily"))
+                sys.path.insert(0, str(self.project_root / "bin" / "daily"))
                 from daily_task_alerts import DailyTaskAlerts
-                
+
                 task_alerts = DailyTaskAlerts()
                 if args.quiet:
                     alerts = task_alerts.generate_daily_alerts()
                     print(f"Task alerts: {alerts['summary']['total_alerts']}")
                 else:
                     task_alerts.display_daily_alerts()
-                    
+
             except ImportError:
                 print("⚠️  Task alerts not available - run setup first")
-    
+
     def handle_meetings(self, args):
         """Handle meeting intelligence commands"""
         if args.meetings_action == 'scan':
             try:
                 from memory.meeting_intelligence import MeetingIntelligenceManager
-                
+
                 manager = MeetingIntelligenceManager()
                 manager.scan_and_process_meeting_prep()
                 print("✅ Meeting intelligence scan completed")
-                
+
             except ImportError:
                 print("❌ Meeting intelligence not available - run: claudedirector setup --component meeting")
-        
+
         elif args.meetings_action == 'demo':
             try:
                 import subprocess
-                subprocess.run([sys.executable, str(self.project_root / "scripts" / "demo-meeting-intelligence.py")])
-                
+                subprocess.run([sys.executable, str(self.project_root / "bin" / "demo" / "demo-meeting-intelligence.py")])
+
             except Exception as e:
                 print(f"❌ Demo failed: {e}")
-    
+
     def handle_stakeholders(self, args):
         """Handle stakeholder management commands"""
         if args.stakeholders_action == 'scan':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from stakeholder_ai_manager import StakeholderAIManager
-                
+
                 manager = StakeholderAIManager()
                 manager.process_workspace_automatically()
-                
+
             except ImportError:
                 print("❌ Stakeholder AI not available - run: claudedirector setup --component stakeholder")
-        
+
         elif args.stakeholders_action == 'profile':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from stakeholder_ai_manager import StakeholderAIManager
-                
+
                 manager = StakeholderAIManager()
                 manager.handle_profiling_tasks()
-                
+
             except ImportError:
                 print("❌ Stakeholder AI not available - run: claudedirector setup --component stakeholder")
-        
+
         elif args.stakeholders_action == 'list':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from stakeholder_manager import StakeholderManager
-                
+
                 manager = StakeholderManager()
                 manager.list_stakeholders()
-                
+
             except ImportError:
                 print("❌ Stakeholder management not available - run: claudedirector setup --component stakeholder")
-        
+
         elif args.stakeholders_action == 'alerts':
             try:
-                sys.path.insert(0, str(self.project_root / "scripts" / "daily"))
+                sys.path.insert(0, str(self.project_root / "bin" / "daily"))
                 from daily_stakeholder_alerts import DailyStakeholderAlerts
-                
+
                 alerts = DailyStakeholderAlerts()
                 alerts.display_daily_alerts()
-                
+
             except ImportError:
                 print("❌ Stakeholder alerts not available - run: claudedirector setup --component stakeholder")
-    
+
     def handle_tasks(self, args):
         """Handle task management commands"""
         if args.tasks_action == 'scan':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.scan_workspace_for_tasks()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-        
+
         elif args.tasks_action == 'list':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.show_my_tasks()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-        
+
         elif args.tasks_action == 'overdue':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.show_overdue_tasks()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-        
+
         elif args.tasks_action == 'followups':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.show_follow_ups_due()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-        
+
         elif args.tasks_action == 'assigned':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.show_assigned_tasks()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-        
+
         elif args.tasks_action == 'review':
             try:
                 sys.path.insert(0, str(self.project_root / "bin"))
                 from strategic_task_manager import StrategicTaskManager
-                
+
                 manager = StrategicTaskManager()
                 manager.show_review_queue()
-                
+
             except ImportError:
                 print("❌ Task management not available - run: claudedirector setup --component task")
-    
+
     def handle_git(self, args):
         """Handle git management commands"""
         if args.git_action == 'setup':
             try:
                 import subprocess
-                subprocess.run([sys.executable, str(self.project_root / "scripts" / "setup" / "setup_smart_git.py")])
-                
+                subprocess.run([sys.executable, str(self.project_root / "bin" / "setup" / "setup_smart_git.py")])
+
             except Exception as e:
                 print(f"❌ Git setup failed: {e}")
-        
+
         elif args.git_action == 'commit':
             try:
                 import subprocess
-                subprocess.run([str(self.project_root / "git-commit-smart"), "-m", args.message])
-                
+                subprocess.run([str(self.project_root / "bin" / "git" / "git-commit-smart"), "-m", args.message])
             except Exception as e:
                 print(f"❌ Smart commit failed: {e}")
-    
+
+    def handle_demo(self, args):
+        """Handle demo commands"""
+        if args.demo_action == 'scenario':
+            try:
+                import subprocess
+                subprocess.run([sys.executable, str(self.project_root / "bin" / "demo-strategic-scenario.py")])
+            except Exception as e:
+                print(f"❌ Strategic scenario demo failed: {e}")
+
+        elif args.demo_action == 'validate':
+            try:
+                import subprocess
+                subprocess.run([sys.executable, str(self.project_root / "bin" / "validate-strategic-patterns.py")])
+            except Exception as e:
+                print(f"❌ Strategic validation failed: {e}")
+
+        else:
+            print("Available demo commands:")
+            print("  scenario  - Run strategic scenario demo")
+            print("  validate  - Validate strategic usage patterns")
+
     def _verify_installation(self):
         """Verify ClaudeDirector installation"""
         print("🔍 Verifying ClaudeDirector installation...")
-        
+
         issues = []
-        
+
         # Check database
         db_path = self.project_root / "memory" / "strategic_memory.db"
         if not db_path.exists():
             issues.append("Database not found")
-        
+
         # Check key modules
         key_modules = [
             "memory/meeting_intelligence.py",
-            "memory/stakeholder_engagement_engine.py", 
+            "memory/stakeholder_engagement_engine.py",
             "memory/intelligent_task_detector.py"
         ]
-        
+
         for module in key_modules:
             if not (self.project_root / module).exists():
                 issues.append(f"Missing module: {module}")
-        
+
         if issues:
             print("❌ Installation issues found:")
             for issue in issues:
@@ -387,13 +417,13 @@ Examples:
         else:
             print("✅ ClaudeDirector installation verified")
             return True
-    
+
     def _setup_all_components(self):
         """Setup all ClaudeDirector components"""
         print("🎯 Setting up all ClaudeDirector components...")
-        
+
         success = True
-        
+
         # Setup in dependency order
         components = [
             ('Meeting Intelligence', self._setup_meeting_intelligence),
@@ -401,7 +431,7 @@ Examples:
             ('Task Tracking', self._setup_task_tracking),
             ('Smart Git', self._setup_smart_git)
         ]
-        
+
         for name, setup_func in components:
             print(f"\n📦 Setting up {name}...")
             if not setup_func():
@@ -409,7 +439,7 @@ Examples:
                 success = False
             else:
                 print(f"✅ {name} setup completed")
-        
+
         if success:
             print("\n🎉 ClaudeDirector setup completed successfully!")
             print("\n💡 Next steps:")
@@ -419,62 +449,62 @@ Examples:
             print("   claudedirector tasks scan               # Detect tasks")
         else:
             print("\n⚠️  Some components failed to setup - check errors above")
-        
+
         return success
-    
+
     def _setup_meeting_intelligence(self):
         """Setup meeting intelligence component"""
         try:
             import subprocess
-            result = subprocess.run([sys.executable, str(self.project_root / "scripts" / "setup" / "setup_meeting_intelligence.py")], 
+            result = subprocess.run([sys.executable, str(self.project_root / "bin" / "setup" / "setup_meeting_intelligence.py")],
                                   capture_output=True, text=True)
             return result.returncode == 0
         except Exception:
             return False
-    
+
     def _setup_stakeholder_management(self):
         """Setup stakeholder management component"""
         try:
             import subprocess
-            result = subprocess.run([sys.executable, str(self.project_root / "scripts" / "setup" / "setup_stakeholder_management.py")], 
+            result = subprocess.run([sys.executable, str(self.project_root / "bin" / "setup" / "setup_stakeholder_management.py")],
                                   capture_output=True, text=True)
             return result.returncode == 0
         except Exception:
             return False
-    
+
     def _setup_task_tracking(self):
         """Setup task tracking component"""
         try:
             import subprocess
-            result = subprocess.run([sys.executable, str(self.project_root / "scripts" / "setup" / "setup_task_tracking.py")], 
+            result = subprocess.run([sys.executable, str(self.project_root / "bin" / "setup" / "setup_task_tracking.py")],
                                   capture_output=True, text=True)
             return result.returncode == 0
         except Exception:
             return False
-    
+
     def _setup_smart_git(self):
         """Setup smart git component"""
         try:
             import subprocess
-            result = subprocess.run([sys.executable, str(self.project_root / "scripts" / "setup" / "setup_smart_git.py")], 
+            result = subprocess.run([sys.executable, str(self.project_root / "bin" / "setup" / "setup_smart_git.py")],
                                   capture_output=True, text=True)
             return result.returncode == 0
         except Exception:
             return False
-    
+
     def run(self):
         """Main CLI entry point"""
         parser = self.create_parser()
-        
+
         if len(sys.argv) == 1:
             # No arguments - show help and status
             parser.print_help()
             print("\n" + "="*50)
             self.handle_status(argparse.Namespace(detailed=False))
             return
-        
+
         args = parser.parse_args()
-        
+
         if args.command == 'setup':
             self.handle_setup(args)
         elif args.command == 'status':
@@ -489,6 +519,8 @@ Examples:
             self.handle_tasks(args)
         elif args.command == 'git':
             self.handle_git(args)
+        elif args.command == 'demo':
+            self.handle_demo(args)
         else:
             parser.print_help()
 

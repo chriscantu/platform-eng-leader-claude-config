@@ -6,8 +6,8 @@
 
 ### 1. Install ClaudeDirector
 ```bash
-git clone https://github.com/chriscantu/claudedirector.git
-cd claudedirector
+git clone https://github.com/chriscantu/ClaudeDirector.git
+cd ClaudeDirector
 ```
 
 ### 2. One-Command Setup
@@ -21,7 +21,7 @@ cd claudedirector
 # Daily executive dashboard
 ./claudedirector alerts
 
-# Scan workspace for stakeholders and tasks  
+# Scan workspace for stakeholders and tasks
 ./claudedirector stakeholders scan
 ./claudedirector tasks scan
 
@@ -89,6 +89,12 @@ All ClaudeDirector features accessible through single `claudedirector` command:
 ./claudedirector git commit -m "msg" # Optimized commits
 ```
 
+### **🎯 Strategic Validation**
+```bash
+./claudedirector demo validate       # Quick strategic workflow validation
+./claudedirector demo scenario       # Comprehensive director scenario testing
+```
+
 ## 🏗️ Architecture
 
 ClaudeDirector provides **unified strategic leadership AI** through:
@@ -97,6 +103,14 @@ ClaudeDirector provides **unified strategic leadership AI** through:
 2. **🧠 Intelligent Automation**: AI-powered stakeholder detection and task extraction
 3. **📊 Executive Intelligence**: Proactive alerts and accountability tracking
 4. **💾 Persistent Memory**: SQLite-based organizational intelligence that persists across sessions
+
+### **🏗️ Clean Architecture**
+Enterprise-grade organization with **12 root directories** (down from 16+):
+- `bin/` - All executables organized by function
+- `lib/` - Core platform code (standard convention)
+- `docs/` - Unified documentation hierarchy
+- `archive/` - Clean separation of legacy code
+- Strategic validation framework with 🌟 **EXECUTIVE READY** performance
 
 ## 📚 Advanced Features (Optional)
 
@@ -167,13 +181,13 @@ If you're contributing to ClaudeDirector or customizing the codebase:
 
 ```bash
 # Smart commit that skips irrelevant checks
-git sc -m "Update meeting notes"  # Saves ~45s for documentation
+./claudedirector git commit -m "Update meeting notes"  # Saves ~45s for documentation
 
 # Traditional commit for code changes (full validation)
 git commit -m "Fix critical bug"  # Full security + quality checks
 
 # Analyze what would be optimized
-git analyze-commit  # Preview optimization strategy
+./claudedirector demo validate  # Strategic workflow validation
 ```
 
 **Features:**
@@ -198,14 +212,15 @@ git analyze-commit  # Preview optimization strategy
 Monitor ClaudeDirector's performance and strategic intelligence:
 
 ```bash
-# Meeting intelligence health
-python memory/meeting_intelligence.py --summary
+# Strategic workflow validation
+./claudedirector demo validate      # Quick performance validation
+./claudedirector demo scenario      # Comprehensive director testing
+
+# System health overview
+./claudedirector status             # Overall system health
 
 # Database integrity
 sqlite3 memory/strategic_memory.db "PRAGMA integrity_check;"
-
-# Git optimization stats
-git sc --analyze-only  # See what would be optimized
 ```
 
 </details>
@@ -230,18 +245,22 @@ git sc --analyze-only  # See what would be optimized
 ## 🆘 Getting Help
 
 ### Quick Troubleshooting
-   ```bash
+```bash
 # Check system health
-python setup_meeting_intelligence.py --verify-only
+./claudedirector status
 
-# Reset if needed
-python setup_meeting_intelligence.py --scan-only
+# Verify strategic workflows
+./claudedirector demo validate
+
+# Re-setup if needed
+./claudedirector setup
 ```
 
 ### Common Issues
 - **Import errors**: Run from project root directory
-- **Database issues**: Re-run `python setup_meeting_intelligence.py`
-- **Meeting tracking not working**: Check that `workspace/meeting-prep/` directory exists
+- **Setup issues**: Re-run `./claudedirector setup`
+- **Strategic validation fails**: Check `./claudedirector demo validate` output
+- **Meeting tracking not working**: Verify `workspace/meeting-prep/` directory exists
 
 ---
 
