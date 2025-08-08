@@ -1,8 +1,8 @@
 # ClaudeDirector: Strategic Leadership AI Framework
 
-**Claude specialized for engineering directors** - Get strategic AI assistance with persistent memory and intelligent meeting tracking.
+**Claude specialized for engineering directors** - Get strategic AI assistance with persistent memory and intelligent task tracking.
 
-## 🚀 Quick Start (2 minutes)
+## 🚀 Quick Start (1 minute)
 
 ### 1. Install ClaudeDirector
 ```bash
@@ -10,25 +10,26 @@ git clone https://github.com/chriscantu/claudedirector.git
 cd claudedirector
 ```
 
-### 2. Set Up Core Features
+### 2. One-Command Setup
 ```bash
-# Set up meeting intelligence and memory system
-python setup_meeting_intelligence.py
-
-# Optional: Set up smart git hooks (only if you plan to contribute/customize)
-# python setup_smart_git.py
+# Single command sets up everything
+./claudedirector setup
 ```
 
 ### 3. Start Using ClaudeDirector
 ```bash
-# Start automatic meeting tracking
-python memory/workspace_monitor.py &
+# Daily executive dashboard
+./claudedirector alerts
 
-# Create a new meeting directory and watch it get processed automatically
-mkdir workspace/meeting-prep/team-sync-jan-2025
+# Scan workspace for stakeholders and tasks  
+./claudedirector stakeholders scan
+./claudedirector tasks scan
+
+# View your strategic intelligence
+./claudedirector status
 ```
 
-**That's it!** ClaudeDirector is now tracking your meetings and building strategic memory.
+**That's it!** ClaudeDirector is now your strategic leadership assistant.
 
 ## ✨ What You Get
 
@@ -51,58 +52,51 @@ mkdir workspace/meeting-prep/team-sync-jan-2025
 - Context persists across Claude conversations
 - No more re-explaining your org structure every session
 
-## 📁 Your Workspace Structure
+## 🎯 **Unified Command Interface**
 
-```
-workspace/
-├── meeting-prep/           # Your meeting directories (auto-monitored)
-│   ├── vp-1on1-weekly/    # 1-on-1s with your VP
-│   ├── team-planning/     # Strategic planning sessions
-│   └── stakeholder-sync/  # Cross-team coordination
-├── reports/               # Generated strategic reports
-└── strategic_memory.db    # Your persistent AI memory
-```
+All ClaudeDirector features accessible through single `claudedirector` command:
 
-## 🎮 Usage Examples
-
-### Create Meeting Intelligence
+### **📊 Executive Dashboard**
 ```bash
-# Create new meeting prep (automatically detected and processed)
-mkdir workspace/meeting-prep/board-presentation-q1
-echo "## Agenda: Platform ROI, Team Growth, Risk Assessment" > workspace/meeting-prep/board-presentation-q1/notes.md
-
-# ClaudeDirector will:
-# 1. Detect the new directory
-# 2. Analyze the content
-# 3. Store strategic intelligence
-# 4. Recommend optimal AI personas (probably alvaro + camille)
+./claudedirector alerts              # Daily executive alerts
+./claudedirector status              # System health overview
 ```
 
-### Query Your Strategic Memory
+### **🧠 Meeting Intelligence**
 ```bash
-# Get meeting intelligence summary
-python memory/meeting_intelligence.py --summary
-
-# View all tracked meetings
-python memory/meeting_intelligence.py --scan
+./claudedirector meetings scan       # Process meeting files
+./claudedirector meetings demo       # See demo
 ```
 
-### Use Strategic AI Personas
+### **👥 Stakeholder Management**
 ```bash
-# In your Claude conversations, reference specific personas:
-# @diego: How should we structure our platform team for Q2?
-# @camille: What's the strategic value of this technical investment?
-# @rachel: How do we align design system adoption across teams?
-# @alvaro: How do we communicate this platform ROI to leadership?
+./claudedirector stakeholders scan   # AI detect stakeholders
+./claudedirector stakeholders list   # View all stakeholders
+./claudedirector stakeholders alerts # Daily engagement alerts
+```
+
+### **🎯 Task Management**
+```bash
+./claudedirector tasks scan          # AI detect tasks
+./claudedirector tasks list          # View my tasks
+./claudedirector tasks overdue       # Critical overdue items
+./claudedirector tasks followups     # Stakeholder follow-ups
+```
+
+### **⚡ Smart Development**
+```bash
+./claudedirector git setup          # Intelligent git hooks
+./claudedirector git commit -m "msg" # Optimized commits
 ```
 
 ## 🏗️ Architecture
 
-ClaudeDirector is built on three pillars:
+ClaudeDirector provides **unified strategic leadership AI** through:
 
-1. **Strategic AI Foundation**: 12 personas + VP/SLT communication protocols
-2. **Meeting Intelligence Engine**: Automated tracking + strategic memory
-3. **Persistent Memory System**: SQLite-based organizational intelligence
+1. **🎭 Strategic AI Foundation**: 12 specialized personas for different leadership contexts
+2. **🧠 Intelligent Automation**: AI-powered stakeholder detection and task extraction
+3. **📊 Executive Intelligence**: Proactive alerts and accountability tracking
+4. **💾 Persistent Memory**: SQLite-based organizational intelligence that persists across sessions
 
 ## 📚 Advanced Features (Optional)
 
