@@ -6,8 +6,8 @@
 
 ### 1. Install ClaudeDirector
 ```bash
-git clone https://github.com/chriscantu/platform-eng-leader-claude-config.git
-cd platform-eng-leader-claude-config
+git clone https://github.com/chriscantu/claudedirector.git
+cd claudedirector
 ```
 
 ### 2. Set Up Core Features

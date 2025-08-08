@@ -87,8 +87,8 @@ Choose between **Directory-Based** (recommended) or **Global Configuration** set
 
 1. **Clone and Initialize**
    ```bash
-   git clone https://github.com/[your-username]/platform-eng-leader-claude-config.git
-   cd platform-eng-leader-claude-config
+   git clone https://github.com/chriscantu/claudedirector.git
+   cd claudedirector
    ```
 
 2. **Set up Strategic Memory System**
@@ -127,8 +127,8 @@ Choose between **Directory-Based** (recommended) or **Global Configuration** set
 
 1. **Clone Repository**
    ```bash
-   git clone https://github.com/[your-username]/platform-eng-leader-claude-config.git
-   cd platform-eng-leader-claude-config
+   git clone https://github.com/chriscantu/claudedirector.git
+   cd claudedirector
    ```
 
 2. **Copy to Global Claude Configuration**

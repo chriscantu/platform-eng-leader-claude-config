@@ -7,7 +7,7 @@ This guide helps you set up Cursor IDE to work seamlessly with the SuperClaude p
 ### 1. Open SuperClaude Directory in Cursor
 
 ```bash
-cd platform-eng-leader-claude-config
+cd claudedirector
 cursor .
 ```
 
@@ -159,7 +159,7 @@ workspace/
 ## Troubleshooting
 
 ### Framework Not Loading
-- Ensure you opened the `platform-eng-leader-claude-config` directory (not a subdirectory)
+- Ensure you opened the `claudedirector` directory (not a subdirectory)
 - Check that `CLAUDE.md` is in the root directory
 - Restart Cursor if needed
 
