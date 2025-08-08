@@ -16,6 +16,13 @@ from watchdog.observers import Observer
 
 from memory.meeting_intelligence import MeetingIntelligenceManager
 
+# Import stakeholder detection if available
+try:
+    from memory.intelligent_stakeholder_detector import IntelligentStakeholderDetector
+    STAKEHOLDER_DETECTION_AVAILABLE = True
+except ImportError:
+    STAKEHOLDER_DETECTION_AVAILABLE = False
+
 
 class StrategicWorkspaceHandler(FileSystemEventHandler):
     """Handle workspace filesystem events for strategic intelligence capture."""
@@ -23,6 +30,13 @@ class StrategicWorkspaceHandler(FileSystemEventHandler):
     def __init__(self, db_path: str = "memory/strategic_memory.db"):
         self.db_path = db_path
         self.meeting_manager = MeetingIntelligenceManager(db_path)
+        
+        # Initialize stakeholder detection if available
+        if STAKEHOLDER_DETECTION_AVAILABLE:
+            self.stakeholder_detector = IntelligentStakeholderDetector(db_path)
+        else:
+            self.stakeholder_detector = None
+            
         self.workspace_root = Path("workspace")
 
     def on_created(self, event):
@@ -414,6 +428,64 @@ class WorkspaceMonitor:
 
         self.observer.join()
         print("✅ Workspace monitor stopped")
+
+
+    def _process_stakeholder_detection(self, file_path: Path, category: str, subcategory: str):
+        """Process file for intelligent stakeholder detection"""
+        if not self.stakeholder_detector:
+            return
+        
+        try:
+            # Read file content
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            if len(content.strip()) < 10:  # Skip very short files
+                return
+            
+            # Build context for AI analysis
+            context = {
+                'category': category,
+                'subcategory': subcategory,
+                'file_path': str(file_path),
+                'relative_path': str(self._get_relative_path(file_path)),
+                'meeting_type': self._infer_meeting_type(file_path.parent.name) if category == 'meeting-prep' else None
+            }
+            
+            # Process with intelligent stakeholder detector
+            result = self.stakeholder_detector.process_content_for_stakeholders(content, context)
+            
+            if result['candidates_detected'] > 0:
+                print(f"🧠 AI detected {result['candidates_detected']} stakeholder candidates in {file_path.name}")
+                
+                if result['auto_created'] > 0:
+                    print(f"   ✅ Auto-created {result['auto_created']} stakeholder profiles")
+                
+                if result['profiling_needed'] > 0:
+                    print(f"   ❓ {result['profiling_needed']} stakeholders need profiling")
+                    print("   💡 Run 'python stakeholder_ai_manager.py profile' to complete")
+                
+                if result['updates_suggested'] > 0:
+                    print(f"   🔄 {result['updates_suggested']} stakeholder updates suggested")
+                    print("   💡 Run 'python stakeholder_ai_manager.py updates' to review")
+        
+        except Exception as e:
+            print(f"⚠️  Error in stakeholder detection for {file_path.name}: {e}")
+    
+    def _infer_meeting_type(self, directory_name: str) -> str:
+        """Infer meeting type from directory name"""
+        name_lower = directory_name.lower()
+        
+        if 'vp' in name_lower or 'vice-president' in name_lower:
+            return 'vp_1on1'
+        elif '1on1' in name_lower or 'one-on-one' in name_lower:
+            return '1on1_reports'
+        elif 'strategic' in name_lower or 'planning' in name_lower:
+            return 'strategic_planning'
+        elif 'team' in name_lower or 'all-hands' in name_lower:
+            return 'team_meeting'
+        else:
+            return 'general_meeting'
 
 
 def main():
